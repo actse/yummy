@@ -34,18 +34,18 @@
                     </div>
                 </div>
             </div>
-
             <!--Type Menu -->
             <div
                 class="flex justify-center items-center py-2 pl-4 bg-white border-b-2 border-gray-300"
             >
                 <img src="../../imgs/frame.svg" @click="isModalOpen = true" />
-                <div class="pl-5 pt-2.5">
-                    <ul class="flex space-x-5 w-96 text-gray-600 snap-x">
-                        <li class="snap-center">หมู สไลด์</li>
-                        <li>ผัก</li>
-                        <li>ของทะเล/ของสด</li>
-                        <li>ของหวาน</li>
+                <div class="ml-4 w-full scroll-snap-type-x">
+                    <ul class="flex space-x-5 text-gray-600">
+                        <li class="scroll-snap-align-start">หมู สไลด์</li>
+                        <li class="scroll-snap-align-start">ผัก</li>
+                        <li class="scroll-snap-align-start">ของทะเล/ของสด</li>
+                        <li class="scroll-snap-align-start">ของหวาน</li>
+                        <li class="scroll-snap-align-start">ไอติม</li>
                     </ul>
                 </div>
             </div>
@@ -375,5 +375,15 @@ export default {
 .modal-fade-enter-active,
 .modal-fade-leave-active {
     transition: opacity 0.5s ease;
+}
+
+.scroll-snap-type-x {
+    scroll-snap-type: x mandatory; /* กำหนดให้เลื่อนแนวนอนและจับตำแหน่ง */
+    overflow-x: scroll; /* เพิ่มการเลื่อนแนวนอน */
+    white-space: nowrap; /* ป้องกันข้อความขึ้นบรรทัดใหม่ */
+}
+
+.scroll-snap-align-start {
+    scroll-snap-align: start; /* กำหนดให้ Snapped ที่จุดเริ่มต้น */
 }
 </style>
