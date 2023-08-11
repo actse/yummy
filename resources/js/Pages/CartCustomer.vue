@@ -28,11 +28,11 @@
                         <img class="absolute top-5 right-0" src="../../imgs/trash.svg">
                     <!-- Increase and Decrease Item Cart -->
                     <div class="flex absolute right-0 bottom-2 items-center gap-3">
-                        <button @click="decreaseQuantity(index)">
+                        <button type="button" @click="decreaseQuantity(index)">
                         <img src="../../imgs/remove_empty.svg" alt="Decrease">
                         </button>
                         <span class="font-bold text-gray-600">{{ item.quantity  }}</span>
-                        <button @click="increaseQuantity(index)">
+                        <button type="button" @click="increaseQuantity(index)">
                         <img src="../../imgs/add_empty.svg" alt="Increase">
                         </button>
                     </div>
@@ -73,7 +73,7 @@
                                 คุณสามารถใส่ข้อความเพิ่มเติมได้ที่นี่ เช่น
                                 แพ้อาหาร ไม่ใส่ผัก
                             </p>
-                            <textarea
+                            <textarea type="textarea"
                                 rows="4"
                                 class="w-full mt-2 border-2 border-gray-300 rounded-lg text-gray-600 text-sm focus:ring-gray-300 focus:border-gray-300"
                                 placeholder="ตัวอย่าง ไม่ใส่กุ้ง"
@@ -105,7 +105,7 @@ export default {
   data() {
     return {
       isListMenuModalOpen: false,
-      selectedItem: null,
+        selectedItem: null,
       items: [
         {
           itemId:'1',
@@ -153,12 +153,9 @@ export default {
 
             let fromdata = new FormData();
 
-            fromdata.append("comment", this.comments);
-
             console.log("ชื่อเมนู : " + this.selectedItem.title_name);
             console.log("comment : " + this.selectedItem.comments);
-
-            this.comments = "";
+            this.selectedItem.comments = this.selectedItem.comments;
             this.isListMenuModalOpen = false;
 
         },

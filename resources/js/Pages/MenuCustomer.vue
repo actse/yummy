@@ -40,7 +40,7 @@
             >
                 <img src="../../imgs/frame.svg" @click="isModalOpen = true" />
                 <div class="ml-4 w-full scroll-snap-type-x">
-                    <ul class="flex space-x-5 text-gray-600">
+                    <ul class="p-4 flex space-x-5 text-gray-600">
                         <li class="scroll-snap-align-start">หมู สไลด์</li>
                         <li class="scroll-snap-align-start">ผัก</li>
                         <li class="scroll-snap-align-start">ของทะเล/ของสด</li>
@@ -244,6 +244,8 @@ export default {
             amount: 1,
             image: "",
             comments: "",
+            status : 0,
+
             type_menu: [
                 {
                     type_menuId: "1",
@@ -342,25 +344,41 @@ export default {
             console.log(this.isListMenuModalOpen);
         },
         addtocart() {
-            this.title_name;
-            this.image;
-            this.amount;
-
             let fromdata = new FormData();
 
-            fromdata.append("comment", this.comments);
+            if ((this.key_code = 1)) {
+                this.key_name = "A";
+            }
+            if ((this.key_code = 2)) {
+                this.key_name = "B";
+            }
+            if ((this.key_code = 3)) {
+                this.key_name = "C";
+            }
+            if ((this.key_code = 4)) {
+                this.key_name = "D";
+            }
 
+            fromdata.append("key_name", this.key_name);
+            fromdata.append("name_menu", this.title_name);
+            fromdata.append("image", this.image);
+            fromdata.append("amount", this.amount);
+            fromdata.append("comment", this.comments);
+            fromdata.append("status", this.status);
+
+            console.log("ลูกค้าท่าน : " + this.key_name);
             console.log("ชื่อเมนู : " + this.title_name);
             console.log("รูป : " + this.image);
             console.log("จำนวน : " + this.amount);
             console.log("comment : " + this.comments);
+            console.log("สถานะ : " + this.status);
 
             this.title_name = "";
             this.image = "";
             this.amount = 1;
             this.comments = "";
+            this.status = 0;
             this.isListMenuModalOpen = false;
-
         },
     },
 };
