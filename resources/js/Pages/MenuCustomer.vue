@@ -51,11 +51,7 @@
                     <img class="w-[80px] h-[80px] rounded-[10px]" src="https://via.placeholder.com/90x90"/>
                     <div class="px-2">
                         <h2 class="text-lg text-gray-700 font-bold">{{ product.name }}</h2>
-<<<<<<< HEAD
                         <p class="text-sm text-gray-400">{{ product.detail_service }}</p>
-=======
-                        <p class="text-sm text-gray-400">{{ product.comment_item }}</p>
->>>>>>> a561f2b15368b73b55f13c75cfb97f073200c8b3
                     </div>
                     </div>
                 </div>
@@ -152,34 +148,19 @@ export default {
         isListMenuModalOpen: false,
         id: '',
         title_name: '',
-<<<<<<< HEAD
         amount: 0,
         image: '',
         comments: '',
-=======
-        amount: 0 ,
->>>>>>> a561f2b15368b73b55f13c75cfb97f073200c8b3
       type_menu: [
         {
           type_menuId:'1',
           type_menu_name: 'สามชั่นสไลด์ Coller pork',
           products: [
-<<<<<<< HEAD
             { id: 1, name: 'สามชั่น', image: 'via.placeholder.com/90x90',detail_service:'สั่งได้ครั้งละ 3 ออร์เดอร์เท่านั้น',quantity: 1,
           statu:'0'},
             { id: 2, name: 'สามชั่น บาง', image: 'via.placeholder.com/90x90',detail_service:'สั่งได้ครั้งละ 3 ออร์เดอร์เท่านั้น',quantity: 1,
           statu:'0'},
             { id: 3, name: 'สันคอสามชั่น', image: 'via.placeholder.com/90x90',detail_service:'สั่งได้ครั้งละ 3 ออร์เดอร์เท่านั้น',quantity: 1,
-=======
-            { id: 1, name: 'สามชั่น', image: 'via.placeholder.com/90x90',comment_item:'สั่งได้ครั้งละ 3 ออร์เดอร์เท่านั้น',quantity: 1,
-          comments:'',
-          statu:'0'},
-            { id: 2, name: 'สามชั่น บาง', image: 'via.placeholder.com/90x90',comment_item:'สั่งได้ครั้งละ 3 ออร์เดอร์เท่านั้น',quantity: 1,
-          comments:'',
-          statu:'0'},
-            { id: 3, name: 'สันคอสามชั่น', image: 'via.placeholder.com/90x90',comment_item:'สั่งได้ครั้งละ 3 ออร์เดอร์เท่านั้น',quantity: 1,
-          comments:'',
->>>>>>> a561f2b15368b73b55f13c75cfb97f073200c8b3
           statu:'0'},
           ],
 
@@ -188,22 +169,11 @@ export default {
           type_menuId:'2',
           type_menu_name: 'ผัก',
           products: [
-<<<<<<< HEAD
             { id: 4, name: 'เห็ดเข็มทอง', image: 'via.placeholder.com/90x90',detail_service:'',quantity: 1,
           statu:'0'},
             { id: 5, name: 'ชุดผักรวม', image: 'via.placeholder.com/90x90',detail_service:'',quantity: 1,
           statu:'0'},
             { id: 6, name: 'ผักกาดขาว', image: 'via.placeholder.com/90x90',detail_service:'',quantity: 1,
-=======
-            { id: 4, name: 'เห็ดเข็มทอง', image: 'via.placeholder.com/90x90',comment_item:'',quantity: 1,
-          comments:'',
-          statu:'0'},
-            { id: 5, name: 'ชุดผักรวม', image: 'via.placeholder.com/90x90',comment_item:'',quantity: 1,
-          comments:'',
-          statu:'0'},
-            { id: 6, name: 'ผักกาดขาว', image: 'via.placeholder.com/90x90',comment_item:'',quantity: 1,
-          comments:'',
->>>>>>> a561f2b15368b73b55f13c75cfb97f073200c8b3
           statu:'0'},
           ],
 
@@ -231,10 +201,7 @@ export default {
                 if (productId === this.type_menu[i].products[j].id) {
                     this.id = productId;
                     this.title_name = this.type_menu[i].products[j].name;
-<<<<<<< HEAD
                     this.image = this.type_menu[i].products[j].image;
-=======
->>>>>>> a561f2b15368b73b55f13c75cfb97f073200c8b3
                     this.isListMenuModalOpen = true;
                     break;
                 }
@@ -248,7 +215,6 @@ export default {
       addtocart() {
 
           this.title_name
-<<<<<<< HEAD
           this.image
           this.amount
 
@@ -261,11 +227,6 @@ export default {
           console.log('จำนวน' + this.amount);
           console.log('comment' + this.comments);
 
-=======
-          this.amount
-          console.log('ชื่อเมนู' + this.title_name);
-          console.log('จำนวน' + this.amount);
->>>>>>> a561f2b15368b73b55f13c75cfb97f073200c8b3
 
 
 
