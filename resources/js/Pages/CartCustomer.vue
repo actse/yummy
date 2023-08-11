@@ -10,7 +10,7 @@
                 </div>
 
             </div>
-            
+
             <!-- List Menu -->
             <div class="bg-white w-full p-4">
                 <div v-for="(item, index) in items" :key="index" class="relative flex border-b-2 py-4 border-gray-300 bg-white">
@@ -44,7 +44,7 @@
             </div>
         </div>
       </div>
-      
+
 </template>
 
 <script>
@@ -75,7 +75,7 @@ export default {
     };
   },
   computed: {
-    totalQuantity() {
+    totalOrder() {
       return this.items.reduce((total, item) => total + item.quantity, 0);
     },
   },
