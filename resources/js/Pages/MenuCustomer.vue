@@ -51,7 +51,7 @@
                     <img class="w-[80px] h-[80px] rounded-[10px]" src="https://via.placeholder.com/90x90"/>
                     <div class="px-2">
                         <h2 class="text-lg text-gray-700 font-bold">{{ product.name }}</h2>
-                        <p class="text-sm text-gray-400">{{ product.comment_item }}</p>
+                        <p class="text-sm text-gray-400">{{ product.detail_service }}</p>
                     </div>
                     </div>
                 </div>
@@ -98,7 +98,7 @@
                 <div class="my-2">
                     <h2 class="text-base font-bold text-gray-600">ข้อความเพิ่มเติม</h2>
                     <p class="text-xs text-gray-400">คุณสามารถใส่ข้อความเพิ่มเติมได้ที่นี่ เช่น แพ้อาหาร ไม่ใส่ผัก</p>
-                    <textarea id="menu" name="menu" rows="4"  class="w-full mt-2 border-2 border-gray-300 rounded-lg text-gray-600 text-sm focus:ring-gray-300 focus:border-gray-300"  placeholder="ตัวอย่าง ไม่ใส่กุ้ง"></textarea>
+                    <textarea id="menu" name="menu" rows="4"  class="w-full mt-2 border-2 border-gray-300 rounded-lg text-gray-600 text-sm focus:ring-gray-300 focus:border-gray-300" placeholder="ตัวอย่าง ไม่ใส่กุ้ง" :v-model="comments"></textarea>
                 </div>
                 <div class="flex justify-between items-center">
                     <h2 class="text-base font-bold text-gray-600">จำนวนที่ต้องการสั่ง</h2>
@@ -148,20 +148,19 @@ export default {
         isListMenuModalOpen: false,
         id: '',
         title_name: '',
-        amount: 0 ,
+        amount: 0,
+        image: '',
+        comments: '',
       type_menu: [
         {
           type_menuId:'1',
           type_menu_name: 'สามชั่นสไลด์ Coller pork',
           products: [
-            { id: 1, name: 'สามชั่น', image: 'via.placeholder.com/90x90',comment_item:'สั่งได้ครั้งละ 3 ออร์เดอร์เท่านั้น',quantity: 1,
-          comments:'',
+            { id: 1, name: 'สามชั่น', image: 'via.placeholder.com/90x90',detail_service:'สั่งได้ครั้งละ 3 ออร์เดอร์เท่านั้น',quantity: 1,
           statu:'0'},
-            { id: 2, name: 'สามชั่น บาง', image: 'via.placeholder.com/90x90',comment_item:'สั่งได้ครั้งละ 3 ออร์เดอร์เท่านั้น',quantity: 1,
-          comments:'',
+            { id: 2, name: 'สามชั่น บาง', image: 'via.placeholder.com/90x90',detail_service:'สั่งได้ครั้งละ 3 ออร์เดอร์เท่านั้น',quantity: 1,
           statu:'0'},
-            { id: 3, name: 'สันคอสามชั่น', image: 'via.placeholder.com/90x90',comment_item:'สั่งได้ครั้งละ 3 ออร์เดอร์เท่านั้น',quantity: 1,
-          comments:'',
+            { id: 3, name: 'สันคอสามชั่น', image: 'via.placeholder.com/90x90',detail_service:'สั่งได้ครั้งละ 3 ออร์เดอร์เท่านั้น',quantity: 1,
           statu:'0'},
           ],
 
@@ -170,14 +169,11 @@ export default {
           type_menuId:'2',
           type_menu_name: 'ผัก',
           products: [
-            { id: 4, name: 'เห็ดเข็มทอง', image: 'via.placeholder.com/90x90',comment_item:'',quantity: 1,
-          comments:'',
+            { id: 4, name: 'เห็ดเข็มทอง', image: 'via.placeholder.com/90x90',detail_service:'',quantity: 1,
           statu:'0'},
-            { id: 5, name: 'ชุดผักรวม', image: 'via.placeholder.com/90x90',comment_item:'',quantity: 1,
-          comments:'',
+            { id: 5, name: 'ชุดผักรวม', image: 'via.placeholder.com/90x90',detail_service:'',quantity: 1,
           statu:'0'},
-            { id: 6, name: 'ผักกาดขาว', image: 'via.placeholder.com/90x90',comment_item:'',quantity: 1,
-          comments:'',
+            { id: 6, name: 'ผักกาดขาว', image: 'via.placeholder.com/90x90',detail_service:'',quantity: 1,
           statu:'0'},
           ],
 
@@ -205,6 +201,7 @@ export default {
                 if (productId === this.type_menu[i].products[j].id) {
                     this.id = productId;
                     this.title_name = this.type_menu[i].products[j].name;
+                    this.image = this.type_menu[i].products[j].image;
                     this.isListMenuModalOpen = true;
                     break;
                 }
@@ -218,9 +215,18 @@ export default {
       addtocart() {
 
           this.title_name
+          this.image
           this.amount
+
+          let fromdata = new FormData();
+
+          fromdata.append('comment', this.comments);
+
           console.log('ชื่อเมนู' + this.title_name);
+          console.log('รูป' + this.image);
           console.log('จำนวน' + this.amount);
+          console.log('comment' + this.comments);
+
 
 
 
