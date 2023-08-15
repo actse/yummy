@@ -19,7 +19,7 @@
                                     <div class="w-full text-lg font-semibold">{{ item }}</div>
                                 </div>
                             </label>
-                            <div v-if="selectedItems.includes(item)" class="mt-2">
+                            <div v-if="selectedItems.includes(item == 'อื่นๆ')" class="mt-2">
                                 <input type="text" :id="`input-${index}`" v-model="itemDetails[item]" placeholder="กรอกลายละเอียด...เช่น จำนวน ขอโต๊ะเด็ก เป็นต้น" class="w-full border-2 focus:ring-gray-300 focus:border-gray-300 border-gray-400 rounded-lg" />
                             </div>
                         </div>
@@ -34,7 +34,7 @@
 export default {
   data() {
     return {
-      items: ['ขอช้อน', 'ขอจาน', 'ขอแก้ว', 'ขอเครื่องปรุง','โต๊ะเสีย','อื่นๆ'],
+      items: ['ขออุปกรณ์', 'ขอน้ำซุป', 'เปลี่ยนโต๊ะ','อื่นๆ'],
       selectedItems: [],
       itemDetails: {},
     };
