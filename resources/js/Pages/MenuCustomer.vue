@@ -1,7 +1,25 @@
 <template>
     <div class="w-full min-h-screen relative">
-        <div class="max-w-md mx-auto h-screen bg-white border">
+        <div class="max-w-md mx-auto h-full bg-white border">
             <!--Header-->
+            <header class="relative">
+                <img
+                    class="h-48 w-full shadow bg-cover"
+                    src="../../imgs/shabu.jpg"
+                />
+                <div
+                    class="flex absolute mx-auto left-[10px] top-[10px] items-center justify-center"
+                >
+                    <img
+                        class="rounded-full border-2 border-white shadow-md"
+                        src="https://via.placeholder.com/58x58"
+                        alt=""
+                    />
+                    <div class="flex-col ml-2 text-white text-3xl font-bold">
+                        <p>Yummy</p>
+                    </div>
+                </div>
+            </header>
             <div
                 class="flex justify-between gap-0 items-center px-7 py-4 bg-white border-b-2 border-gray-300 shadow-sm"
             >
@@ -219,6 +237,12 @@
                     </form>
                 </ListMenuModal>
             </div>
+            <footer class="relative">
+                <img
+                    class=" h-40 w-full shadow bg-cover"
+                    src="../../imgs/shabu.jpg"
+                />
+            </footer>
         </div>
     </div>
 </template>

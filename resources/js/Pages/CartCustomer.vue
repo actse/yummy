@@ -16,7 +16,7 @@
                 <div v-for="(item, index) in items" :key="index" class="relative flex border-b-2 py-4 border-gray-300 bg-white">
                     <img class="w-[80px] h-[80px] rounded-[10px]" src="https://via.placeholder.com/90x90"/>
                     <div class="px-2">
-                        <h2 class="text-lg text-gray-700 font-bold">{{ item.title }}</h2>
+                        <h2 class="text-lg text-gray-700 font-bold">{{ item.title_name }}</h2>
                         <p class="text-sm text-gray-400">{{ item.description }}</p>
                         <p class="text-sm text-gray-400">{{ item.comments }}</p>
                         <!-- Edie Comment -->
@@ -93,7 +93,6 @@
             </div>
         </div>
       </div>
-
 </template>
 
 <script>

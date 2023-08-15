@@ -1,6 +1,6 @@
 <template>
     <div class="w-full min-h-screen relative">
-        <div class="max-w-md mx-auto h-screen bg-orange-100 border">
+        <div class="max-w-md mx-auto h-full bg-orange-100 border">
             <header class="relative">
                 <img
                     class="h-48 w-full shadow bg-cover"
@@ -19,7 +19,6 @@
                     </div>
                 </div>
             </header>
-
             <div class="my-5 mx-7">
                 <div
                     class="flex flex-col bg-white mt-10 mb-6 p-4 rounded-lg shadow-lg text-base text-gray-600"
@@ -27,15 +26,20 @@
                     <div class="flex flex-wrap p-2">
                         <img class="w-6 h-6" src="../../imgs/adult.png" />
                         <div class="pl-1">
-                            <span> : </span>{{ data.person || "-" }}
-                            <span>ท่าน</span>
+                            <span class="text-sm">
+                                : {{ "ผู้ใหญ่ " + this.customer_adult }} ,
+                                {{ "เด็กโต " + this.customer_children }} ,
+                                {{ "เด็กเล็ก " + this.customer_baby }}</span
+                            >
                         </div>
                     </div>
 
                     <div class="flex flex-wrap p-2">
                         <img class="w-6 h-6" src="../../imgs/tables.png" />
                         <div class="pl-1">
-                            <span> : โต๊ะ </span>{{ data.tables || "-" }}
+                            <span class="text-sm">
+                                : โต๊ะ {{ this.table_number || "-" }}</span
+                            >
                         </div>
                     </div>
                     <div class="flex justify-between">
@@ -45,16 +49,24 @@
                                 src="../../imgs/plug-type-l-svgrepo-com.svg"
                             />
                             <div class="pl-1">
-                                <span> : </span>{{ data.typeService || "-" }}
+                                <span class="text-sm">
+                                    : {{ this.package || "-" }} ({{
+                                        package_secondary + " 39 บาท"
+                                    }})</span
+                                >
                             </div>
                         </div>
+                    </div>
+                    <div class="flex justify-between">
                         <div class="flex flex-wrap p-2">
                             <img
                                 class="w-6 h-6"
                                 src="../../imgs/alarm-clock-alt-svgrepo-com.svg"
                             />
                             <div class="pl-1">
-                                <span> : </span>{{ data.times || "-" }}
+                                <span class="text-sm">
+                                    : {{ this.registered_at || "-" }}</span
+                                >
                             </div>
                         </div>
                     </div>
@@ -91,7 +103,7 @@
                             <span class="mt-1">เรียกพนักงาน</span>
                         </div>
                     </div>
-                    <Link type="button" href="menu_customer"
+                    <Link :to="getMenuLink(id)" type="button" href="menu_customer"
                         ><span class="text-xl text-white font-bold relative flex text-center items-center justify-center p-4 m-5 rounded-full bg-gradient-to-r from-amber-200 via-orange-300 to-orange-400 shadow-gray-300 shadow-md"
 
                             >สั่งอาหาร</span
@@ -102,8 +114,12 @@
                     <router-view></router-view>
                 </div>
             </div>
-
-            <div></div>
+            <footer class="relative">
+                <img
+                    class="h-40 w-full shadow bg-cover"
+                    src="../../imgs/shabu.jpg"
+                />
+            </footer>
         </div>
     </div>
 </template>
@@ -118,16 +134,42 @@ import ApplicationLogo from "@/Components/ApplicationLogo.vue";
 import { Link } from "@inertiajs/vue3";
 let data = reactive({});
 
-axios
-    .get("get_data")
-    .then((response) => {
-        console.log(response.data);
-        data.title = response.data.title;
-        data.body = response.data.body;
-    })
-    .catch((error) => console.log(error));
+// axios
+//     .get("get_data")
+//     .then((response) => {
+//         console.log(response.data);
+//         data.title = response.data.title;
+//         data.body = response.data.body;
+//     })
+//     .catch((error) => console.log(error));
 </script>
 
-<script></script>
+<script>
+export default {
+    data() {
+        return {
+            id: "10",
+            shop_id: "1001",
+            staff_id: "1100111011101",
+            reference_code: "ABCD1234",
+            table_number: "3",
+            customer_adult: "4",
+            customer_children: "1",
+            customer_baby: "0",
+            package: "บุฟเฟ่ย์ 399",
+            package_secondary: "เครื่องดื่ม refeel",
+            registered_at: "2023-08-11 18:44:30",
+        };
+    },
+    methods: {
+    getMenuLink(id) {
+      return {
+        name: "menu_customer",
+        query: { id: id },
+      };
+    },
+  },
+};
+</script>
 
 <style scoped></style>
