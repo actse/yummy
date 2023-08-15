@@ -139,7 +139,8 @@
                                     </div>
                                 </div>
                                 <div>
-                                    <svg v-if="check_menu != false"
+                                    <svg
+                                        v-if="check_menu != false"
                                         class="w-4 h-4 ml-3"
                                         viewBox="0 0 16 16"
                                         fill="none"
@@ -239,7 +240,7 @@
             </div>
             <footer class="relative">
                 <img
-                    class=" h-40 w-full shadow bg-cover"
+                    class="h-40 w-full shadow bg-cover"
                     src="../../imgs/shabu.jpg"
                 />
             </footer>
@@ -260,7 +261,10 @@ export default {
         ListMenuModal,
     },
     data() {
+        const urlParams = new URLSearchParams(window.location.search);
+        const id = urlParams.get("id");
         return {
+            receivedId: id,
             isModalOpen: false,
             isListMenuModalOpen: false,
             id: "",
@@ -391,6 +395,7 @@ export default {
                 this.key_name = "D";
             }
 
+            fromdata.append("table_id", this.receivedId);
             fromdata.append("key_name", this.key_name);
             fromdata.append("name_menu", this.title_name);
             fromdata.append("image", this.image);
@@ -398,6 +403,14 @@ export default {
             fromdata.append("comment", this.comments);
             fromdata.append("status", this.status);
 
+            axios
+                .post("insert_cart" , fromdata)
+                .then((response) => {
+                    console.log(response.data);
+                })
+                .catch((error) => console.log(error));
+
+            console.log("โต๊ะที่ : " + this.receivedId);
             console.log("ลูกค้าท่าน : " + this.key_name);
             console.log("ชื่อเมนู : " + this.title_name);
             console.log("รูป : " + this.image);

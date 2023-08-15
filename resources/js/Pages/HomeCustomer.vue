@@ -103,9 +103,8 @@
                             <span class="mt-1">เรียกพนักงาน</span>
                         </div>
                     </div>
-                    <Link :to="getMenuLink(id)" type="button" href="menu_customer"
+                    <Link type="button" :href="'menu_customer?id=' + id"
                         ><span class="text-xl text-white font-bold relative flex text-center items-center justify-center p-4 m-5 rounded-full bg-gradient-to-r from-amber-200 via-orange-300 to-orange-400 shadow-gray-300 shadow-md"
-
                             >สั่งอาหาร</span
                         ><img
                             class="absolute right-4 top-4"
@@ -148,7 +147,7 @@ let data = reactive({});
 export default {
     data() {
         return {
-            id: "10",
+            id: "1",
             shop_id: "1001",
             staff_id: "1100111011101",
             reference_code: "ABCD1234",
@@ -162,12 +161,7 @@ export default {
         };
     },
     methods: {
-    getMenuLink(id) {
-      return {
-        name: "menu_customer",
-        query: { id: id },
-      };
-    },
+
   },
 };
 </script>
