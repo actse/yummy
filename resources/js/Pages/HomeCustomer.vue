@@ -91,7 +91,7 @@
                             <span class="mt-1">เรียกพนักงาน</span>
                         </div>
                     </div>
-                    <Link href="menu_customer"
+                    <Link type="button" href="menu_customer"
                         ><span class="text-xl text-white font-bold relative flex text-center items-center justify-center p-4 m-5 rounded-full bg-gradient-to-r from-amber-200 via-orange-300 to-orange-400 shadow-gray-300 shadow-md"
 
                             >สั่งอาหาร</span
@@ -111,7 +111,6 @@
 <!-- <div>{{ data.title || 'ไม่พบ title' }}</div>
       <div>{{ data.body || 'ไม่พบ body' }}</div>
        -->
-
 <script setup>
 import { reactive, onMounted } from "vue";
 import axios from "axios";

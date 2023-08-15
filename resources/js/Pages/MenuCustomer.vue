@@ -109,7 +109,7 @@
                                 :value="'hosting-' + index"
                                 class="hidden peer"
                                 required
-                                @click="check_true == true"
+                                @click="check_true(check_menu)"
                             />
                             <label
                                 :for="'hosting-' + index"
@@ -120,8 +120,8 @@
                                         {{ type_menus.type_menu_name }}
                                     </div>
                                 </div>
-                                <div v-if="check_true != true">
-                                    <svg
+                                <div>
+                                    <svg v-if="check_menu != false"
                                         class="w-4 h-4 ml-3"
                                         viewBox="0 0 16 16"
                                         fill="none"
@@ -244,7 +244,8 @@ export default {
             amount: 1,
             image: "",
             comments: "",
-            status : 0,
+            status: 0,
+            check_menu: false,
 
             type_menu: [
                 {
@@ -315,6 +316,13 @@ export default {
         };
     },
     methods: {
+        check_true(check) {
+            // console.log(check);
+            if (check == false) {
+                this.check_menu = true;
+                console.log(this.check_menu);
+            }
+        },
         increaseQuantity() {
             this.amount++;
         },
