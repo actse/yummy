@@ -395,20 +395,23 @@ export default {
                 this.key_name = "D";
             }
 
-            fromdata.append("table_id", this.receivedId);
-            fromdata.append("key_name", this.key_name);
-            fromdata.append("name_menu", this.title_name);
-            fromdata.append("image", this.image);
-            fromdata.append("amount", this.amount);
-            fromdata.append("comment", this.comments);
-            fromdata.append("status", this.status);
+            const formData = new FormData();
+            formData.append("table_id", this.receivedId);
+            formData.append("key_name", this.key_name);
+            formData.append("name_menu", this.title_name);
+            formData.append("image", this.image);
+            formData.append("amount", this.amount);
+            formData.append("comment", this.comments);
+            formData.append("status", this.status);
 
             axios
-                .post("insert_cart" , fromdata)
+                .post("insert_cart", formData)
                 .then((response) => {
                     console.log(response.data);
                 })
-                .catch((error) => console.log(error));
+                .catch((error) => {
+                    console.error(error);
+                });
 
             console.log("โต๊ะที่ : " + this.receivedId);
             console.log("ลูกค้าท่าน : " + this.key_name);
