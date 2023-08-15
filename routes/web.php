@@ -24,10 +24,13 @@ use Inertia\Inertia;
 //         'phpVersion' => PHP_VERSION,
 //     ]);
 // });
+
+//=========================home page==================================
 Route::get('/', function () {
     return Inertia::render('HomeCustomer');
 });
 
+//=========================customer page==============================
 Route::get('/home_customer', function () {
     return Inertia::render('HomeCustomer');
 });
@@ -43,6 +46,16 @@ Route::get('/cart_customer', function () {
 Route::get('/history_customer', function () {
     return Inertia::render('HistoryCustomer');
 });
+//=========================staff page=================================
+Route::get('/home_staff', function () {
+    return Inertia::render('HomeStaff');
+});
+
+Route::get('/manage_table_staff', function () {
+    return Inertia::render('ManageTableStaff');
+});
+//=========================safe page==================================
+
 
 Route::get('/get_data', function () {
     return [
