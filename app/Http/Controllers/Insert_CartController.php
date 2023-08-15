@@ -7,9 +7,9 @@ use App\Models\Insert_cart_table;
 
 class Insert_CartController extends Controller
 {
-    function Insert_Cart(){
-        return view('MenuCustomer');
-    }
+    // function Insert_Cart(){
+    //     return ('MenuCustomer');
+    // }
     function DataInsert(Reqeust $reqeust){
 
         $table_id = $reqeust->input('table_id');

@@ -4,7 +4,7 @@
         <div class="max-w-md mx-auto h-screen bg-white border">
             <!--Header-->
             <div class="relative w-full px-7 py-4 bg-white border-b-2 border-gray-300 shadow-sm">
-                <a rel="stylesheet" href="home_customer"><img class="absolute left-3 " src="../../imgs/vector.svg"></a>
+                <Link rel="stylesheet" href="home_customer"><img class="absolute left-3 " src="../../imgs/vector.svg"></Link>
                 <label for="voice-search" class="sr-only">Search</label>
                 <div class="flex justify-center items-center text-2xl font-bold text-gray-700">
                     <h1>ประวัติ</h1>
@@ -62,5 +62,6 @@
 </template>
 
 <script setup>
+import { Link } from "@inertiajs/vue3";
 
 </script>

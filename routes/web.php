@@ -47,6 +47,10 @@ Route::get('/cart_customer', function () {
 Route::get('/history_customer', function () {
     return Inertia::render('HistoryCustomer');
 });
+
+Route::get('/service_customer', function () {
+    return Inertia::render('ServiceCustomer');
+});
 //=========================staff page=================================
 Route::get('/home_staff', function () {
     return Inertia::render('HomeStaff');
@@ -65,7 +69,7 @@ Route::get('/get_data', function () {
     ];
 });
 
-Route::get('/', [Insert_CartController::class,'Insert_Cart']);
+// Route::get('/', [Insert_CartController::class,'Insert_Cart']);
 Route::post('/insert_cart', [Insert_CartController::class,'DataInsert']);
 
 Route::get('/home', function () {

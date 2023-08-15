@@ -95,11 +95,11 @@
 
                         <div
                             class="flex flex-col items-center p-4 shadow-md rounded-lg"
-                        >
-                            <img
-                                class="w-[80px] h-[80px]"
-                                src="../../imgs/icons8-waiter-64.png"
-                            />
+                        ><Link href="service_customer"
+                                ><img
+                                    class="w-[80px] h-[80px]"
+                                    src="../../imgs/icons8-waiter-64.png"
+                            /></Link>
                             <span class="mt-1">เรียกพนักงาน</span>
                         </div>
                     </div>
