@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Insert_cart_table;
+use Carbon\Carbon;
 
 class Insert_CartController extends Controller
 {
@@ -19,22 +20,24 @@ class Insert_CartController extends Controller
         $status = $request->input('status');
 
         $isInsertSuccess = Insert_cart_table::insert([
-            'status' => 'รอเตรียมการ',
-            'product_id' => '1',
-            'bill_id' => '1',
-            'product_count' => '6',
+            'product_name' => $name_menu,
+            'bill_id' => $table_id,
+            'product_count' => $amount,
             'product_comment' => '',
             'custom_name' => 'AA',
-            'ordered_at' => '2023-08-11',
-            'accepted_at' => '2023-08-11',
-            'finished_at' => '2023-08-11'
+            'ordered_at' => '2023-08-16',
+            'accepted_at' => '2023-08-16',
+            'finished_at' => '2023-08-16',
+            'status' => $status,
+            // 'created_at' => Carbon::now(),
+            // 'updated_at' => Carbon::now()
         ]);
 
 
         // $isInsertSuccess->save();
 
         if ($isInsertSuccess != '') {
-            return 'succruss';
+            return 'success';
         } else {
             echo 'Fail';
         }
