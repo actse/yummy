@@ -398,7 +398,7 @@ export default {
 
             const formData = new FormData();
             formData.append("table_id", this.receivedId);
-            formData.append("key_name", this.key_name);
+            formData.append("key_name", '3');
             formData.append("name_menu", this.title_name);
             formData.append("image", this.image);
             formData.append("amount", this.amount);
@@ -406,7 +406,7 @@ export default {
             formData.append("status", this.status);
 
             axios
-                .post("/insert_cart", formData)
+                .get("/insert_cart", formData)
                 .then((response) => {
                     console.log(response);
 
