@@ -17,19 +17,19 @@ use Inertia\Inertia;
 |
 */
 
-// Route::get('/', function () {
-//     return Inertia::render('Welcome', [
-//         'canLogin' => Route::has('login'),
-//         'canRegister' => Route::has('register'),
-//         'laravelVersion' => Application::VERSION,
-//         'phpVersion' => PHP_VERSION,
-//     ]);
-// });
+Route::get('/', function () {
+    return Inertia::render('Welcome', [
+        'canLogin' => Route::has('login'),
+        'canRegister' => Route::has('register'),
+        'laravelVersion' => Application::VERSION,
+        'phpVersion' => PHP_VERSION,
+    ]);
+});
 
 //=========================home page==================================
-Route::get('/', function () {
-    return Inertia::render('HomeCustomer');
-});
+// Route::get('/', function () {
+//     return Inertia::render('HomeCustomer');
+// });
 
 //=========================customer page==============================
 Route::get('/home_customer', function () {
@@ -70,7 +70,7 @@ Route::get('/get_data', function () {
 });
 
 // Route::get('/', [Insert_CartController::class,'Insert_Cart']);
-Route::post('/insert_cart', [Insert_CartController::class,'DataInsert']);
+Route::get('/insert_cart', [Insert_CartController::class,'DataInsert']);
 
 Route::get('/home', function () {
     return Inertia::render('HomePage');
