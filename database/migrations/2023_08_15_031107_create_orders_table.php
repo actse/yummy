@@ -14,10 +14,10 @@ return new class extends Migration
         Schema::create('orders', function (Blueprint $table) {
             $table->id();
             $table->string('status'); // cart, kitchen, cooking, serving, cancle, served
-            $table->string('product_id');
+            $table->string('product_name');
             $table->string('bill_id');
             $table->string('product_count');
-            $table->string('product_comment');
+            $table->string('product_comment')->nullable();
             $table->string('custom_name');
             $table->timestamp('ordered_at')->nullable();
             $table->timestamp('accepted_at')->nullable();

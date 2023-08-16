@@ -11,7 +11,6 @@ class Insert_cart_table extends Model
 
     protected $table = 'orders';
     protected $primary_key = 'id';
-    protected $timestmap = true;
 
     // protected $guarded = [];
 

@@ -253,6 +253,7 @@ import { Link } from "@inertiajs/vue3";
 
 <script>
 import axios from "axios";
+
 import Modal from "@/components/MenuModal.vue";
 import ListMenuModal from "@/components/MenuModal.vue";
 
@@ -398,7 +399,7 @@ export default {
 
             const formData = new FormData();
             formData.append("table_id", this.receivedId);
-            formData.append("key_name", '3');
+            formData.append("key_name", "3");
             formData.append("name_menu", this.title_name);
             formData.append("image", this.image);
             formData.append("amount", this.amount);
@@ -406,14 +407,18 @@ export default {
             formData.append("status", this.status);
 
             axios
-                .get("/insert_cart", formData)
+                .post("/insert_cart", formData)
                 .then((response) => {
                     console.log(response);
-
+                    if (response.data == "success") {
+                        console.log(response.data);
+                        alert('success');
+                    } else {
+                        alert('error');
+                    }
                 })
                 .catch((error) => {
                     console.log(error);
-
                 });
 
             console.log("โต๊ะที่ : " + this.receivedId);
