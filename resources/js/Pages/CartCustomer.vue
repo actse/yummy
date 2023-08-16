@@ -2,6 +2,24 @@
       <div class="w-full min-h-screen relative">
         <div class="relative max-w-md mx-auto h-screen bg-white border">
             <!--Header-->
+            <header class="relative">
+                <img
+                    class="h-48 w-full shadow bg-cover"
+                    src="../../imgs/shabu.jpg"
+                />
+                <div
+                    class="flex absolute mx-auto left-[10px] top-[10px] items-center justify-center"
+                >
+                    <img
+                        class="rounded-full border-2 border-white shadow-md"
+                        src="https://via.placeholder.com/58x58"
+                        alt=""
+                    />
+                    <div class="flex-col ml-2 text-white text-3xl font-bold">
+                        <p>Yummy</p>
+                    </div>
+                </div>
+            </header>
             <div class="relative w-full px-7 py-4 bg-white border-b-2 border-gray-300 shadow-sm">
                 <Link href="menu_customer"><img class="absolute left-3 " src="../../imgs/vector.svg"></Link>
                 <label for="voice-search" class="sr-only">Search</label>
@@ -10,7 +28,6 @@
                 </div>
 
             </div>
-
             <!-- List Menu -->
             <div class="bg-white w-full p-4">
                 <div v-for="(item, index) in items" :key="index" class="relative flex border-b-2 py-4 border-gray-300 bg-white">
@@ -42,7 +59,6 @@
             <div class="fixed max-w-md mx-auto w-full h-20 py-4 bottom-0 bg-white text-center border-t-2 border-gray-300">
                 <button class="bg-orange-400 w-52 h-11 rounded-full shadow-md text-white hover:bg-orange-500" type="submit" name="submit_cart">สั่ง {{ items.length ?? '0' }} รายการ</button>
             </div>
-
             <!-- Modal content -->
             <div>
               <ListMenuModal v-if="isListMenuModalOpen != false" >

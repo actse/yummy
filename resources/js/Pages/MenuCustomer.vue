@@ -96,6 +96,12 @@
                     </div>
                 </div>
             </div>
+            <footer class="relative">
+                <img
+                    class="h-40 w-full shadow bg-cover"
+                    src="../../imgs/shabu.jpg"
+                />
+            </footer>
             <!-- Modal here -->
             <div>
                 <!-- The Modal component -->
@@ -238,12 +244,7 @@
                     </form>
                 </ListMenuModal>
             </div>
-            <footer class="relative">
-                <img
-                    class="h-40 w-full shadow bg-cover"
-                    src="../../imgs/shabu.jpg"
-                />
-            </footer>
+
         </div>
     </div>
 </template>
