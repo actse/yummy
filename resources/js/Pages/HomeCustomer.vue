@@ -103,11 +103,11 @@
                             <span class="mt-1">เรียกพนักงาน</span>
                         </div>
                     </div>
-                    <Link type="button" :href="'menu_customer?id=' + id"
+                    <Link type="button" :href="'menu_customer?id=' + id" class="relative"
                         ><span class="text-xl text-white font-bold relative flex text-center items-center justify-center p-4 m-5 rounded-full bg-gradient-to-r from-amber-200 via-orange-300 to-orange-400 shadow-gray-300 shadow-md"
                             >สั่งอาหาร</span
                         ><img
-                            class="absolute right-4 top-4"
+                            class="absolute right-8 top-8"
                             src="../../imgs/arrow-right.svg"
                     /></Link>
                     <router-view></router-view>
