@@ -9,10 +9,10 @@ class Insert_cart_table extends Model
 {
     use HasFactory;
 
-    protected $table = 'orders_table';
+    protected $table = 'orders';
     protected $primary_key = 'id';
     protected $timestmap = true;
 
-    protected $guarded = [];
+    // protected $guarded = [];
 
 }

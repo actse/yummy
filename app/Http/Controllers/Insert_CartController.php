@@ -31,10 +31,10 @@ class Insert_CartController extends Controller
         ]);
 
 
-        $isInsertSuccess->save();
+        // $isInsertSuccess->save();
 
         if ($isInsertSuccess != '') {
-            return view('MenuCustomer');
+            return 'succruss';
         } else {
             echo 'Fail';
         }
