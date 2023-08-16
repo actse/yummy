@@ -13,41 +13,35 @@ class FetchCartProductController extends Controller
     function Select_Product_cart()
     {
 
-        $cartProducts = Fetch_cart_product::select(
-            'product_name',
-            'bill_id',
-            'product_count',
-            'product_comment',
-            'custom_name',
-            'ordered_at',
-            'accepted_at',
-            'finished_at',
-            'status'
-        )
-            ->where([
-                ['bill_id', '=', '1'],
-                ['status', '<>', '0'],
-            ])
-            ->get();
+        $cartProducts = Fetch_cart_product::all();
+
+        $cartProducts_list = [];
 
         if ($cartProducts != '') {
 
-            $response = [];
+            foreach ($cartProducts as $item) {
 
-            foreach ($cartProducts as $product) {
+                if($item->bill_id == 'null' && $item->status == '0'){
 
-                $response = $product->product_name;
-                $response = $product->bill_id;
-                $response = $product->product_count;
-                $response = $product->product_comment;
-                $response = $product->custom_name;
-                $response = $product->ordered_at;
-                $response = $product->accepted_at;
-                $response = $product->finished_at;
-                $response = $product->status;
+                    $obj = [];
+
+                    $obj['product_name'] = $item->product_name;
+                    $obj['bill_id'] = $item->bill_id;
+                    $obj['product_count'] = $item->product_count;
+                    $obj['product_comment'] = $item->product_comment;
+                    $obj['custom_name'] = $item->custom_name;
+                    $obj['ordered_at'] = $item->ordered_at;
+                    $obj['accepted_at'] = $item->accepted_at;
+                    $obj['finished_at'] = $item->finished_at;
+                    $obj['status'] = $item->status;
+
+                    $cartProducts_list[] = (object) $obj;
+                }
+
             }
 
-            return $response;
+            // dd($cartProducts_list);
+            return $cartProducts_list;
 
         } else {
             echo 'fail';
