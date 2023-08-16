@@ -7,9 +7,7 @@ use App\Models\Insert_cart_table;
 
 class Insert_CartController extends Controller
 {
-    // function Insert_Cart(){
-    //     return ('MenuCustomer');
-    // }
+
     function DataInsert(Reqeust $reqeust){
 
         $table_id = $reqeust->input('table_id');
@@ -29,7 +27,7 @@ class Insert_CartController extends Controller
             'comment' => $comment,
             'status' => $status,
         ]);
-        if($isInsertSuccress) echo 'Succress';
+        if($isInsertSuccress)return view('MenuCustomer');
         else echo 'Fail';
     }
 }

@@ -252,6 +252,7 @@ import { Link } from "@inertiajs/vue3";
 </script>
 
 <script>
+import axios from "axios";
 import Modal from "@/components/MenuModal.vue";
 import ListMenuModal from "@/components/MenuModal.vue";
 
@@ -405,12 +406,14 @@ export default {
             formData.append("status", this.status);
 
             axios
-                .post("insert_cart", formData)
+                .post("/insert_cart", formData)
                 .then((response) => {
-                    console.log(response.data);
+                    console.log(response);
+
                 })
                 .catch((error) => {
-                    console.error(error);
+                    console.log(error);
+
                 });
 
             console.log("โต๊ะที่ : " + this.receivedId);

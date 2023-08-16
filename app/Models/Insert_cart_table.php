@@ -7,7 +7,12 @@ use Illuminate\Database\Eloquent\Model;
 
 class Insert_cart_table extends Model
 {
-    public $table = 'orders_table';
-    public $primary_key = 'id';
-    public $timestmap = true;
+    use HasFactory;
+
+    protected $table = 'orders_table';
+    protected $primary_key = 'id';
+    protected $timestmap = true;
+
+    protected $guarded = [];
+
 }
