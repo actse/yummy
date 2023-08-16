@@ -46,19 +46,24 @@
                     />
                     <div class="px-2">
                         <h2 class="text-lg text-gray-700 font-bold">
-                            {{ item.title_name }}
+                            {{ item.product_name }}
                         </h2>
                         <p class="text-sm text-gray-400">
-                            {{ item.description }}
+                            {{ item.product_comment }}
                         </p>
-                        <p class="text-sm text-gray-400">{{ item.comments }}</p>
+                        <p class="text-sm text-gray-400">
+                            ผู้สั่ง : {{ item.custom_name }}
+                        </p>
+                        <p class="text-sm text-gray-400">
+                            เวลา : {{ item.ordered_at }}
+                        </p>
                         <!-- Edie Comment -->
                         <div
                             class="absolute flex text-sm text-blue-400 bottom-2"
                         >
                             <button
                                 type="button"
-                                @click="openselectedItem(item)"
+                                @click="openselectedItem(item.product_name)"
                             >
                                 <p>แก้ไข</p>
                             </button>
@@ -80,7 +85,7 @@
                             />
                         </button>
                         <span class="font-bold text-gray-600">{{
-                            item.quantity
+                            item.product_count
                         }}</span>
                         <button type="button" @click="increaseQuantity(index)">
                             <img
@@ -115,7 +120,7 @@
                             class="flex justify-between text-gray-800 font-bold border-b-2 border-gray-300"
                         >
                             <h1 class="text-lg text-gray-600 font-bold">
-                                {{ selectedItem.title_name }}
+                                {{ items.product_name }}
                             </h1>
                             <button>
                                 <img
@@ -138,7 +143,7 @@
                                 rows="4"
                                 class="w-full mt-2 border-2 border-gray-300 rounded-lg text-gray-600 text-sm focus:ring-gray-300 focus:border-gray-300"
                                 placeholder="ตัวอย่าง ไม่ใส่กุ้ง"
-                                v-model="selectedItem.comments"
+                                v-model="items.product_comment"
                             ></textarea>
                         </div>
                         <div class="flex flex-row-reverse mt-6">
@@ -163,29 +168,25 @@ export default {
         ListMenuModal,
     },
     data() {
+        const urlParams = new URLSearchParams(window.location.search);
+        const id = urlParams.get("id");
+
         return {
+            receivedId: id,
             isListMenuModalOpen: false,
             selectedItem: null,
             items: [
                 {
-                    itemId: "1",
-                    title_name: "สามชั่นสไลด์ Coller pork",
-                    description: "สั่งได้ครั้งละ 3 ออร์เดอร์เท่านั้น",
-                    image: "https://via.placeholder.com/90x90",
-                    quantity: 3,
-                    comments: "แพ้เห็ด",
-                    statu: "0",
+                    product_name: "",
+                    bill_id: "",
+                    product_count: "",
+                    product_comment: "",
+                    custom_name: "",
+                    ordered_at: "",
+                    accepted_at: "",
+                    finished_at: "",
+                    status: "",
                 },
-                {
-                    itemId: "2",
-                    title_name: "ผักรวม",
-                    description: "",
-                    image: "https://via.placeholder.com/90x90",
-                    quantity: 1,
-                    comments: "แพ้กุ้ง",
-                    statu: "0",
-                },
-                // ... ข้อมูลอื่น ๆ
             ],
         };
     },
@@ -196,34 +197,33 @@ export default {
     },
     methods: {
         increaseQuantity(index) {
-            this.items[index].quantity++;
+            this.items[index].product_count++;
         },
         decreaseQuantity(index) {
-            if (this.items[index].quantity > 1) {
-                this.items[index].quantity--;
+            if (this.items[index].product_count > 1) {
+                this.items[index].product_count--;
             }
         },
         openselectedItem(item) {
             this.isListMenuModalOpen = true;
-            this.selectedItem = item;
+            this.items.product_name = item;
         },
-        addtocart() {
+        fetch_cart() {
 
-            // this.title_name;
+            const formData = new FormData();
 
-            let fromdata = new FormData();
-
-            // console.log("ชื่อเมนู : " + this.selectedItem.title_name);
-            // console.log("comment : " + this.selectedItem.comments);
-            // this.selectedItem.comments = this.selectedItem.comments;
-            // this.isListMenuModalOpen = false;
+            formData.append("table_id", this.receivedId);
 
             axios
-                .get("/fetch_cart")
+                .get("/fetch_cart" , formData)
                 .then((response) => {
-                    console.log(response);
+                    // console.log(response);
                     if (response.data != "") {
-                        console.log(response.data);
+                        // console.log(response.data);
+                        this.items = response.data;
+
+                        console.log(this.items);
+
                     } else {
                         alert("error");
                     }
@@ -234,8 +234,8 @@ export default {
         },
     },
     mounted() {
-        this.addtocart();
-    }
+        this.fetch_cart();
+    },
 };
 </script>
 

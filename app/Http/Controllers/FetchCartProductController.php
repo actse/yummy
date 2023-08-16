@@ -10,18 +10,20 @@ use Illuminate\Http\Response;
 class FetchCartProductController extends Controller
 {
 
-    function Select_Product_cart()
+    function Select_Product_cart(Request $request)
     {
 
-        $cartProducts = Fetch_cart_product::all();
+        $table_id = $request->input('table_id');
+
+        $table_id = 'null';
+
+        $cartProducts = Fetch_cart_product::where('bill_id', '=', $table_id , 'AND' , 'status' , '=' , '0')->get();
 
         $cartProducts_list = [];
 
         if ($cartProducts != '') {
 
             foreach ($cartProducts as $item) {
-
-                if($item->bill_id == 'null' && $item->status == '0'){
 
                     $obj = [];
 
@@ -36,7 +38,6 @@ class FetchCartProductController extends Controller
                     $obj['status'] = $item->status;
 
                     $cartProducts_list[] = (object) $obj;
-                }
 
             }
 

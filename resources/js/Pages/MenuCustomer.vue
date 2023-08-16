@@ -42,7 +42,7 @@
                     />
                 </div>
                 <div class="relative bg-orange-100 p-2 rounded-full shadow-lg">
-                    <Link href="/cart_customer"
+                    <Link :href="'cart_customer?id=' + receivedId"
                         ><img class="w-7 h-7" src="../../imgs/cart.png"
                     /></Link>
                     <div
