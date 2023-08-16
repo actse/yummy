@@ -60,7 +60,9 @@ Route::get('/manage_table_staff', function () {
     return Inertia::render('ManageTableStaff');
 });
 //=========================safe page==================================
-
+Route::get('/home_safe', function () {
+    return Inertia::render('HomeSafe');
+});
 
 Route::get('/get_data', function () {
     return [
