@@ -35,84 +35,98 @@
             </div>
             <!-- List Menu -->
             <div class="bg-white w-full p-4">
-                <div
-                    v-for="(item, index) in items"
-                    :key="index"
-                    class="relative flex border-b-2 py-4 border-gray-300 bg-white"
+                <form
+                    @submit.prevent="updatestatus"
+                    @input="form.errors.clear($event.target.name)"
+                    enctype="multipart/form-data"
                 >
-                    <img
-                        class="w-[80px] h-[90px] rounded-[10px]"
-                        src="https://via.placeholder.com/90x90"
-                    />
-                    <div class="px-2">
-                        <h2 class="text-lg text-gray-700 font-bold">
-                            {{ item.product_name }}
-                        </h2>
-                        <p class="text-sm px-2 text-gray-400">
-                            {{ item.product_comment }}
-                        </p>
-                        <p class="text-sm px-2 text-gray-400">
-                            ผู้สั่ง : {{ item.custom_name }}
-                        </p>
-                        <p class="text-sm px-2 text-gray-400">
-                            เวลา : {{ item.ordered_at }}
-                        </p>
-                        <!-- Edie Comment -->
+                    <div
+                        v-for="(item, index) in items"
+                        :key="index"
+                        class="relative flex border-b-2 py-4 border-gray-300 bg-white"
+                    >
+                        <img
+                            class="w-[80px] h-[90px] rounded-[10px]"
+                            src="https://via.placeholder.com/90x90"
+                        />
+                        <div class="px-2">
+                            <h2 class="text-lg text-gray-700 font-bold">
+                                {{ item.product_name }}
+                            </h2>
+                            <p class="text-sm px-2 text-gray-400">
+                                {{ item.product_comment }}
+                            </p>
+                            <p class="text-sm px-2 text-gray-400">
+                                ผู้สั่ง : {{ item.custom_name }}
+                            </p>
+                            <p class="text-sm px-2 text-gray-400">
+                                เวลา : {{ item.ordered_at }}
+                            </p>
+                            <p class="text-sm px-2 text-gray-400">
+                                สถานะ : {{ item.status }}
+                            </p>
+                            <!-- Edie Comment -->
+                            <div
+                                class="absolute flex text-sm text-blue-400 bottom-2"
+                            >
+                                <button
+                                    type="button"
+                                    @click="openselectedItem(item.product_name)"
+                                >
+                                    <p>แก้ไข</p>
+                                </button>
+                            </div>
+                        </div>
+                        <!-- Remove Item Cart -->
+                        <img
+                            class="absolute top-5 right-0"
+                            src="../../imgs/trash.svg"
+                        />
+                        <!-- Increase and Decrease Item Cart -->
                         <div
-                            class="absolute flex text-sm text-blue-400 bottom-2"
+                            class="flex absolute right-0 bottom-2 items-center gap-3"
                         >
                             <button
                                 type="button"
-                                @click="openselectedItem(item.product_name)"
+                                @click="decreaseQuantity(index)"
                             >
-                                <p>แก้ไข</p>
+                                <img
+                                    src="../../imgs/remove_empty.svg"
+                                    alt="Decrease"
+                                />
+                            </button>
+                            <span class="font-bold text-gray-600">{{
+                                item.product_count
+                            }}</span>
+                            <button
+                                type="button"
+                                @click="increaseQuantity(index)"
+                            >
+                                <img
+                                    src="../../imgs/add_empty.svg"
+                                    alt="Increase"
+                                />
                             </button>
                         </div>
                     </div>
-                    <!-- Remove Item Cart -->
-                    <img
-                        class="absolute top-5 right-0"
-                        src="../../imgs/trash.svg"
-                    />
-                    <!-- Increase and Decrease Item Cart -->
                     <div
-                        class="flex absolute right-0 bottom-2 items-center gap-3"
+                        class="max-w-md mx-auto w-full h-20 py-4 bottom-0 bg-white text-center border-t-2 border-gray-300"
                     >
-                        <button type="button" @click="decreaseQuantity(index)">
-                            <img
-                                src="../../imgs/remove_empty.svg"
-                                alt="Decrease"
-                            />
-                        </button>
-                        <span class="font-bold text-gray-600">{{
-                            item.product_count
-                        }}</span>
-                        <button type="button" @click="increaseQuantity(index)">
-                            <img
-                                src="../../imgs/add_empty.svg"
-                                alt="Increase"
-                            />
+                        <button
+                            class="bg-orange-400 w-52 h-11 rounded-full shadow-md text-white hover:bg-orange-500"
+                            type="submit"
+                        >
+                            สั่ง {{ items.length ?? "0" }} รายการ
                         </button>
                     </div>
-                </div>
+                </form>
             </div>
             <!-- Footer Cart -->
-            <div
-                class="fixed max-w-md mx-auto w-full h-20 py-4 bottom-0 bg-white text-center border-t-2 border-gray-300"
-            >
-                <button
-                    class="bg-orange-400 w-52 h-11 rounded-full shadow-md text-white hover:bg-orange-500"
-                    type="submit"
-                    name="submit_cart"
-                >
-                    สั่ง {{ items.length ?? "0" }} รายการ
-                </button>
-            </div>
             <!-- Modal content -->
             <div>
                 <ListMenuModal v-if="isListMenuModalOpen != false">
                     <form
-                        @submit.prevent="addtocart"
+                        @submit.prevent=""
                         @input="form.errors.clear($event.target.name)"
                         enctype="multipart/form-data"
                     >
@@ -209,13 +223,12 @@ export default {
             this.items.product_name = item;
         },
         fetch_cart() {
-
             const formData = new FormData();
 
             formData.append("table_id", this.receivedId);
 
             axios
-                .post("/fetch_cart" , formData)
+                .post("/fetch_cart", formData)
                 .then((response) => {
                     // console.log(response);
                     if (response.data != "") {
@@ -223,7 +236,6 @@ export default {
                         this.items = response.data;
 
                         console.log(this.items);
-
                     } else {
                         alert("error");
                     }
@@ -232,6 +244,30 @@ export default {
                     console.log(error);
                 });
         },
+        updatestatus() {
+            // this.receivedId
+            console.log(this.receivedId);
+            console.log("On");
+
+            const formData = new FormData();
+            formData.append("table_id", this.receivedId);
+
+            axios
+                .post("/confirm_cart", formData)
+                .then((response) => {
+                    console.log(response);
+                    if (response.data == "success") {
+                        console.log(response.data);
+                        alert("success");
+                    } else {
+                        alert("error");
+                    }
+                })
+                .catch((error) => {
+                    console.log(error);
+                });
+        },
+
     },
     mounted() {
         this.fetch_cart();

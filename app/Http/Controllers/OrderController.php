@@ -47,7 +47,7 @@ class OrderController extends Controller
 
         $table_id = $request->input('table_id');
 
-        $cartProducts = Orders::where('bill_id', '=', $table_id, 'AND', 'status', '=', '0')->get();
+        $cartProducts = Orders::where('bill_id', '=', $table_id)->where('status', '=', '0')->get();
 
         $cartProducts_list = [];
 
@@ -77,8 +77,26 @@ class OrderController extends Controller
         }
     }
 
-    function confirm()
+    function confirm(Request $request)
     {
+        date_default_timezone_set('Asia/Bangkok');
+
+        $table_id = $request->input('table_id');
+        $date_stamp = date('y-m-d h:i:s');
+
+        $isInsertSuccess = Orders::where('bill_id','=', $table_id)->update([
+            'ordered_at' => $date_stamp,
+            'accepted_at' => $date_stamp,
+            'finished_at' => $date_stamp,
+            'status' => 'cooking',
+        ]);
+
+        if ($isInsertSuccess != '') {
+            return 'success';
+        } else {
+            echo 'Fail';
+        }
+
     }
 
     function fetchConfirmStatus()
