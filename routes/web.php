@@ -1,8 +1,6 @@
 <?php
 
-use App\Http\Controllers\Insert_CartController;
-use App\Http\Controllers\FetchCartProductController;
-
+use App\Http\Controllers\OrderController;
 use App\Http\Controllers\ProfileController;
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
@@ -73,10 +71,9 @@ Route::get('/get_data', function () {
     ];
 });
 
-Route::post('/insert_cart', [Insert_CartController::class,'DataInsert']);
-// Route::get('/insert_cart', [Insert_CartController::class,'DataInsert']);
-
-Route::get('/fetch_cart', [FetchCartProductController::class,'Select_Product_cart']);
+Route::post('/insert_cart', [OrderController::class,'addToCart']);
+// Route::get('/insert_cart', [OrderController::class,'addToCart']);
+Route::post('/fetch_cart', [OrderController::class,'fetchCart']);
 
 Route::get('/home', function () {
     return Inertia::render('HomePage');

@@ -23,7 +23,7 @@
             <div
                 class="relative w-full px-7 py-4 bg-white border-b-2 border-gray-300 shadow-sm"
             >
-                <Link href="menu_customer"
+                <Link :href="'menu_customer?id=' + receivedId"
                     ><img class="absolute left-3" src="../../imgs/vector.svg"
                 /></Link>
                 <label for="voice-search" class="sr-only">Search</label>
@@ -41,20 +41,20 @@
                     class="relative flex border-b-2 py-4 border-gray-300 bg-white"
                 >
                     <img
-                        class="w-[80px] h-[80px] rounded-[10px]"
+                        class="w-[80px] h-[90px] rounded-[10px]"
                         src="https://via.placeholder.com/90x90"
                     />
                     <div class="px-2">
                         <h2 class="text-lg text-gray-700 font-bold">
                             {{ item.product_name }}
                         </h2>
-                        <p class="text-sm text-gray-400">
+                        <p class="text-sm px-2 text-gray-400">
                             {{ item.product_comment }}
                         </p>
-                        <p class="text-sm text-gray-400">
+                        <p class="text-sm px-2 text-gray-400">
                             ผู้สั่ง : {{ item.custom_name }}
                         </p>
-                        <p class="text-sm text-gray-400">
+                        <p class="text-sm px-2 text-gray-400">
                             เวลา : {{ item.ordered_at }}
                         </p>
                         <!-- Edie Comment -->
@@ -215,7 +215,7 @@ export default {
             formData.append("table_id", this.receivedId);
 
             axios
-                .get("/fetch_cart" , formData)
+                .post("/fetch_cart" , formData)
                 .then((response) => {
                     // console.log(response);
                     if (response.data != "") {

@@ -23,7 +23,7 @@
             <div
                 class="flex justify-between gap-0 items-center px-7 py-4 bg-white border-b-2 border-gray-300 shadow-sm"
             >
-                <Link href="home_customer"
+                <Link :href="'home_customer?id=' + receivedId"
                     ><img class="left-3" src="../../imgs/vector.svg"
                 /></Link>
                 <label for="voice-search" class="sr-only">Search</label>
@@ -281,11 +281,11 @@ export default {
             type_menu: [
                 {
                     type_menuId: "1",
-                    type_menu_name: "สามชั่นสไลด์ Coller pork",
+                    type_menu_name: "เนื้อหมู (pork)",
                     products: [
                         {
                             id: 1,
-                            name: "สามชั่น",
+                            name: "สามชั้น",
                             image: "via.placeholder.com/90x90",
                             detail_service:
                                 "สั่งได้ครั้งละ 3 ออร์เดอร์เท่านั้น",
@@ -294,7 +294,7 @@ export default {
                         },
                         {
                             id: 2,
-                            name: "สามชั่น บาง",
+                            name: "สามชั้น บาง",
                             image: "via.placeholder.com/90x90",
                             detail_service:
                                 "สั่งได้ครั้งละ 3 ออร์เดอร์เท่านั้น",
@@ -303,7 +303,25 @@ export default {
                         },
                         {
                             id: 3,
-                            name: "สันคอสามชั่น",
+                            name: "สันคอ สไลค์",
+                            image: "via.placeholder.com/90x90",
+                            detail_service:
+                                "สั่งได้ครั้งละ 3 ออร์เดอร์เท่านั้น",
+                            quantity: 1,
+                            statu: "0",
+                        },
+                        {
+                            id: 4,
+                            name: "สันคอหมักนุ่ม",
+                            image: "via.placeholder.com/90x90",
+                            detail_service:
+                                "สั่งได้ครั้งละ 3 ออร์เดอร์เท่านั้น",
+                            quantity: 1,
+                            statu: "0",
+                        },
+                        {
+                            id: 5,
+                            name: "สันคอพริกไทยดำ",
                             image: "via.placeholder.com/90x90",
                             detail_service:
                                 "สั่งได้ครั้งละ 3 ออร์เดอร์เท่านั้น",
@@ -317,7 +335,7 @@ export default {
                     type_menu_name: "ผัก",
                     products: [
                         {
-                            id: 4,
+                            id: 6,
                             name: "เห็ดเข็มทอง",
                             image: "via.placeholder.com/90x90",
                             detail_service: "",
@@ -325,7 +343,7 @@ export default {
                             statu: "0",
                         },
                         {
-                            id: 5,
+                            id: 7,
                             name: "ชุดผักรวม",
                             image: "via.placeholder.com/90x90",
                             detail_service: "",
@@ -333,7 +351,7 @@ export default {
                             statu: "0",
                         },
                         {
-                            id: 6,
+                            id: 8,
                             name: "ผักกาดขาว",
                             image: "via.placeholder.com/90x90",
                             detail_service: "",
