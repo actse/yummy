@@ -12,9 +12,9 @@ class OrderController extends Controller
         date_default_timezone_set('Asia/Bangkok');
 
         $table_id = $request->input('table_id');
-        $key_name = $request->input('key_name');
+        // $key_name = $request->input('key_name');
         $name_menu = $request->input('name_menu');
-        $image = $request->input('image');
+        // $image = $request->input('image');
         $amount = $request->input('amount');
         $comment = $request->input('comment');
         $status = $request->input('status');
@@ -26,7 +26,7 @@ class OrderController extends Controller
             'product_name' => $name_menu,
             'bill_id' => $table_id,
             'product_count' => $amount,
-            'product_comment' => '',
+            'product_comment' => $comment,
             'custom_name' => 'AA',
             'ordered_at' => $date_stamp,
             'accepted_at' => $date_stamp,
@@ -57,6 +57,7 @@ class OrderController extends Controller
 
                 $obj = [];
 
+                $obj['id'] = $item->id;
                 $obj['product_name'] = $item->product_name;
                 $obj['bill_id'] = $item->bill_id;
                 $obj['product_count'] = $item->product_count;
@@ -82,21 +83,43 @@ class OrderController extends Controller
         date_default_timezone_set('Asia/Bangkok');
 
         $table_id = $request->input('table_id');
+        $amount = $request->input('amount');
+        $comment = $request->input('comment');
+
         $date_stamp = date('y-m-d h:i:s');
 
-        $isInsertSuccess = Orders::where('bill_id','=', $table_id)->update([
+        $isUpdateSuccess = Orders::where('bill_id','=', $table_id)->update([
+            'product_count' => $amount,
+            'product_comment' => $comment,
             'ordered_at' => $date_stamp,
             'accepted_at' => $date_stamp,
             'finished_at' => $date_stamp,
             'status' => 'cooking',
         ]);
 
-        if ($isInsertSuccess != '') {
+        if ($isUpdateSuccess != '') {
             return 'success';
         } else {
             echo 'Fail';
         }
 
+    }
+
+    function deleteOrderCart(Request $request)
+    {
+        date_default_timezone_set('Asia/Bangkok');
+
+        $id = $request->input('id');
+        $date_stamp = date('y-m-d h:i:s');
+
+        $isDeleteSuccess = Orders::where('id','=', $id)->delete([
+        ]);
+
+        if ($isDeleteSuccess != '') {
+            return 'success';
+        } else {
+            echo 'Fail';
+        }
     }
 
     function fetchConfirmStatus()

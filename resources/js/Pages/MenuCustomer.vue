@@ -291,7 +291,7 @@ export default {
                     products: [
                         {
                             id: 1,
-                            name: "สามชั้น",
+                            name: "หมูสามชั้น",
                             image: "via.placeholder.com/90x90",
                             detail_service:
                                 "สั่งได้ครั้งละ 3 ออร์เดอร์เท่านั้น",
@@ -300,7 +300,7 @@ export default {
                         },
                         {
                             id: 2,
-                            name: "สามชั้น บาง",
+                            name: "หมูสามชั้น บาง",
                             image: "via.placeholder.com/90x90",
                             detail_service:
                                 "สั่งได้ครั้งละ 3 ออร์เดอร์เท่านั้น",

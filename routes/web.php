@@ -75,6 +75,8 @@ Route::get('/get_data', function () {
 Route::post('/insert_cart', [OrderController::class,'addToCart']);
 Route::post('/fetch_cart', [OrderController::class,'fetchCart']);
 Route::post('/confirm_cart', [OrderController::class,'confirm']);
+Route::post('/delete_order', [OrderController::class,'deleteOrderCart']);
+
 
 Route::get('/home', function () {
     return Inertia::render('HomePage');

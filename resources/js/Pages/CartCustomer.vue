@@ -34,7 +34,7 @@
                 </div>
             </div>
             <!-- List Menu -->
-            <div class="bg-white w-full p-4" v-if="list_product_cart == true">
+            <div class="bg-white w-full px-4" v-if="list_product_cart == true">
                 <form
                     @submit.prevent="updatestatus"
                     @input="form.errors.clear($event.target.name)"
@@ -46,29 +46,29 @@
                         class="relative flex border-b-2 py-4 border-gray-300 bg-white"
                     >
                         <img
-                            class="w-[80px] h-[90px] rounded-[10px]"
+                            class="w-[100px] h-[100px] rounded-[5px]"
                             src="https://via.placeholder.com/90x90"
                         />
                         <div class="px-2">
-                            <h2 class="text-lg text-gray-700 font-bold">
-                                {{ item.product_name }}
-                            </h2>
-                            <p class="text-sm px-2 text-gray-400">
-                                {{ item.product_comment }}
-                            </p>
-                            <p class="text-sm px-2 text-gray-400">
-                                ผู้สั่ง : {{ item.custom_name }}
-                            </p>
-                            <p class="text-sm px-2 text-gray-400">
-                                เวลา : {{ item.ordered_at }}
-                            </p>
-                            <p class="text-sm px-2 text-gray-400">
-                                สถานะ : {{ item.status }}
-                            </p>
+                            <div>
+                                <h2 class="text-lg text-gray-700 font-bold">
+                                    {{ item.product_name }}
+                                </h2>
+                                <p class="text-sm px-3 text-gray-400">
+                                    {{ item.product_comment }}
+                                </p>
+                                <p class="text-sm px-3 text-gray-400">
+                                    ผู้สั่ง : {{ item.custom_name }}
+                                </p>
+                                <p class="text-sm px-3 text-gray-400">
+                                    เวลา : {{ item.ordered_at }}
+                                </p>
+                                <p class="text-sm px-3 text-gray-400">
+                                    สถานะ : {{ item.status }}
+                                </p>
+                            </div>
                             <!-- Edie Comment -->
-                            <div
-                                class="absolute flex text-sm text-blue-400 bottom-2"
-                            >
+                            <div class="flex text-sm text-blue-400 mt-3">
                                 <button
                                     type="button"
                                     @click="openselectedItem(item.product_name)"
@@ -78,13 +78,15 @@
                             </div>
                         </div>
                         <!-- Remove Item Cart -->
-                        <img
-                            class="absolute top-5 right-0"
-                            src="../../imgs/trash.svg"
-                        />
+                        <button type="button" @click="delect(item.id)">
+                            <img
+                                class="absolute top-5 right-0"
+                                src="../../imgs/trash.svg"
+                            />
+                        </button>
                         <!-- Increase and Decrease Item Cart -->
                         <div
-                            class="flex absolute right-0 bottom-2 items-center gap-3"
+                            class="flex absolute right-0 bottom-3 items-center gap-3"
                         >
                             <button
                                 type="button"
@@ -141,7 +143,7 @@
             <div>
                 <ListMenuModal v-if="isListMenuModalOpen != false">
                     <form
-                        @submit.prevent=""
+                        @submit.prevent="editcomment"
                         @input="form.errors.clear($event.target.name)"
                         enctype="multipart/form-data"
                     >
@@ -172,7 +174,7 @@
                                 rows="4"
                                 class="w-full mt-2 border-2 border-gray-300 rounded-lg text-gray-600 text-sm focus:ring-gray-300 focus:border-gray-300"
                                 placeholder="ตัวอย่าง ไม่ใส่กุ้ง"
-                                v-model="items.product_comment"
+                                v-model="product_comment"
                             ></textarea>
                         </div>
                         <div class="flex flex-row-reverse mt-6">
@@ -206,8 +208,10 @@ export default {
             selectedItem: null,
             list_product_cart: false,
             submit_order: false,
+            product_comment:'',
             items: [
                 {
+                    id: "",
                     product_name: "",
                     bill_id: "",
                     product_count: "",
@@ -238,6 +242,7 @@ export default {
         openselectedItem(item) {
             this.isListMenuModalOpen = true;
             this.items.product_name = item;
+
         },
         fetch_cart() {
             const formData = new FormData();
@@ -247,9 +252,7 @@ export default {
             axios
                 .post("/fetch_cart", formData)
                 .then((response) => {
-                    // console.log(response);
                     if (response.data != "") {
-                        // console.log(response.data);
                         this.items = response.data;
                         this.list_product_cart = true;
                         console.log(this.items);
@@ -261,13 +264,17 @@ export default {
                     console.log(error);
                 });
         },
+        editcomment(){
+            this.items.product_comment = this.product_comment;
+            this.isListMenuModalOpen = false;
+            console.log(this.items.product_comment)
+        },
         updatestatus() {
-            // this.receivedId
-            console.log(this.receivedId);
-            console.log("On");
 
             const formData = new FormData();
             formData.append("table_id", this.receivedId);
+            formData.append("amount", this.product_count);
+            formData.append("comment", this.product_comment);
 
             axios
                 .post("/confirm_cart", formData)
@@ -279,8 +286,8 @@ export default {
                         this.submit_order = true;
                         setTimeout(() => {
                             this.submit_order = false;
-                            location.reload(true);
-                        }, 4000);
+                            this.fetch_cart();
+                        }, 1000);
                     } else {
                         alert("error");
                     }
@@ -289,6 +296,25 @@ export default {
                     console.log(error);
                 });
         },
+        delect(item) {
+
+            const formData = new FormData();
+            formData.append("id", item);
+
+            axios
+                .post("/delete_order", formData)
+                .then((response) => {
+                    console.log(response);
+                    if (response.data == "success") {
+                        console.log(response.data);
+                        this.fetch_cart();
+                    } else {
+                    }
+                })
+                .catch((error) => {
+                    console.log(error);
+                });
+        }
     },
     mounted() {
         this.fetch_cart();
