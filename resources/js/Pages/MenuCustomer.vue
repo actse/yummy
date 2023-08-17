@@ -42,14 +42,21 @@
                     />
                 </div>
                 <div class="relative bg-orange-100 p-2 rounded-full shadow-lg">
-                    <Link :href="'cart_customer?id=' + receivedId"
+                    <Link
+                        v-if="insert == true"
+                        :href="'cart_customer?id=' + receivedId"
                         ><img class="w-7 h-7" src="../../imgs/cart.png"
                     /></Link>
-                    <div
+                    <Link
+                        v-if="insert == false"
+                        :href="'cart_customer?id=' + receivedId"
+                        ><img
+                            class="animate-bounce w-7 h-7"
+                            src="../../imgs/cart.png"
+                    /></Link>
+                    <!-- <div
                         class="flex absolute w-5 h-5 right-0 top-7 rounded-full bg-orange-300 justify-center items-center font-bold text-white shadow-md"
-                    >
-                        <p>1</p>
-                    </div>
+                    ></div> -->
                 </div>
             </div>
             <!--Type Menu -->
@@ -244,7 +251,6 @@
                     </form>
                 </ListMenuModal>
             </div>
-
         </div>
     </div>
 </template>
@@ -277,7 +283,7 @@ export default {
             comments: "",
             status: 0,
             check_menu: false,
-
+            insert: true,
             type_menu: [
                 {
                     type_menuId: "1",
@@ -401,20 +407,7 @@ export default {
             console.log(this.isListMenuModalOpen);
         },
         addtocart() {
-            let fromdata = new FormData();
 
-            if ((this.key_code = 1)) {
-                this.key_name = "A";
-            }
-            if ((this.key_code = 2)) {
-                this.key_name = "B";
-            }
-            if ((this.key_code = 3)) {
-                this.key_name = "C";
-            }
-            if ((this.key_code = 4)) {
-                this.key_name = "D";
-            }
 
             const formData = new FormData();
             formData.append("table_id", this.receivedId);
@@ -431,9 +424,14 @@ export default {
                     console.log(response);
                     if (response.data == "success") {
                         console.log(response.data);
-                        alert('success');
+                        alert("success");
+                        this.insert = false;
+                        setTimeout(() => {
+                            this.insert = true;
+                        }, 6000);
+
                     } else {
-                        alert('error');
+                        alert("error");
                     }
                 })
                 .catch((error) => {

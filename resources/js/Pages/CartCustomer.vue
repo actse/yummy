@@ -34,7 +34,7 @@
                 </div>
             </div>
             <!-- List Menu -->
-            <div class="bg-white w-full p-4">
+            <div class="bg-white w-full p-4" v-if="list_product_cart == true">
                 <form
                     @submit.prevent="updatestatus"
                     @input="form.errors.clear($event.target.name)"
@@ -110,6 +110,7 @@
                         </div>
                     </div>
                     <div
+                        v-if="submit_order == false"
                         class="max-w-md mx-auto w-full h-20 py-4 bottom-0 bg-white text-center border-t-2 border-gray-300"
                     >
                         <button
@@ -117,6 +118,20 @@
                             type="submit"
                         >
                             สั่ง {{ items.length ?? "0" }} รายการ
+                        </button>
+                    </div>
+                    <div
+                        v-if="submit_order == true"
+                        class="max-w-md mx-auto w-full h-20 py-4 bottom-0 bg-white text-center border-t-2 border-gray-300"
+                    >
+                        <button
+                            class="bg-orange-400 w-52 h-11 rounded-full shadow-md text-white hover:bg-orange-500"
+                            type="submit"
+                        >
+                            <svg
+                                class="animate-spin h-5 w-5 mr-3"
+                                viewBox="0 0 24 24"
+                            ></svg>
                         </button>
                     </div>
                 </form>
@@ -189,6 +204,8 @@ export default {
             receivedId: id,
             isListMenuModalOpen: false,
             selectedItem: null,
+            list_product_cart: false,
+            submit_order: false,
             items: [
                 {
                     product_name: "",
@@ -234,10 +251,10 @@ export default {
                     if (response.data != "") {
                         // console.log(response.data);
                         this.items = response.data;
-
+                        this.list_product_cart = true;
                         console.log(this.items);
                     } else {
-                        alert("error");
+                        this.list_product_cart = false;
                     }
                 })
                 .catch((error) => {
@@ -259,6 +276,11 @@ export default {
                     if (response.data == "success") {
                         console.log(response.data);
                         alert("success");
+                        this.submit_order = true;
+                        setTimeout(() => {
+                            this.submit_order = false;
+                            location.reload(true);
+                        }, 4000);
                     } else {
                         alert("error");
                     }
@@ -267,7 +289,6 @@ export default {
                     console.log(error);
                 });
         },
-
     },
     mounted() {
         this.fetch_cart();
