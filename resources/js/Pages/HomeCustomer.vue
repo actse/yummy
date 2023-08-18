@@ -81,7 +81,7 @@
                         >
                             <!-- <router-link to="/history_customer"><img class="w-[80px] h-[80px]" src="../../imgs/icons8-list-64.png"></router-link> -->
                             <!-- <a href="history_customer"><img class="w-[80px] h-[80px]" src="../../imgs/icons8-list-64.png"></a> -->
-                            <Link href="history_customer"
+                            <Link :href="'history_customer?id=' + receivedId"
                                 ><img
                                     class="w-[80px] h-[80px]"
                                     src="../../imgs/icons8-list-64.png"
@@ -95,7 +95,8 @@
 
                         <div
                             class="flex flex-col items-center p-4 shadow-md rounded-lg"
-                        ><Link href="service_customer"
+                        >
+                            <Link href="service_customer"
                                 ><img
                                     class="w-[80px] h-[80px]"
                                     src="../../imgs/icons8-waiter-64.png"
@@ -103,8 +104,12 @@
                             <span class="mt-1">เรียกพนักงาน</span>
                         </div>
                     </div>
-                    <Link type="button" :href="'menu_customer?id=' + id" class="relative"
-                        ><span class="text-xl text-white font-bold relative flex text-center items-center justify-center p-4 m-5 rounded-full bg-gradient-to-r from-amber-200 via-orange-300 to-orange-400 shadow-gray-300 shadow-md"
+                    <Link
+                        type="button"
+                        :href="'menu_customer?id=' + id"
+                        class="relative"
+                        ><span
+                            class="text-xl text-white font-bold relative flex text-center items-center justify-center p-4 m-5 rounded-full bg-gradient-to-r from-amber-200 via-orange-300 to-orange-400 shadow-gray-300 shadow-md"
                             >สั่งอาหาร</span
                         ><img
                             class="absolute right-8 top-8"
@@ -146,7 +151,10 @@ let data = reactive({});
 <script>
 export default {
     data() {
+        const urlParams = new URLSearchParams(window.location.search);
+        const id = urlParams.get("id");
         return {
+            receivedId: id,
             id: "1",
             shop_id: "1001",
             staff_id: "1100111011101",
@@ -160,9 +168,7 @@ export default {
             registered_at: "2023-08-11 18:44:30",
         };
     },
-    methods: {
-
-  },
+    methods: {},
 };
 </script>
 

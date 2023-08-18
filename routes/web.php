@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\OrderController;
+use App\Http\Controllers\ConfigController;
 use App\Http\Controllers\ProfileController;
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
@@ -59,6 +60,10 @@ Route::get('/home_staff', function () {
 Route::get('/manage_table_staff', function () {
     return Inertia::render('ManageTableStaff');
 });
+
+Route::get('/create_product', function () {
+    return Inertia::render('CreateProduct');
+});
 //=========================safe page==================================
 Route::get('/home_safe', function () {
     return Inertia::render('HomeSafe');
@@ -76,6 +81,12 @@ Route::post('/insert_cart', [OrderController::class,'addToCart']);
 Route::post('/fetch_cart', [OrderController::class,'fetchCart']);
 Route::post('/confirm_cart', [OrderController::class,'confirm']);
 Route::post('/delete_order', [OrderController::class,'deleteOrderCart']);
+Route::post('/fetch_order_history', [OrderController::class,'fetchConfirmStatus']);
+
+Route::post('/create_product', [ConfigController::class,'addNewProduct']);
+Route::post('/create_type_producttopackage', [ConfigController::class,'addNewTypProduct']);
+Route::post('/create_package', [ConfigController::class,'addNewPackage']);
+Route::get('/fetch_package', [ConfigController::class,'fetchPackage']);
 
 
 Route::get('/home', function () {

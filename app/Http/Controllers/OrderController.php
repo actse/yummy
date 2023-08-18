@@ -32,6 +32,8 @@ class OrderController extends Controller
             'accepted_at' => $date_stamp,
             'finished_at' => $date_stamp,
             'status' => $status,
+            'created_at' => $date_stamp,
+            'updated_at' => $date_stamp,
 
         ]);
 
@@ -47,7 +49,63 @@ class OrderController extends Controller
 
         $table_id = $request->input('table_id');
 
-        $cartProducts = Orders::where('bill_id', '=', $table_id)->where('status', '=', '0')->get();
+        return Orders::where('bill_id', '=', $table_id)->where('status', '=', '0')->get();
+
+    }
+
+    function confirm(Request $request)
+    {
+        date_default_timezone_set('Asia/Bangkok');
+
+        $table_id = $request->input('table_id');
+        // $amount = $request->input('amount');
+        // $comment = $request->input('comment');
+
+        $date_stamp = date('y-m-d h:i:s');
+
+        $isUpdateSuccess = Orders::where('bill_id','=', $table_id)->update([
+            // 'product_count' => $amount,
+            // 'product_comment' => $comment,
+            'ordered_at' => $date_stamp,
+            'accepted_at' => $date_stamp,
+            'finished_at' => $date_stamp,
+            'status' => 'cooking',
+            'created_at' => $date_stamp,
+            'updated_at' => $date_stamp,
+        ]);
+
+        if ($isUpdateSuccess != '') {
+            return 'success';
+        } else {
+            echo 'Fail';
+        }
+
+    }
+
+    function deleteOrderCart(Request $request)
+    {
+        date_default_timezone_set('Asia/Bangkok');
+
+        $id = $request->input('id');
+
+        $isDeleteSuccess = Orders::where('id','=', $id)->delete([
+        ]);
+
+        if ($isDeleteSuccess != '') {
+            return 'success';
+        } else {
+            echo 'Fail';
+        }
+    }
+
+    function fetchConfirmStatus(Request $request)
+    {
+
+        $table_id = $request->input('table_id');
+
+        // $table_id = '1';
+
+        $cartProducts = Orders::where('bill_id', '=', $table_id)->where('status', '!=', '0')->get();
 
         $cartProducts_list = [];
 
@@ -76,53 +134,5 @@ class OrderController extends Controller
         } else {
             echo 'fail';
         }
-    }
-
-    function confirm(Request $request)
-    {
-        date_default_timezone_set('Asia/Bangkok');
-
-        $table_id = $request->input('table_id');
-        $amount = $request->input('amount');
-        $comment = $request->input('comment');
-
-        $date_stamp = date('y-m-d h:i:s');
-
-        $isUpdateSuccess = Orders::where('bill_id','=', $table_id)->update([
-            'product_count' => $amount,
-            'product_comment' => $comment,
-            'ordered_at' => $date_stamp,
-            'accepted_at' => $date_stamp,
-            'finished_at' => $date_stamp,
-            'status' => 'cooking',
-        ]);
-
-        if ($isUpdateSuccess != '') {
-            return 'success';
-        } else {
-            echo 'Fail';
-        }
-
-    }
-
-    function deleteOrderCart(Request $request)
-    {
-        date_default_timezone_set('Asia/Bangkok');
-
-        $id = $request->input('id');
-        $date_stamp = date('y-m-d h:i:s');
-
-        $isDeleteSuccess = Orders::where('id','=', $id)->delete([
-        ]);
-
-        if ($isDeleteSuccess != '') {
-            return 'success';
-        } else {
-            echo 'Fail';
-        }
-    }
-
-    function fetchConfirmStatus()
-    {
     }
 }

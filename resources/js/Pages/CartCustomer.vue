@@ -1,6 +1,6 @@
 <template>
-    <div class="w-full min-h-screen relative">
-        <div class="relative max-w-md mx-auto h-screen bg-white border">
+    <div class="w-full h-screen relative">
+        <div class="relative max-w-md mx-auto h-full bg-white border-2">
             <!--Header-->
             <header class="relative">
                 <img
@@ -34,7 +34,7 @@
                 </div>
             </div>
             <!-- List Menu -->
-            <div class="bg-white w-full px-4" v-if="list_product_cart == true">
+            <div class="bg-white w-full h-full px-4" v-if="list_product_cart == true">
                 <form
                     @submit.prevent="updatestatus"
                     @input="form.errors.clear($event.target.name)"
@@ -78,7 +78,7 @@
                             </div>
                         </div>
                         <!-- Remove Item Cart -->
-                        <button type="button" @click="delect(item.id)">
+                        <button type="button" @click="deleted(item.id)">
                             <img
                                 class="absolute top-5 right-0"
                                 src="../../imgs/trash.svg"
@@ -97,9 +97,7 @@
                                     alt="Decrease"
                                 />
                             </button>
-                            <span class="font-bold text-gray-600">{{
-                                item.product_count
-                            }}</span>
+                            <div class="font-bold text-gray-600" v-text="item.product_count"></div>
                             <button
                                 type="button"
                                 @click="increaseQuantity(index)"
@@ -112,7 +110,7 @@
                         </div>
                     </div>
                     <div
-                        v-if="submit_order == false"
+
                         class="max-w-md mx-auto w-full h-20 py-4 bottom-0 bg-white text-center border-t-2 border-gray-300"
                     >
                         <button
@@ -120,20 +118,6 @@
                             type="submit"
                         >
                             สั่ง {{ items.length ?? "0" }} รายการ
-                        </button>
-                    </div>
-                    <div
-                        v-if="submit_order == true"
-                        class="max-w-md mx-auto w-full h-20 py-4 bottom-0 bg-white text-center border-t-2 border-gray-300"
-                    >
-                        <button
-                            class="bg-orange-400 w-52 h-11 rounded-full shadow-md text-white hover:bg-orange-500"
-                            type="submit"
-                        >
-                            <svg
-                                class="animate-spin h-5 w-5 mr-3"
-                                viewBox="0 0 24 24"
-                            ></svg>
                         </button>
                     </div>
                 </form>
@@ -208,20 +192,21 @@ export default {
             selectedItem: null,
             list_product_cart: false,
             submit_order: false,
-            product_comment:'',
+            amount:'',
+            comment:'',
             items: [
-                {
-                    id: "",
-                    product_name: "",
-                    bill_id: "",
-                    product_count: "",
-                    product_comment: "",
-                    custom_name: "",
-                    ordered_at: "",
-                    accepted_at: "",
-                    finished_at: "",
-                    status: "",
-                },
+                // {
+                //     id: "",
+                //     product_name: "",
+                //     bill_id: "",
+                //     product_count: "",
+                //     product_comment: "",
+                //     custom_name: "",
+                //     ordered_at: "",
+                //     accepted_at: "",
+                //     finished_at: "",
+                //     status: "",
+                // },
             ],
         };
     },
@@ -252,11 +237,16 @@ export default {
             axios
                 .post("/fetch_cart", formData)
                 .then((response) => {
+
+                    console.log(response.data);
+                    // this.list_product_cart = true;
+
                     if (response.data != "") {
                         this.items = response.data;
                         this.list_product_cart = true;
                         console.log(this.items);
                     } else {
+
                         this.list_product_cart = false;
                     }
                 })
@@ -273,9 +263,7 @@ export default {
 
             const formData = new FormData();
             formData.append("table_id", this.receivedId);
-            formData.append("amount", this.product_count);
-            formData.append("comment", this.product_comment);
-
+            console.log(this.receivedId)
             axios
                 .post("/confirm_cart", formData)
                 .then((response) => {
@@ -296,7 +284,7 @@ export default {
                     console.log(error);
                 });
         },
-        delect(item) {
+        deleted(item) {
 
             const formData = new FormData();
             formData.append("id", item);

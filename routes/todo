@@ -1,0 +1,22 @@
+create create_product.vue
+
+    หน้าเพิ่มรายการสินค้า
+    หน้าเพิ่มกลุ่มสินค้า
+    หน้าเพิ่มรายการเพจเก็จ
+    หน้าเพิ่มรายการเพขเก็จรอง
+
+สร้างโครงหน้า
+
+    - input , select box , check box
+
+        input - product name
+        input - product image
+        input - product price
+        input - product detail
+
+        select,check box - type_product id,name,detail
+        select - package id,name,price
+        select - package_se id,name,price
+
+    - insert database
+    - create table tack_product

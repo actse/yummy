@@ -14,7 +14,6 @@ return new class extends Migration
         Schema::create('type_product', function (Blueprint $table) {
             $table->id();
             $table->string('type_product_name');
-            $table->string('package_id');
             $table->timestamps();
         });
     }

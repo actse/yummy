@@ -14,6 +14,8 @@ return new class extends Migration
         Schema::create('package', function (Blueprint $table) {
             $table->id();
             $table->string('package_name');
+            $table->integer('package_price');
+            $table->string('type_product_id')->nullable();
             $table->timestamps();
         });
     }
