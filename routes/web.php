@@ -68,6 +68,11 @@ Route::get('/create_product', function () {
 Route::get('/home_safe', function () {
     return Inertia::render('HomeSafe');
 });
+//=========================owner page==================================
+Route::get('/list_product', function () {
+    return Inertia::render('ListProduct');
+});
+
 
 Route::get('/get_data', function () {
     return [
