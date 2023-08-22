@@ -7,19 +7,20 @@ use App\Models\Product;
 use App\Models\Package;
 use App\Models\Package_secondary;
 use App\Models\Type_product;
+use Illuminate\Support\Facades\Storage;
 
 class ConfigController extends Controller
 {
     function addNewProduct(Request $request)
     {
-
         $product_name = $request->input('product_name');
-        $product_image = $request->input('product_image');
         $product_detail = $request->input('product_detail');
         $product_price = $request->input('product_price');
         $type_product_id = $request->input('type_product_id');
-
+        $product_image = $request->input('product_image');
         $date_stamp = date('y-m-d h:i:s');
+
+        // $product_image_url = Storage::url($product_image->store('product_images', 'public'));
 
         return Product::insert([
             'product_name' => $product_name,
@@ -31,6 +32,7 @@ class ConfigController extends Controller
             'updated_at' => $date_stamp,
         ]);
     }
+
     function addTypeProductidtoPackage(Request $request)
     {
         $package_id = $request->input('main_package_id');
