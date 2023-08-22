@@ -49,7 +49,7 @@
                         </tbody>
                     </table>
 
-                    <ProductDetailsModal v-if="isModalOpen">
+                    <MenuModal v-if="isModalOpen">
                       <div class="relative text-gray-800 font-bold border-b-2 border-gray-300">
                         <h1>แก้ไขรายการอาหาร</h1>
                         <button>
@@ -173,7 +173,7 @@
                               </div>
                           </form>
                       </div>
-                    </ProductDetailsModal>
+                    </MenuModal>
                 </div>
             </div>
     </div>
@@ -182,10 +182,10 @@
   </template>
   
   <script>
-  import ProductDetailsModal from '@/components/ProductDetailsModal.vue';
+  import MenuModal from '@/components/MenuModal.vue';
   export default {
     components: {
-      ProductDetailsModal,
+        MenuModal,
     },
     data() {
       return {
