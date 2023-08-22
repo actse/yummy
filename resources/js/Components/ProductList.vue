@@ -1,11 +1,11 @@
 <template>
     <div>
       <!--List Product-->
-      <div class="w-11/12 mx-auto p-5 mt-5 rounded-md bg-white">
+      <div class="w-11/12 mx-auto p-2 mt-5 rounded-md bg-white">
                 <div class="flex justify-between">
                   
-                  <input v-model="searchName" placeholder="Search name..." class="rounded-full"/>
-                  <select v-model="searchType" class="text-gray-600 rounded-lg">
+                  <input v-model="searchName" placeholder="Search name..." class="rounded-full h-9 w-40"/>
+                  <select v-model="searchType" class="h-9 text-gray-600 rounded-lg ">
                     <option value="">ทุกประเภท</option>
                     <option value="อาหาร">อาหาร</option>
                     <option value="เครื่องดื่ม">เครื่องดื่ม</option>
@@ -19,9 +19,9 @@
                   </select>
                 </div>
                 <div class="mt-4">
-                    <table>
-                        <thead>
-                            <tr class="text-sm text-center">
+                    <table class="w-full text-center">
+                        <thead class="h-10 bg-gray-200 text-sm text-gray-700">
+                            <tr>
                                 <td>no.</td>
                                 <td>รูป</td>
                                 <td>ชื่อสินค้า</td>
@@ -31,7 +31,7 @@
                                 <td>จัดการสินค้า</td>
                             </tr>
                         </thead>
-                        <tbody class="text-xs text-center">
+                        <tbody class="text-xs text-gray-500">
                             <tr v-for="(products) in filteredProducts" :key="products.id">
                                 <td>{{ products.id}}</td>
                                 <td>
@@ -205,17 +205,17 @@
         type_product_name: "",
         selectedTypeProduct: "",
         products: [
-          { id: 1,product_image:"", product_name: "ผลิตภัณฑ์ 1",product_detail:"", type_product_id: "อาหาร",product_price:30 },
-          { id: 2,product_image:"", product_name: "ผลิตภัณฑ์ 2",product_detail:"", type_product_id: "เครื่องดื่ม",product_price:29 },
-          { id: 3,product_image:"", product_name: "ผลิตภัณฑ์ 3",product_detail:"", type_product_id: "อาหาร",product_price:29 },
-          { id: 4,product_image:"", product_name: "ผลิตภัณฑ์ 4",product_detail:"", type_product_id: "เนื้อ",product_price:29 },
-          { id: 5,product_image:"", product_name: "ผลิตภัณฑ์ 5",product_detail:"", type_product_id: "หมู",product_price:29 },
-          { id: 6,product_image:"", product_name: "ผลิตภัณฑ์ 6",product_detail:"", type_product_id: "ผัก",product_price:29 },
-          { id: 7,product_image:"", product_name: "ผลิตภัณฑ์ 7",product_detail:"", type_product_id: "ของหวาน",product_price:29 },
-          { id: 8,product_image:"", product_name: "ผลิตภัณฑ์ 8",product_detail:"", type_product_id: "ทะเล",product_price:29 },
-          { id: 9,product_image:"", product_name: "ผลิตภัณฑ์ 9",product_detail:"", type_product_id: "ทะเล",product_price:29 },
-          { id: 10,product_image:"", product_name: "ผลิตภัณฑ์ 10",product_detail:"", type_product_id: "หมู",product_price:29 },
-          { id: 11,product_image:"", product_name: "ผลิตภัณฑ์ 11",product_detail:"", type_product_id: "หมู",product_price:29 },
+          { id: 1,product_image:"", product_name: "หมูต้ม",product_detail:"", type_product_id: "อาหาร",product_price:30 },
+          { id: 2,product_image:"", product_name: "นม",product_detail:"", type_product_id: "เครื่องดื่ม",product_price:29 },
+          { id: 3,product_image:"", product_name: "หมูทอด",product_detail:"", type_product_id: "อาหาร",product_price:29 },
+          { id: 4,product_image:"", product_name: "โคขุน",product_detail:"", type_product_id: "เนื้อ",product_price:29 },
+          { id: 5,product_image:"", product_name: "หมูดำ",product_detail:"", type_product_id: "หมู",product_price:29 },
+          { id: 6,product_image:"", product_name: "ผักกาด",product_detail:"", type_product_id: "ผัก",product_price:29 },
+          { id: 7,product_image:"", product_name: "ไอติม",product_detail:"", type_product_id: "ของหวาน",product_price:29 },
+          { id: 8,product_image:"", product_name: "กุ้ง",product_detail:"", type_product_id: "ทะเล",product_price:29 },
+          { id: 9,product_image:"", product_name: "ปลาหมึก",product_detail:"", type_product_id: "ทะเล",product_price:29 },
+          { id: 10,product_image:"", product_name: "หมูสามชั้น",product_detail:"", type_product_id: "หมู",product_price:29 },
+          { id: 11,product_image:"", product_name: "สันคอ",product_detail:"", type_product_id: "หมู",product_price:29 },
          
         ],
         searchName: "",

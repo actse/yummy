@@ -90,25 +90,17 @@
                     </div>
                     <div class="flex flex-wrap -mx-3 mb-3">
                         <div class="w-full px-3">
-                            <label class="block">
-                                <span
-                                    class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2"
-                                    >เพิ่มไฟล์รูปภาพ</span
-                                >
-                                <input
-                                    type="file"
-                                    @change="loadFile($event)"
-                                    class="block w-full text-sm my-2 text-slate-500 file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-1 file:border-gray-500 file:text-sm file:font-semibold file:bg-gray-50 file:text-gray-700 hover:file:bg-gray-100"
-                                />
+                            <label
+                                class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2"
+                                for="grid-file"
+                            >
+                                File image (รูปภาพสินค้า)
                             </label>
-                            <div class="shrink-0">
-                                <img
-                                    id="preview_img"
-                                    class="mt-5 h-auto w-full object-cover rounded-lg"
-                                    :src="product_image"
-                                    alt=""
-                                />
-                            </div>
+                            <input
+                                class="appearance-none mt-2 block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
+                                id="grid-file"
+                                type="file"
+                            />
                         </div>
                     </div>
                     <div class="w-full md:w-2/3 mb-3 md:mb-0">
@@ -164,6 +156,7 @@
             <div class="bg-white w-full px-4 border-t-2 pt-3">
                 <form
                     @submit.prevent="addtypeproducttopackage"
+                    @input="form.errors.clear($event.target.name)"
                     enctype="multipart/form-data"
                     class="w-full max-w-lg"
                 >
@@ -256,6 +249,7 @@
             <div class="bg-white w-full px-4 border-t-2 pt-3">
                 <form
                     @submit.prevent="addtnewpackagemain"
+                    @input="form.errors.clear($event.target.name)"
                     enctype="multipart/form-data"
                     class="w-full max-w-lg"
                 >
@@ -311,6 +305,7 @@
             <div class="bg-white w-full px-4 border-t-2 pt-3">
                 <form
                     @submit.prevent="addtnewtypeproduct"
+                    @input="form.errors.clear($event.target.name)"
                     enctype="multipart/form-data"
                     class="w-full max-w-lg"
                 >
@@ -368,8 +363,7 @@ export default {
     data() {
         return {
             product_name: "",
-            product_image: "",
-            product_image_file: "",
+            product_image: "../resources/imgs/pig.jpg",
             product_detail: "",
             product_price: "",
             type_product_id: "",
@@ -390,13 +384,19 @@ export default {
         create_product() {
             const formData = new FormData();
 
-            // this.product_image_file = '../../imgs/' + this.product_image_file;
-
             formData.append("product_name", this.product_name);
-            formData.append("product_image", this.product_image_file);
+            formData.append("product_image", this.product_image);
             formData.append("product_detail", this.product_detail);
             formData.append("product_price", this.product_price);
             formData.append("type_product_id", this.type_product_id);
+
+            // console.log(this.product_name);
+            // console.log(this.product_image);
+            // console.log(this.product_detail);
+            // console.log(this.product_price);
+            // console.log(this.type_product_id);
+
+            return;
 
             axios
                 .post("/create_product", formData)
@@ -436,16 +436,6 @@ export default {
                 this.selectedTypes = [];
             }
         },
-        loadFile(event) {
-            const input = event.target.files[0];
-            const output = document.getElementById("preview_img");
-            this.product_image_file = input.name;
-
-            this.product_image = URL.createObjectURL(input);
-            output.onload = function () {
-                URL.revokeObjectURL(this.product_image);
-            };
-        },
         handleCheckboxChange(id) {
             if (!this.selectedTypes.includes(id)) {
                 this.selectedTypes.push(id);
@@ -459,7 +449,7 @@ export default {
             console.log(this.package_name);
             console.log(this.package_price);
 
-            // return;
+            return;
 
             axios
                 .post("/create_package", formData)
@@ -478,7 +468,7 @@ export default {
 
             console.log(this.type_product_name);
 
-            // return;
+            return;
 
             axios
                 .post("/create_type_product", formData)
@@ -517,22 +507,10 @@ export default {
                     console.log(error);
                 });
         },
-        fetch_product() {
-            axios
-                .get("/fetch_product")
-                .then((response) => {
-                    console.log(response.data);
-                })
-                .catch((error) => {
-                    console.log(error);
-                });
-        },
     },
     mounted() {
         this.fetch_package_main();
         this.fetch_type_product();
-        this.fetch_product();
     },
 };
 </script>
-<style></style>
