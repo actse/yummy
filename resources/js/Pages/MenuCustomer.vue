@@ -77,9 +77,9 @@
 
             <!-- List Menu -->
             <div class="bg-white p-4">
-                <div v-for="(type_menus, index) in type_menu" :key="index">
+                <div v-for="(type_menus, index) in type_menus" :key="index">
                     <h1 class="text-2xl bg-white py-2">
-                        {{ type_menus.type_menu_name }}
+                        {{ type_menus.type_product_name }}
                     </h1>
                     <!-- open the modal on click menu-->
                     <div
@@ -94,10 +94,10 @@
                         />
                         <div class="px-2">
                             <h2 class="text-lg text-gray-700 font-bold">
-                                {{ product.name }}
+                                {{ product.product_name }}
                             </h2>
                             <p class="text-sm text-gray-400">
-                                {{ product.detail_service }}
+                                {{ product.product_detail }}
                             </p>
                         </div>
                     </div>
@@ -129,7 +129,7 @@
                     <!-- List Type Menu -->
                     <ul class="w-full">
                         <li
-                            v-for="(type_menus, index) in type_menu"
+                            v-for="(type_menus, index) in type_menus"
                             :key="index"
                             @click="isModalOpen = true"
                         >
@@ -148,7 +148,7 @@
                             >
                                 <div class="block">
                                     <div class="w-full text-sm font-semibold">
-                                        {{ type_menus.type_menu_name }}
+                                        {{ type_menus.type_product_name }}
                                     </div>
                                 </div>
                                 <div>
@@ -284,90 +284,7 @@ export default {
             status: 0,
             check_menu: false,
             insert: true,
-            type_menu: [
-                {
-                    type_menuId: "1",
-                    type_menu_name: "เนื้อหมู (pork)",
-                    products: [
-                        {
-                            id: 1,
-                            name: "หมูสามชั้น",
-                            image: "via.placeholder.com/90x90",
-                            detail_service:
-                                "สั่งได้ครั้งละ 3 ออร์เดอร์เท่านั้น",
-                            quantity: 1,
-                            statu: "0",
-                        },
-                        {
-                            id: 2,
-                            name: "หมูสามชั้น บาง",
-                            image: "via.placeholder.com/90x90",
-                            detail_service:
-                                "สั่งได้ครั้งละ 3 ออร์เดอร์เท่านั้น",
-                            quantity: 1,
-                            statu: "0",
-                        },
-                        {
-                            id: 3,
-                            name: "สันคอ สไลค์",
-                            image: "via.placeholder.com/90x90",
-                            detail_service:
-                                "สั่งได้ครั้งละ 3 ออร์เดอร์เท่านั้น",
-                            quantity: 1,
-                            statu: "0",
-                        },
-                        {
-                            id: 4,
-                            name: "สันคอหมักนุ่ม",
-                            image: "via.placeholder.com/90x90",
-                            detail_service:
-                                "สั่งได้ครั้งละ 3 ออร์เดอร์เท่านั้น",
-                            quantity: 1,
-                            statu: "0",
-                        },
-                        {
-                            id: 5,
-                            name: "สันคอพริกไทยดำ",
-                            image: "via.placeholder.com/90x90",
-                            detail_service:
-                                "สั่งได้ครั้งละ 3 ออร์เดอร์เท่านั้น",
-                            quantity: 1,
-                            statu: "0",
-                        },
-                    ],
-                },
-                {
-                    type_menuId: "2",
-                    type_menu_name: "ผัก",
-                    products: [
-                        {
-                            id: 6,
-                            name: "เห็ดเข็มทอง",
-                            image: "via.placeholder.com/90x90",
-                            detail_service: "",
-                            quantity: 1,
-                            statu: "0",
-                        },
-                        {
-                            id: 7,
-                            name: "ชุดผักรวม",
-                            image: "via.placeholder.com/90x90",
-                            detail_service: "",
-                            quantity: 1,
-                            statu: "0",
-                        },
-                        {
-                            id: 8,
-                            name: "ผักกาดขาว",
-                            image: "via.placeholder.com/90x90",
-                            detail_service: "",
-                            quantity: 1,
-                            statu: "0",
-                        },
-                    ],
-                },
-                // ... ข้อมูลอื่น ๆ
-            ],
+            type_menus: [],
         };
     },
     methods: {
@@ -388,16 +305,15 @@ export default {
         },
         openListMenuModal(productId) {
             this.isListMenuModalOpen = true;
-            //   this.id = productId;
 
-            for (let i = 0; i < this.type_menu.length; i++) {
-                for (let j = 0; j < this.type_menu[i].products.length; j++) {
-                    if (productId === this.type_menu[i].products[j].id) {
+            for (const typeMenu of Object.values(this.type_menus)) {
+                for (const product of typeMenu.products) {
+                    if (productId === product.id) {
                         this.id = productId;
-                        this.title_name = this.type_menu[i].products[j].name;
-                        this.image = this.type_menu[i].products[j].image;
+                        this.title_name = product.product_name;
+                        this.image = product.product_image;
                         this.isListMenuModalOpen = true;
-                        break;
+                        return;
                     }
                 }
             }
@@ -407,8 +323,6 @@ export default {
             console.log(this.isListMenuModalOpen);
         },
         addtocart() {
-
-
             const formData = new FormData();
             formData.append("table_id", this.receivedId);
             formData.append("key_name", "3");
@@ -421,7 +335,7 @@ export default {
             axios
                 .post("/insert_cart", formData)
                 .then((response) => {
-                    console.log(response);
+                    // console.log(response);
                     if (response.data == "success") {
                         console.log(response.data);
                         alert("success");
@@ -429,7 +343,6 @@ export default {
                         setTimeout(() => {
                             this.insert = true;
                         }, 6000);
-
                     } else {
                         alert("error");
                     }
@@ -453,6 +366,19 @@ export default {
             this.status = 0;
             this.isListMenuModalOpen = false;
         },
+        fetch_menu() {
+            axios
+                .get("/list_menu")
+                .then((response) => {
+                    this.type_menus = response.data;
+                })
+                .catch((error) => {
+                    console.log(error);
+                });
+        },
+    },
+    mounted() {
+        this.fetch_menu();
     },
 };
 </script>

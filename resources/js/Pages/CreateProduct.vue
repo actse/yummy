@@ -416,8 +416,6 @@ export default {
             // console.log(this.selectedPackage);
             // console.log(this.selectedTypes);
 
-            return;
-
             axios
                 .post("/create_type_producttopackage", formData)
                 .then((response) => {

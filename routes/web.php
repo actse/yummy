@@ -7,6 +7,8 @@ use App\Http\Controllers\ListProductController;
 use App\Http\Controllers\PackageController;
 use App\Http\Controllers\TypeProductController;
 use App\Http\Controllers\ProductController;
+use App\Http\Controllers\MenuController;
+
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
@@ -104,6 +106,8 @@ Route::get('/fetch_list_typeproduct', [ListProductController::class,'fetch_list_
 Route::get('/fetch_list_product', [ListProductController::class,'fetch_list_product']);
 Route::post('/edit_product', [ListProductController::class,'edit_product']);
 Route::post('/delete_product', [ListProductController::class,'delete_product']);
+
+Route::get('/list_menu', [MenuController::class,'list_menu']);
 
 Route::get('/home', function () {
     return Inertia::render('HomePage');
