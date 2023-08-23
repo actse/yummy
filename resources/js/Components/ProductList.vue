@@ -13,14 +13,13 @@
                     class="h-9 text-gray-600 rounded-lg"
                 >
                     <option value="">ทุกประเภท</option>
-                    <option value="อาหาร">อาหาร</option>
-                    <option value="เครื่องดื่ม">เครื่องดื่ม</option>
-                    <option value="หมู">หมู</option>
-                    <option value="เนื้อ">เนื้อ</option>
-                    <option value="ผัก">ผัก</option>
-                    <option value="เนื้อ">เนื้อ</option>
-                    <option value="ทะเล">ทะเล</option>
-                    <option value="ของหวาน">ของหวาน</option>
+                    <option
+                        v-for="items in type_product"
+                        :key="items.id"
+                        :value="items.id"
+                    >
+                        {{ items.type_product_name }}
+                    </option>
                     <!-- เพิ่มประเภทอื่น ๆ ตามต้องการ -->
                 </select>
             </div>
@@ -216,7 +215,9 @@
 </template>
 
 <script>
-import MenuModal from "@/components/MenuModal.vue";
+// import MenuModal from "@/components/MenuModal.vue";
+import MenuModal from "./MenuModal.vue";
+
 export default {
     components: {
         MenuModal,
@@ -224,125 +225,30 @@ export default {
     data() {
         return {
             isModalOpen: false,
-            modalProductId: null,
             selectedProduct: null,
             product_name: "",
             product_image: "../resources/imgs/pig.jpg",
             product_detail: "",
             product_price: "",
+            type_product: "",
             type_product_id: "",
-            selectedTypes: [],
-            selectedPackage: "",
-            product_type_title: "",
-            main_package: "",
-            selectAll: false,
             type_product_name: "",
-            selectedTypeProduct: "",
-            products: [
-                {
-                    id: 1,
-                    product_image: "",
-                    product_name: "หมูต้ม",
-                    product_detail: "",
-                    type_product_id: "อาหาร",
-                    product_price: 30,
-                },
-                {
-                    id: 2,
-                    product_image: "",
-                    product_name: "นม",
-                    product_detail: "",
-                    type_product_id: "เครื่องดื่ม",
-                    product_price: 29,
-                },
-                {
-                    id: 3,
-                    product_image: "",
-                    product_name: "หมูทอด",
-                    product_detail: "",
-                    type_product_id: "อาหาร",
-                    product_price: 29,
-                },
-                {
-                    id: 4,
-                    product_image: "",
-                    product_name: "โคขุน",
-                    product_detail: "",
-                    type_product_id: "เนื้อ",
-                    product_price: 29,
-                },
-                {
-                    id: 5,
-                    product_image: "",
-                    product_name: "หมูดำ",
-                    product_detail: "",
-                    type_product_id: "หมู",
-                    product_price: 29,
-                },
-                {
-                    id: 6,
-                    product_image: "",
-                    product_name: "ผักกาด",
-                    product_detail: "",
-                    type_product_id: "ผัก",
-                    product_price: 29,
-                },
-                {
-                    id: 7,
-                    product_image: "",
-                    product_name: "ไอติม",
-                    product_detail: "",
-                    type_product_id: "ของหวาน",
-                    product_price: 29,
-                },
-                {
-                    id: 8,
-                    product_image: "",
-                    product_name: "กุ้ง",
-                    product_detail: "",
-                    type_product_id: "ทะเล",
-                    product_price: 29,
-                },
-                {
-                    id: 9,
-                    product_image: "",
-                    product_name: "ปลาหมึก",
-                    product_detail: "",
-                    type_product_id: "ทะเล",
-                    product_price: 29,
-                },
-                {
-                    id: 10,
-                    product_image: "",
-                    product_name: "หมูสามชั้น",
-                    product_detail: "",
-                    type_product_id: "หมู",
-                    product_price: 29,
-                },
-                {
-                    id: 11,
-                    product_image: "",
-                    product_name: "สันคอ",
-                    product_detail: "",
-                    type_product_id: "หมู",
-                    product_price: 29,
-                },
-            ],
+            products: [],
             searchName: "",
             searchType: "",
         };
     },
     computed: {
         filteredProducts() {
-            return this.products.filter((product) => {
-                const nameMatch = product.product_name
-                    .toLowerCase()
-                    .includes(this.searchName.toLowerCase());
-                const typeMatch =
-                    this.searchType === "" ||
-                    product.type_product_id === this.searchType;
-                return nameMatch && typeMatch;
-            });
+                return this.products.filter((product) => {
+                    const nameMatch = product.product_name
+                        .toLowerCase()
+                        .includes(this.searchName.toLowerCase());
+                    const typeMatch =
+                        this.searchType == "" ||
+                        product.type_product_id == this.searchType;
+                    return nameMatch && typeMatch;
+                });
         },
     },
     methods: {
@@ -365,20 +271,32 @@ export default {
             this.isModalOpen = false;
             this.selectedProduct = "";
         },
-        fetch_list_product() {},
+        fetch_list_product() {
+            axios
+                .get("/fetch_list_product")
+                .then((response) => {
+                    this.products = response.data;
+                    console.log(this.products);
+                })
+                .catch((error) => {
+                    console.log(error);
+                });
+        },
+        fetch_list_typeproduct() {
+            axios
+                .get("/fetch_list_typeproduct")
+                .then((response) => {
+                    this.type_product = response.data;
+                    console.log(this.products);
+                })
+                .catch((error) => {
+                    console.log(error);
+                });
+        },
     },
     mounted() {
         this.fetch_list_product();
-        axios
-            .get("/fetch_list_product")
-            .then((response) => {
-                if ((response.data = true)) {
-                    console.log(response);
-                }
-            })
-            .catch((error) => {
-                console.log(error);
-            });
+        this.fetch_list_typeproduct();
     },
 };
 </script>

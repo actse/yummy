@@ -16,7 +16,6 @@ class ProductController extends Controller
 
         $product_image = $request->input('product_image');
 
-        if ($product_image != '') {
 
             $product_name = $request->input('product_name');
             $product_detail = $request->input('product_detail');
@@ -25,8 +24,8 @@ class ProductController extends Controller
             $product_image = $request->input('product_image');
             $date_stamp = date('y-m-d h:i:s');
 
-            $imageName = time() . '_' . $product_image->getClientOriginalName();
-            $product_image->move(public_path('resources/imgs'), $imageName);
+            // $imageName = time() . '_' . $product_image->getClientOriginalName();
+            // $product_image->move(public_path('resources/imgs'), $imageName);
 
             return Product::insert([
                 'product_name' => $product_name,
@@ -37,19 +36,10 @@ class ProductController extends Controller
                 'created_at' => $date_stamp,
                 'updated_at' => $date_stamp,
             ]);
-        }
+        // }
 
-        return ('fail');
+        // return ('fail');
 
-        // return Product::insert([
-        //     'product_name' => $product_name,
-        //     'product_image' => $product_image,
-        //     'product_detail' => $product_detail,
-        //     'product_price' => $product_price,
-        //     'type_product_id' => $type_product_id,
-        //     'created_at' => $date_stamp,
-        //     'updated_at' => $date_stamp,
-        // ]);
     }
 
     function fetchProduct()

@@ -3,6 +3,10 @@
 use App\Http\Controllers\OrderController;
 use App\Http\Controllers\ConfigController;
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\ListProductController;
+use App\Http\Controllers\PackageController;
+use App\Http\Controllers\TypeProductController;
+use App\Http\Controllers\ProductController;
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
@@ -96,6 +100,10 @@ Route::post('/create_type_product', [TypeProductController::class,'addNewTypePro
 Route::post('/create_type_producttopackage', [TypeProductController::class,'addTypeProductidtoPackage']);
 Route::get('/fetch_type_product', [TypeProductController::class,'fetchTypeProduct']);
 
+Route::get('/fetch_list_typeproduct', [ListProductController::class,'fetch_list_typeproduct']);
+Route::get('/fetch_list_product', [ListProductController::class,'fetch_list_product']);
+Route::get('/edit_product', [ListProductController::class,'edit_product']);
+Route::get('/delete_product', [ListProductController::class,'delete_product']);
 
 Route::get('/home', function () {
     return Inertia::render('HomePage');
