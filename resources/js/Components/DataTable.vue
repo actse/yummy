@@ -1,30 +1,32 @@
 <template>
-    <div>
-        <label for="rowsPerPage">Rows per page:</label>
-        <select v-model="rowsPerPage" @change="updatePage(1)">
-            <option v-for="option in rowsPerPageOptions" :key="option" :value="option">{{ option }}</option>
-        </select>
-        <input
-            v-model="searchName"
-            placeholder="Search name..."
-            class="mt-3 rounded-full h-10"
-        />
-        <select
-                    v-model="searchType"
-                    class="text-sm text-gray-600 rounded-lg h-10 mt-3"
-                >
-                    <option value="">ทุกประเภท</option>
-                    <option
-                        v-for="items in type_product"
-                        :key="items.id"
-                        :value="items.id"
+
+
+
+    <div class="bg-white p-3 m-10 rounded-lg opacity-[90%]">
+        <div class="space-x-1 mb-3">
+            <input
+                v-model="searchName"
+                placeholder="Search name..."
+                class="mt-3 rounded-full h-10 hover:border-2"
+            />
+            <select
+                        v-model="searchType"
+                        class="text-sm text-gray-600 rounded-lg h-10 mt-3 hover:border-2"
                     >
-                        {{ items.type_product_name }}
-                    </option>
-                    <!-- เพิ่มประเภทอื่น ๆ ตามต้องการ -->
-                </select>
-      <table>
-        <thead>
+                        <option value="">ทุกประเภท</option>
+                        <option
+                            v-for="items in type_product"
+                            :key="items.id"
+                            :value="items.id"
+                        >
+                            {{ items.type_product_name }}
+                        </option>
+                        <!-- เพิ่มประเภทอื่น ๆ ตามต้องการ -->
+            </select>
+            
+        </div>
+      <table class="w-full">
+        <thead class="text-sm text-center text-gray-800 border-b-2 font-bold sm:text-base md:text-lg">
           <tr>
             <td>no.</td>
             <td>รูป</td>
@@ -36,36 +38,48 @@
             <!-- เพิ่มหัวข้อคอลัมน์ต่าง ๆ ตามต้องการ -->
           </tr>
         </thead>
-        <tbody>
-          <tr v-for="(item, index) in displayedAndFilteredData " :key="index">
-            <td>{{ index + 1 }}</td>
-            <td>
+        <tbody class="text-sm text-gray-700 border-b-2 sm:text-base md:text-lg">
+          <tr class="h-9 mx-auto hover:bg-gray-100 sm:h-10 md:h-12 lg:h-14" v-for="(item, index) in displayedAndFilteredData " :key="index">
+            <td class="text-center">{{ index + 1 }}</td>
+            <td class="text-center">
                 <img src="" alt="#" />
             </td>
-            <td>{{ item.product_name }}</td>
-            <td>{{ item.product_detail }}</td>
-            <td>{{ item.type_product_id }}</td>
-            <td>{{ item.product_price }}</td>
-            <td class="space-x-2">
+            <td class="md:text-center">{{ item.product_name }}</td>
+            <td class="md:text-center">{{ item.product_detail }}</td>
+            <td class="text-center">{{ item.type_product_id }}</td>
+            <td class="text-right md:text-center">{{ item.product_price }}</td>
+            <td class="text-center space-x-2">
                  <button
-                    @click="openEditModal(item.id)" class="relative w-5 h-5 rounded-md bg-blue-400 border border-blue-500">
-                    <img class="absolute w-[14px] top-[2px] left-[2px]" src="../../imgs/edit.svg" alt=""/>
+                    @click="openEditModal(item.id)" class="relative w-5 h-5 rounded-md bg-blue-400 border border-blue-500 sm:w-8 sm:h-8 md:w-10 md:h-10">
+                    <img class="absolute w-[14px] top-[4px] left-[2px] sm:w-[20px] sm:top-[5px] sm:left-[5px] md:w-[25px] md:top-[6px] md:left-[6px]" src="../../imgs/edit.svg" alt=""/>
                 </button>
                  <button
-                    @click="deleteProduct(item.id)" class="relative w-5 h-5 rounded-md bg-red-400 border border-red-500">
-                    <img class="absolute w-[14px] top-[2px] left-[2px]" src="../../imgs/remove.svg" alt=""/>
+                    @click="deleteProduct(item.id)" class="relative w-5 h-5 rounded-md bg-red-400 border border-red-500 sm:w-8 sm:h-8 md:w-10 md:h-10">
+                    <img class="absolute w-[14px] top-[4px] left-[2px] sm:w-[20px] sm:top-[5px] sm:left-[5px] md:w-[25px] md:top-[6px] md:left-[6px]" src="../../imgs/remove.svg" alt=""/>
                 </button>
             </td>
             <!-- เพิ่มเนื้อหาคอลัมน์ตามต้องการ -->
           </tr>
         </tbody>
       </table>
-      <div class="pagination">
-        <button :disabled="currentPage === 1" @click="updatePage(currentPage - 1)">Previous</button>
-        <span>Page {{ currentPage }} of {{ totalPages }}</span>
-      <button :disabled="currentPage === totalPages" @click="updatePage(currentPage + 1)">Next</button>
+      
 
 
+
+
+      <div class="flex justify-between items-center pt-3 pagination text-sm text-gray-700 sm:text-base md:text-lg">
+        <div class="space-x-2">
+            <button class="p-1 bg-gray-100 border border-gray-300 rounded-md hover:bg-gray-200" :disabled="currentPage === 1" @click="updatePage(currentPage - 1)">Previous</button>
+            <span>Page {{ currentPage }} of {{ totalPages }}</span>
+            <button class="p-1 bg-gray-100 border border-gray-300 rounded-md hover:bg-gray-200" :disabled="currentPage === totalPages" @click="updatePage(currentPage + 1)">Next</button>
+        </div>
+        <div class="flex justify-center items-center gap-1">
+            <label for="rowsPerPage">Rows per page :</label>
+            <select class=" h-9  rounded-md" v-model="rowsPerPage" @change="updatePage(1)">
+                <option class="w-full" v-for="option in rowsPerPageOptions" :key="option" :value="option">{{ option }}</option>
+            </select>
+        </div>
+      </div>
       <!-- Modal -->
       <MenuModal v-if="isModalOpen">
                     <div
@@ -199,8 +213,8 @@
                             </div>
                         </form>
                     </div>
-                </MenuModal>
-      </div>
+      </MenuModal>
+
     </div>
   </template>
   
@@ -256,21 +270,21 @@
             });
     },
     displayedAndFilteredData() {
-    const filteredProducts = this.products.filter((product) => {
-        const nameMatch = product.product_name
-            .toLowerCase()
-            .includes(this.searchName.toLowerCase());
-        const typeMatch =
-            this.searchType == "" ||
-            product.type_product_id == this.searchType;
-        return nameMatch && typeMatch;
-    });
+        const filteredProducts = this.products.filter((product) => {
+            const nameMatch = product.product_name
+                .toLowerCase()
+                .includes(this.searchName.toLowerCase());
+            const typeMatch =
+                this.searchType == "" ||
+                product.type_product_id == this.searchType;
+            return nameMatch && typeMatch;
+        });
 
-    const startIndex = (this.currentPage - 1) * this.rowsPerPage;
-    const endIndex = startIndex + this.rowsPerPage;
+        const startIndex = (this.currentPage - 1) * this.rowsPerPage;
+        const endIndex = startIndex + this.rowsPerPage;
 
-    return filteredProducts.slice(startIndex, endIndex);
-},
+        return filteredProducts.slice(startIndex, endIndex);
+    },
     },
     methods: {
       updatePage(page) {
@@ -371,28 +385,6 @@
   </script>
   
   <style>
-  /* สไตล์ของตาราง */
-  /* table {
-    width: 100%;
-    border-collapse: collapse;
-  }
-  th, td {
-    border: 1px solid #ccc;
-    padding: 8px;
-    text-align: left;
-  }
-  th {
-    background-color: #f2f2f2;
-  }
 
-  .pagination {
-  margin-top: 20px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
-.pagination button {
-  margin: 0 5px;
-} */
   </style>
   
