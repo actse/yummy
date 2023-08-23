@@ -119,7 +119,7 @@ Route::get('/dashboard', function () {
 
 Route::get('/test', function () {
     return Inertia::render('Test');
-})->middleware(['auth', 'verified'])->name('test');
+});
 
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
