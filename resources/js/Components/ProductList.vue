@@ -6,11 +6,11 @@
                 <input
                     v-model="searchName"
                     placeholder="Search name..."
-                    class="rounded-full h-9 w-40"
+                    class="mt-3 rounded-full h-10"
                 />
                 <select
                     v-model="searchType"
-                    class="h-9 text-gray-600 rounded-lg"
+                    class="text-sm text-gray-600 rounded-lg h-10 mt-3"
                 >
                     <option value="">ทุกประเภท</option>
                     <option
@@ -25,7 +25,7 @@
             </div>
             <div class="mt-4">
                 <table class="w-full text-center">
-                    <thead class="h-10 bg-gray-200 text-sm text-gray-700">
+                    <thead class="text-xs bg-gray-200 text-gray-700">
                         <tr>
                             <td>no.</td>
                             <td>รูป</td>
@@ -92,7 +92,6 @@
                     <div class="bg-white w-full px-4 pb-5">
                         <form
                             @submit.prevent="updateProduct"
-                            @input="form.errors.clear($event.target.name)"
                             enctype="multipart/form-data"
                             class="w-full max-w-lg"
                         >
@@ -140,7 +139,7 @@
                                     />
                                 </div>
                             </div>
-                            <div class="flex flex-wrap -mx-3 mb-3">
+                            <!-- <div class="flex flex-wrap -mx-3 mb-3">
                                 <div class="w-full px-3">
                                     <label
                                         class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2"
@@ -154,7 +153,7 @@
                                         type="file"
                                     />
                                 </div>
-                            </div>
+                            </div> -->
                             <div class="w-full md:w-2/3 mb-3 md:mb-0">
                                 <label
                                     class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2"
@@ -175,11 +174,11 @@
                                             value="กรุณาเลือกหมวดหมู่"
                                         ></option>
                                         <option
-                                            v-for="items in products"
+                                            v-for="items in type_product"
                                             :key="items.id"
                                             :value="items.id"
                                         >
-                                            {{ items.type_product_id }}
+                                            {{ items.type_product_name }}
                                         </option>
                                     </select>
 
@@ -227,7 +226,7 @@ export default {
             isModalOpen: false,
             selectedProduct: null,
             product_name: "",
-            product_image: "../resources/imgs/pig.jpg",
+            product_image: "",
             product_detail: "",
             product_price: "",
             type_product: "",
@@ -236,35 +235,29 @@ export default {
             products: [],
             searchName: "",
             searchType: "",
+            product_id: "",
         };
     },
     computed: {
         filteredProducts() {
-                return this.products.filter((product) => {
-                    const nameMatch = product.product_name
-                        .toLowerCase()
-                        .includes(this.searchName.toLowerCase());
-                    const typeMatch =
-                        this.searchType == "" ||
-                        product.type_product_id == this.searchType;
-                    return nameMatch && typeMatch;
-                });
+            return this.products.filter((product) => {
+                const nameMatch = product.product_name
+                    .toLowerCase()
+                    .includes(this.searchName.toLowerCase());
+                const typeMatch =
+                    this.searchType == "" ||
+                    product.type_product_id == this.searchType;
+                return nameMatch && typeMatch;
+            });
         },
     },
     methods: {
-        deleteProduct(productId) {
-            const index = this.products.findIndex(
-                (products) => products.id === productId
-            );
-            if (index !== -1) {
-                this.products.splice(index, 1);
-            }
-        },
         openEditModal(productId) {
             this.isModalOpen = true;
             this.selectedProduct = this.products.find(
                 (product) => product.id === productId
             );
+            this.product_id = productId;
             console.log(productId);
         },
         closeEditModal() {
@@ -276,7 +269,7 @@ export default {
                 .get("/fetch_list_product")
                 .then((response) => {
                     this.products = response.data;
-                    console.log(this.products);
+                    // console.log(this.products);
                 })
                 .catch((error) => {
                     console.log(error);
@@ -287,7 +280,53 @@ export default {
                 .get("/fetch_list_typeproduct")
                 .then((response) => {
                     this.type_product = response.data;
-                    console.log(this.products);
+                    // console.log(this.products);
+                })
+                .catch((error) => {
+                    console.log(error);
+                });
+        },
+        updateProduct() {
+            const formData = new FormData();
+            formData.append("product_id", this.product_id);
+            formData.append("product_name", this.selectedProduct.product_name);
+            formData.append(
+                "product_image",
+                this.selectedProduct.product_image
+            );
+            formData.append(
+                "product_detail",
+                this.selectedProduct.product_detail
+            );
+            formData.append(
+                "product_price",
+                this.selectedProduct.product_price
+            );
+            formData.append(
+                "type_product_id",
+                this.selectedProduct.type_product_id
+            );
+
+            axios
+                .post("/edit_product", formData)
+                .then((response) => {
+                    console.log(response);
+                    this.fetch_list_product();
+                })
+                .catch((error) => {
+                    console.log(error);
+                });
+        },
+        deleteProduct(productId) {
+            const formData = new FormData();
+            formData.append("product_id", productId);
+            // console.log(productId);
+            // return;
+            axios
+                .post("/delete_product", formData)
+                .then((response) => {
+                    console.log(response);
+                    this.fetch_list_product();
                 })
                 .catch((error) => {
                     console.log(error);

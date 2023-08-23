@@ -102,8 +102,8 @@ Route::get('/fetch_type_product', [TypeProductController::class,'fetchTypeProduc
 
 Route::get('/fetch_list_typeproduct', [ListProductController::class,'fetch_list_typeproduct']);
 Route::get('/fetch_list_product', [ListProductController::class,'fetch_list_product']);
-Route::get('/edit_product', [ListProductController::class,'edit_product']);
-Route::get('/delete_product', [ListProductController::class,'delete_product']);
+Route::post('/edit_product', [ListProductController::class,'edit_product']);
+Route::post('/delete_product', [ListProductController::class,'delete_product']);
 
 Route::get('/home', function () {
     return Inertia::render('HomePage');
