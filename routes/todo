@@ -20,6 +20,27 @@ create create_product.vue
 
     - insert database
     - create table tack_product
+    - create table list_package || group_package by object data
+
+    ; - update font
+
+    - dashboard  - filter ด้วยวันเดือนปี
+        - รายได้ วัน สัปดาห์ เดือน ปี
+        - เก็บ รายได้ vat
+        - จำนวนลูกค้า แยก ตามอายุ
+        - ช่วงเวลา ในแต่ละวัน
+        - จำนวนลูกค้า ต่อโต๊ะ
+        - โต๊ะ ถูก tage มากที่สุด
+        - สินค้าไหนถูกสั่งมาก หรือ น้่อย
+        - แพ็คเกจ ไหน มากน้อยที่สุด
+        - service ไหนถูกร้องขอมากสุด
+        - หัวขอคำแนะนำ หรือ ข้อเสนอแนะ
+        - promotion ป๊อบปุล่า
+        - สามารถ ความต้องการในการขอใบกำกับภาษี
+        - ช่องทางการชำระเงิน
+
+
+    แยก Controller
 
     หมูสามชั้น
 

@@ -87,13 +87,14 @@ Route::post('/fetch_cart', [OrderController::class,'fetchCart']);
 Route::post('/confirm_cart', [OrderController::class,'confirm']);
 Route::post('/delete_order', [OrderController::class,'deleteOrderCart']);
 Route::post('/fetch_order_history', [OrderController::class,'fetchConfirmStatus']);
-Route::post('/create_product', [ConfigController::class,'addNewProduct']);
-Route::post('/create_type_producttopackage', [ConfigController::class,'addTypeProductidtoPackage']);
-Route::post('/create_package', [ConfigController::class,'addNewPackage']);
-Route::post('/create_type_product', [ConfigController::class,'addNewTypeProduct']);
-Route::get('/fetch_package', [ConfigController::class,'fetchPackage']);
-Route::get('/fetch_type_product', [ConfigController::class,'fetchTypeProduct']);
-Route::get('/fetch_product', [ConfigController::class,'fetchProduct']);
+
+Route::post('/create_product', [ProductController::class,'addNewProduct']);
+Route::get('/fetch_product', [ProductController::class,'fetchProduct']);
+Route::post('/create_package', [PackageController::class,'addNewPackage']);
+Route::get('/fetch_package', [PackageController::class,'fetchPackage']);
+Route::post('/create_type_product', [TypeProductController::class,'addNewTypeProduct']);
+Route::post('/create_type_producttopackage', [TypeProductController::class,'addTypeProductidtoPackage']);
+Route::get('/fetch_type_product', [TypeProductController::class,'fetchTypeProduct']);
 
 
 Route::get('/home', function () {
