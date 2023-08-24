@@ -1,6 +1,6 @@
 <template>
   <div class="w-full min-h-screen relative">
-    <div class=" mx-auto h-screen bg-gradient-to-br from-indigo-200 via-red-200 to-yellow-100 border md:w-full">
+    <div class=" mx-auto my-auto h-screen bg-gradient-to-br from-indigo-200 via-red-200 to-yellow-100 border md:w-full">
       <data-table :data="products" :rows-per-page="rowsPerPage" />
     </div>
   </div>
