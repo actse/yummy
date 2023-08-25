@@ -163,7 +163,7 @@
             <div class="flex flex-wrap -mx-3 mb-2 mt-5">
                 <div class="w-full bg-white text-center">
                     <button
-                        @click=""
+                        @click="openregistable(this.table)"
                         class="bg-blue-400 w-52 h-11 rounded-lg shadow-md text-white mb-3"
                     >
                         ลงทะเบียน
@@ -190,23 +190,91 @@
             </div>
         </div>
     </MenuModal>
+    <Registable v-if="isRegistable">
+        <div
+            class="relative text-gray-800 font-bold border-b-2 border-gray-300"
+        >
+            <h1>ลงทะเบียน โต๊ะ {{ this.table }}</h1>
+            <button>
+                <img
+                    @click="close(this.table)"
+                    class="absolute w-3 top-0 right-0"
+                    src="../../imgs/X.svg"
+                />
+            </button>
+        </div>
+        <!-- Form Insert table -->
+        <div class="bg-white w-full px-4 border-t-2 pt-3">
+            <form
+                @submit.prevent=""
+                enctype="multipart/form-data"
+                class="w-full max-w-lg"
+            >
+                <div class="flex flex-wrap -mx-3 mb-2">
+                    <!-- <div class="w-full md:w-2/3 px-3 mb-2 md:mb-0">
+                        <label
+                            class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2"
+                            for="grid-first-name"
+                        >
+                            กรอกชื่อแพ็คเกจหลักที่ต้องการเพิ่ม
+                        </label>
+                        <input
+                            class="appearance-none mt-2 block w-full bg-gray-200 text-gray-700 border border-white rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white"
+                            id="grid-first-name"
+                            type="text"
+                            v-model="package_name"
+                        />
+                    </div>
+                    <div class="w-full md:w-2/3 px-3 mb-2 md:mb-0">
+                        <label
+                            class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2"
+                            for="grid-first-name"
+                        >
+                            กรอก ราคา เกจหลักที่ต้องการเพิ่ม
+                        </label>
+                        <input
+                            class="appearance-none mt-2 block w-full bg-gray-200 text-gray-700 border border-white rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white"
+                            id="grid-first-name"
+                            type="number"
+                            v-model="package_price"
+                        />
+                    </div> -->
+                </div>
+                <div class="flex flex-wrap -mx-3 mb-2">
+                    <div
+                        class="max-w-md mx-auto w-full h-20 bg-white text-center border-b-2 border-gray-300"
+                    >
+                        <button
+                            class="bg-blue-400 w-52 h-11 rounded-lg shadow-md text-white"
+                            type="submit"
+                        >
+                            ลงทะเบียน
+                        </button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </Registable>
 </template>
 
 <script>
 import { Link } from "@inertiajs/vue3";
 import MenuModal from "@/components/MenuModal.vue";
+import Registable from "@/components/MenuModal.vue";
 
 export default {
     components: {
         MenuModal,
+        Registable,
     },
     data() {
         return {
+            isRegistable: false,
             isModalregistable: false,
             isAddtable: false,
             isClosetable: false,
             isEdittable: false,
-            isPayment:false,
+            isPayment: false,
             table: "",
         };
     },
@@ -217,12 +285,25 @@ export default {
             console.log(this.isModalregistable);
             console.log(this.table);
         },
+        openregistable(item) {
+            this.isRegistable = true;
+            this.table = item;
+            console.log(this.isRegistable);
+            console.log(this.table);
+        },
         closeRegisTableModal() {
             this.table = "";
             this.isModalregistable = false;
-            console.log(this.table);
-            console.log(this.isModalregistable);
         },
+        close(item) {
+            this.isRegistable = false;
+            if (this.isRegistable = false) {
+                this.table = item;
+                this.isModalregistable = true;
+            }
+
+        }
+
     },
     mounted() {},
 };

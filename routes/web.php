@@ -8,6 +8,8 @@ use App\Http\Controllers\PackageController;
 use App\Http\Controllers\TypeProductController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\MenuController;
+use App\Http\Controllers\OrderTaberController;
+
 
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
@@ -108,6 +110,16 @@ Route::get('/fetch_list_typeproduct', [ListProductController::class,'fetch_list_
 Route::get('/fetch_list_product', [ListProductController::class,'fetch_list_product']);
 Route::post('/edit_product', [ListProductController::class,'edit_product']);
 Route::post('/delete_product', [ListProductController::class,'delete_product']);
+
+Route::post('/insert_bills', [OrderController::class,'insert_table']);
+Route::post('/edit_bills', [OrderController::class,'edit_table']);
+Route::post('/close_bills', [OrderController::class,'edit_status_close']);
+Route::post('/check_bills', [OrderController::class,'payment_status_close']);
+
+
+
+
+
 
 Route::get('/list_menu', [MenuController::class,'list_menu']);
 
