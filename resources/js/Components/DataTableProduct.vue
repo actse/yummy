@@ -23,8 +23,8 @@
       <table class=" w-full ">
         <thead class="text-sm text-center text-gray-800 border-b-2 font-bold sm:text-base md:text-lg">
           <tr class="h-11">
-            <td>no.</td>
-            <td class="w-20">รูป</td>
+            <td class="w-20">no.</td>
+            <td >รูป</td>
             <td class="text-left w-36">ชื่อสินค้า</td>
             <td class="text-left w-36">หมายเหตุ</td>
             <td>ประเภท</td>
@@ -35,10 +35,10 @@
         <tbody class="divide-y text-xs font-sans text-gray-700 border-b-2 sm:text-sm md:text-base md:font-medium">
           <tr class="h-9 mx-auto hover:bg-gray-50 sm:h-20 md:h-20 lg:h-20" v-for="(item, index) in displayedAndFilteredData " :key="index">
             <td class="text-center">{{ index + 1 }}</td>
-            <td class="text-center">
+            <td class="flex justify-center items-center h-20 ">
                 <img class="w-16 rounded-lg" src="https://via.placeholder.com/90x90" />
             </td>
-            <td class="text-left">{{ item.product_name }}</td>
+            <td class="text-left whitespace-pre-line break-words break-all">{{ item.product_name }}</td>
             <td class="whitespace-pre-line break-words break-all">{{ item.product_detail }}</td>
             <td class="text-center">{{ item.type_product_id }}</td>
             <td class="text-right md:text-center">{{ item.product_price }}</td>
@@ -71,7 +71,7 @@
         </div>
         <div class="flex justify-center items-center gap-1">
             <label for="rowsPerPage">กำหนดการแสดงข้อมูล :</label>
-            <select class=" h-9 py-1 w-[65px] rounded-md" v-model="rowsPerPage" @change="updatePage(1)">
+            <select class=" h-9 py-1  rounded-md" v-model="rowsPerPage" @change="updatePage(1)">
                 <option class=" w-full" v-for="option in rowsPerPageOptions" :key="option" :value="option">{{ option }}</option>
             </select>
         </div>
@@ -366,7 +366,7 @@
     },
     data() {
       return {
-        rowsPerPage: 5,
+        rowsPerPage: 10,
         currentPage: 1,
         isModalOpen: false,
         idAddProductModalOpen:false,
@@ -386,7 +386,7 @@
     },
     computed: {
       rowsPerPageOptions() {
-        return [5,10, 20, 50]; // เพิ่มตัวเลือกตามต้องการ
+        return [10, 20, 50]; // เพิ่มตัวเลือกตามต้องการ
       },
       totalPages() {
         return Math.ceil(this.data.length / this.rowsPerPage);
