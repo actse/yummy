@@ -85,15 +85,6 @@ Route::get('/list_package_product', function () {
     return Inertia::render('ListPackage');
 });
 
-
-Route::get('/get_data', function () {
-    return [
-        "title" => "this is title",
-        "body" => "Here is body",
-    ];
-});
-
-// Route::get('/insert_cart', [OrderController::class,'addToCart']);
 Route::post('/insert_cart', [OrderController::class,'addToCart']);
 Route::post('/fetch_cart', [OrderController::class,'fetchCart']);
 Route::post('/confirm_cart', [OrderController::class,'confirm']);
@@ -128,9 +119,6 @@ Route::get('/dashboard', function () {
     return Inertia::render('Dashboard');
 })->middleware(['auth', 'verified'])->name('dashboard');
 
-Route::get('/test', function () {
-    return Inertia::render('Test');
-});
 
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
