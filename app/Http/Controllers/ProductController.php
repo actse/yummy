@@ -24,6 +24,7 @@ class ProductController extends Controller
             $product_image = $request->input('product_image');
             $date_stamp = date('y-m-d h:i:s');
 
+            $product_image = 'image.jpg';
             // $imageName = time() . '_' . $product_image->getClientOriginalName();
             // $product_image->move(public_path('resources/imgs'), $imageName);
 

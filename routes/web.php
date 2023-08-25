@@ -104,9 +104,14 @@ Route::post('/create_product', [ProductController::class,'addNewProduct']);
 Route::get('/fetch_product', [ProductController::class,'fetchProduct']);
 Route::post('/create_package', [PackageController::class,'addNewPackage']);
 Route::get('/fetch_package', [PackageController::class,'fetchPackage']);
+Route::post('/edit_package', [PackageController::class,'edit_package']);
+Route::post('/delete_package', [PackageController::class,'delete_package']);
+
 Route::post('/create_type_product', [TypeProductController::class,'addNewTypeProduct']);
 Route::post('/create_type_producttopackage', [TypeProductController::class,'addTypeProductidtoPackage']);
 Route::get('/fetch_type_product', [TypeProductController::class,'fetchTypeProduct']);
+Route::post('/edit_type_product', [TypeProductController::class,'edit_type_product']);
+Route::post('/delete_type_product', [TypeProductController::class,'delete_type_product']);
 
 Route::get('/fetch_list_typeproduct', [ListProductController::class,'fetch_list_typeproduct']);
 Route::get('/fetch_list_product', [ListProductController::class,'fetch_list_product']);

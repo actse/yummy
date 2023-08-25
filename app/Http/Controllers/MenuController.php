@@ -13,22 +13,9 @@ class MenuController extends Controller
     {
 
         $table_id = 3;
-        $package_id = 1;
+        $package_id = 2;
 
         $package = Package::select('type_product_id')->where('id', '=', $package_id)->first();
-
-        // if ($package) {
-        //     $typeProductIds = explode(',', $package->type_product_id);
-
-        //     $products = Product::whereIn('type_product_id', $typeProductIds)
-        //     ->join('type_product', 'type_product.id', '=', 'products.type_product_id')
-        //     ->select('products.*', 'type_product.type_product_name')
-        //     ->get();
-
-        //     return $products;
-        // } else {
-        //     return [];
-        // }
 
         if ($package) {
             $typeProductIds = explode(',', $package->type_product_id);

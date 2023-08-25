@@ -409,7 +409,6 @@ export default {
         },
         addtypeproducttopackage() {
             const formData = new FormData();
-            // formData.append("",);
             formData.append("main_package_id", this.selectedPackage);
             formData.append("type_product_id", this.selectedTypes);
 

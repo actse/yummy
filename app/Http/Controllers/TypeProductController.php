@@ -42,4 +42,41 @@ class TypeProductController extends Controller
     {
         return Type_product::get();
     }
+
+    function edit_type_product(Request $request)
+    {
+
+        date_default_timezone_set('Asia/Bangkok');
+
+        $type_product_id = $request->input('type_product_id');
+        $type_product_name = $request->input('type_product_name');
+        $date_stamp = date('y-m-d h:i:s');
+
+        $isUpdateSuccess = Type_product::where('id', '=', $type_product_id)->update([
+            'type_product_name' => $type_product_name,
+            'updated_at' => $date_stamp,
+
+        ]);
+
+        if ($isUpdateSuccess != '') {
+            return 'success';
+        } else {
+            echo 'Fail';
+        }
+    }
+
+    function delete_type_product(Request $request)
+    {
+        date_default_timezone_set('Asia/Bangkok');
+
+        $type_product_id = $request->input('type_product_id');
+
+        $isDeleteSuccess = Type_product::where('id', '=', $type_product_id)->delete();
+
+        if ($isDeleteSuccess != '') {
+            return 'success';
+        } else {
+            echo 'Fail';
+        }
+    }
 }
