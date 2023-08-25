@@ -76,6 +76,9 @@ Route::get('/home_safe', function () {
 Route::get('/list_product', function () {
     return Inertia::render('ListProduct');
 });
+Route::get('/list_type_product', function () {
+    return Inertia::render('ListTypeProduct');
+});
 
 
 Route::get('/get_data', function () {
