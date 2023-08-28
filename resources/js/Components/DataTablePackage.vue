@@ -5,10 +5,17 @@
                 <input
                     v-model="searchName"
                     placeholder="Search name..."
-                    class="mt-3 rounded-lg h-10"
+                    class="mt-3 rounded-lg w-36 h-10"
                 />
             </div>
-            <div>
+            <div class="flex space-x-3">
+                <button
+                    @click="idManegePackageModalOpen = true"
+                    class="flex items-center justify-center w-1/2 px-3 py-2 text-sm tracking-wide text-white transition-colors duration-200 bg-blue-500 rounded-lg shrink-0 sm:w-auto gap-x-2 hover:bg-blue-600 dark:hover:bg-blue-500 dark:bg-blue-600"
+                >
+                <img class="w-7 h-7 text-white" src="../../imgs/check_pen.svg" alt="">
+                <span>จัดการแพ็คเกจ</span>
+                </button>
                 <button
                     @click="idAddPackageModalOpen = true"
                     class="flex items-center justify-center w-1/2 px-3 py-2 text-sm tracking-wide text-white transition-colors duration-200 bg-blue-500 rounded-lg shrink-0 sm:w-auto gap-x-2 hover:bg-blue-600 dark:hover:bg-blue-500 dark:bg-blue-600"
@@ -291,17 +298,112 @@
                 </form>
             </div>
         </AddPackageModal>
+
+        <ManagePackageModalOpen v-if="idManegePackageModalOpen">
+            <div
+                class="relative text-gray-800 font-bold border-b-2 border-gray-300"
+            >
+                <h1>จัดการแพ็คเกจ</h1>
+                <button>
+                    <img
+                        @click="closeManegModal"
+                        class="absolute w-3 top-0 right-0"
+                        src="../../imgs/X.svg"
+                    />
+                </button>
+            </div>
+            <div class="bg-white w-full px-4 border-t-2 pt-3">
+                <form
+                    @submit.prevent="addtypeproducttopackage"
+                    enctype="multipart/form-data"
+                    class="w-full max-w-lg"
+                >
+                    <div class="flex flex-wrap -mx-3">
+                        <div class="w-full md:w-2/3 px-3 mb-3 md:mb-0">
+                            <div class="relative">
+                                <label for="grid-state">กรุณาเลือกแพ็คเกจหลัก </label>
+                                <select
+                                    class="block appearance-none mt-2 w-full bg-gray-200 border border-gray-200 text-gray-700 py-3 px-4 pr-8 rounded leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
+                                    id="grid-state"
+                                    v-model="selectedPackage"
+                                >
+                                    <option
+                                        v-for="packaged in main_package"
+                                        :key="packaged.id"
+                                        :value="packaged.id"
+                                    >
+                                        {{ packaged.package_name }} ({{
+                                            packaged.package_price
+                                        }}
+                                        บาท)
+                                    </option>
+                                </select>
+
+                                <div
+                                    class="pointer-events-none absolute inset-y-0 right-0 flex items-center px-2 text-gray-700"
+                                >
+                                    <svg
+                                        class="fill-current h-4 w-4"
+                                        xmlns="http://www.w3.org/2000/svg"
+                                        viewBox="0 0 20 20"
+                                    ></svg>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="w-full md:w-1/1 px-3 mb-3 md:mb-0 mt-5">
+                            <label class="block mt-2">
+                                <input
+                                    class="appearance-none bg-gray-200 text-blue-400 border border-white rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white"
+                                    type="checkbox"
+                                    id="check_all"
+                                    v-model="selectAll"
+                                    @change="handleCheckAll"
+                                />
+                                เลือกหมวดหมู่ทั้งหมด
+                            </label>
+                            <label
+                                v-for="(item, index) in product_type_title"
+                                :key="index"
+                                class="block mt-2"
+                            >
+                                <input
+                                    class="appearance-none bg-gray-200 text-blue-400 border border-white rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white"
+                                    type="checkbox"
+                                    :id="'check_' + item.id"
+                                    :value="item.id"
+                                    v-model="selectedTypes"
+                                />
+                                {{ item.type_product_name }}
+                            </label>
+                        </div>
+                    </div>
+                    <div class="flex flex-wrap -mx-3 mb-5 mt-5">
+                        <div
+                            class="max-w-md mx-auto w-full bg-white text-center border-gray-300"
+                        >
+                            <button
+                                class="bg-blue-400 w-52 h-11 rounded-lg shadow-md text-white"
+                                type="submit"
+                            >
+                                เพิ่มหมวดหมู่
+                            </button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </ManagePackageModalOpen>
     </div>
 </template>
 
 <script>
 import MenuModal from "@/components/MenuModal.vue";
 import AddPackageModal from "@/components/MenuModal.vue";
-
+import ManagePackageModalOpen from "@/components/MenuModal.vue";
 export default {
     components: {
         MenuModal,
         AddPackageModal,
+        ManagePackageModalOpen,
     },
     props: {
         data: Array,
@@ -312,10 +414,12 @@ export default {
             currentPage: 1,
             isModalOpen: false,
             idAddPackageModalOpen: false,
+            idManegePackageModalOpen:false,
             selectedPackage: null,
             package_id: "",
             package_name: "",
             package_price: "",
+            package_secondary_id: "",
             products: [],
             type_product: [],
             main_package: [],
@@ -365,12 +469,18 @@ export default {
             this.fetch_package_main();
             console.log(package_id);
         },
+        openManagePackage(){
+
+        },
         closeEditModal() {
             this.isModalOpen = false;
             this.selectedPackage = "";
         },
         closeAddModal() {
             this.idAddPackageModalOpen = false;
+        },
+        closeManegModal(){
+            this.idManegePackageModalOpen = false;
         },
         fetch_package_main() {
             axios
@@ -420,6 +530,24 @@ export default {
                         (this.idAddPackageModalOpen = false),
                             this.fetch_package_main();
                     }
+                })
+                .catch((error) => {
+                    console.log(error);
+                });
+        },
+        addtypeproducttopackage() {
+            const formData = new FormData();
+            formData.append("main_package_id", this.selectedPackage);
+            formData.append("type_product_id", this.selectedTypes);
+
+            // console.log(this.selectedPackage);
+            // console.log(this.selectedTypes);
+
+            axios
+                .post("/create_type_producttopackage", formData)
+                .then((response) => {
+                    this.fetch_package_main();
+                    console.log(response.data);
                 })
                 .catch((error) => {
                     console.log(error);
