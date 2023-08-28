@@ -7,15 +7,16 @@ use App\Models\Bills;
 
 class OrderTaberController extends Controller
 {
-    //
+
     function insert_table(Request $request)
     {
 
         $date_stamp = date('y-m-d h:i:s');
+
         $isSuccess = Bills::insert([
             'shop_id' => $request->input('shop_id'),
             'staff_id' => $request->input('staff_id'),
-            'reference_code' => $request->input('reference_code'),
+            'reference_code' => $this->generateRandomString(8),
             'table_number' => $request->input('table_number'),
             'customer_adult' => $request->input('customer_adult'),
             'customer_children' => $request->input('customer_children'),
@@ -32,6 +33,17 @@ class OrderTaberController extends Controller
         } else {
             echo 'Fail';
         }
+    }
+    function generateRandomString($length = 8)
+    {
+        $characters = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
+        $randomString = '';
+
+        for ($i = 0; $i < $length; $i++) {
+            $randomString .= $characters[rand(0, strlen($characters) - 1)];
+        }
+
+        return $randomString;
     }
     function edit_table(Request $request)
     {

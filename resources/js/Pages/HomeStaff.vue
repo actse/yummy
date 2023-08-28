@@ -221,7 +221,7 @@
                         <select
                             class="block appearance-none mt-2 mb-3 w-full bg-gray-200 border border-gray-200 text-gray-700 py-3 px-4 pr-8 rounded leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
                             id="grid-state"
-                            v-model="selectedPackage"
+                            v-model="PackageMain"
                         >
                             <option disabled value="">
                                 กรุณาเลือกแพ็คเกจหลัก
@@ -246,7 +246,7 @@
                         <select
                             class="block appearance-none mt-2 mb-3 w-full bg-gray-200 border border-gray-200 text-gray-700 py-3 px-4 pr-8 rounded leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
                             id="grid-state"
-                            v-model="selectedSecondaryPackage"
+                            v-model="PackageSecondary"
                         >
                             <option disabled value="">
                                 กรุณาเลือกแพ็คเกจเสริม
@@ -256,7 +256,7 @@
                                 :key="packaged.id"
                                 :value="packaged.id"
                             >
-                                {{ packaged.package_name }} ({{
+                                {{ packaged.title_package }} ({{
                                     packaged.package_price
                                 }}
                                 บาท)
@@ -343,9 +343,9 @@ export default {
             customer_children: "",
             customer_baby: "",
             main_package: "",
+            PackageMain:"",
             secondary_package: "",
-            selectedSecondaryPackage: "",
-            selectedPackage: "",
+            PackageSecondary: "",
         };
     },
     methods: {
@@ -395,17 +395,18 @@ export default {
                 });
         },
         fetch_secondary_package() {
-            // axios
-            //     .get("/fetch_secondary_package")
-            //     .then((response) => {
-            //         if (response.data != []) {
-            //             this.secondary_package = response.data;
-            //             console.log(response.data);
-            //         }
-            //     })
-            //     .catch((error) => {
-            //         console.log(error);
-            //     });
+            axios
+                .get("/fetch_secondary_package")
+                .then((response) => {
+                    if (response.data != []) {
+                        this.secondary_package = response.data;
+                        console.log(response.data);
+                    }
+                })
+                .catch((error) => {
+                    console.log(error);
+                });
+
         },
         register_table() {
 
@@ -414,15 +415,15 @@ export default {
             formData.append("customer_adult", this.customer_adult);
             formData.append("customer_children", this.customer_children);
             formData.append("customer_baby", this.customer_baby);
-            formData.append("main_package", this.main_package);
-            formData.append("secondary_package", this.secondary_package);
+            formData.append("main_package", this.PackageMain);
+            formData.append("secondary_package", this.PackageSecondary);
 
             console.log(this.table);
             console.log(this.customer_adult);
             console.log(this.customer_children);
             console.log(this.customer_baby);
-            console.log(this.main_package);
-            console.log(this.secondary_package);
+            console.log(this.PackageMain);
+            console.log(this.PackageSecondary);
 
             return;
 

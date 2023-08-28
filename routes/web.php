@@ -119,6 +119,8 @@ Route::get('/fetch_secondary_package', [SecondaryPackageController::class,'selec
 Route::post('/edit_secondary_package', [SecondaryPackageController::class,'edit']);
 Route::post('/delete_secondary_package', [SecondaryPackageController::class,'delete']);
 
+Route::get('/generateRandomString', [OrderTaberController::class,'generateRandomString']);
+
 Route::post('/insert_bills', [OrderTaberController::class,'insert_table']);
 Route::post('/edit_bills', [OrderTaberController::class,'edit_table']);
 Route::post('/close_bills', [OrderTaberController::class,'edit_status_close']);
