@@ -25,7 +25,6 @@ class OrderTaberController extends Controller
             'created_at' => $date_stamp,
             'updated_at' => $date_stamp,
 
-
         ]);
 
         if ($isSuccess != '') {
@@ -63,7 +62,7 @@ class OrderTaberController extends Controller
     {
         $date_stamp = date('y-m-d h:i:s');
         $bills_id = $request->input('bills_id');
-        $status = $request->input('status');
+        // $status = $request->input('status');
         $isStatusSuccess = Bills::where('id', '=', $bills_id)->update([
             'shop_id' => $request->input('shop_id'),
             'staff_id' => $request->input('staff_id'),

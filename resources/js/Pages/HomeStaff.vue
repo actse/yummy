@@ -145,14 +145,14 @@
             </div>
         </div>
     </div>
-    <MenuModal v-if="isModalregistable">
+    <ServicetableModal v-if="isModalregistable">
         <div
             class="relative text-gray-800 font-bold border-b-2 border-gray-300"
         >
             <h1>ลงทะเบียน โต๊ะ {{ this.table }}</h1>
             <button>
                 <img
-                    @click="closeRegisTableModal"
+                    @click="close('close_service', this.table)"
                     class="absolute w-3 top-0 right-0"
                     src="../../imgs/X.svg"
                 />
@@ -163,42 +163,42 @@
             <div class="flex flex-wrap -mx-3 mb-2 mt-5">
                 <div class="w-full bg-white text-center">
                     <button
-                        @click="openregistable(this.table)"
-                        class="bg-blue-400 w-52 h-11 rounded-lg shadow-md text-white mb-3"
+                        @click="choose_service('registable', this.table)"
+                        class="mx-2 bg-blue-400 w-52 h-11 rounded-lg shadow-md text-white mb-3"
                     >
                         ลงทะเบียน
                     </button>
                     <button
-                        @click=""
-                        class="bg-red-400 w-52 h-11 rounded-lg shadow-md text-white mb-3"
-                    >
-                        ยกเลิกโต๊ะ
-                    </button>
-                    <button
-                        @click=""
-                        class="bg-orange-400 w-52 h-11 rounded-lg shadow-md text-white mb-3"
+                        @click="choose_service('edittable', this.table)"
+                        class="mx-2 bg-orange-400 w-52 h-11 rounded-lg shadow-md text-white mb-3"
                     >
                         แก้ไขโต๊ะ
                     </button>
                     <button
-                        @click=""
-                        class="bg-green-500 w-52 h-11 rounded-lg shadow-md text-white mb-3"
+                        @click="choose_service('cancel', this.table)"
+                        class="mx-2 bg-red-400 w-52 h-11 rounded-lg shadow-md text-white mb-3"
+                    >
+                        ยกเลิกโต๊ะ
+                    </button>
+                    <button
+                        @click="choose_service('payment', this.table)"
+                        class="mx-2 bg-green-500 w-52 h-11 rounded-lg shadow-md text-white mb-3"
                     >
                         ชำระเงิน
                     </button>
                 </div>
             </div>
         </div>
-    </MenuModal>
-    <Registable v-if="isRegistable">
+    </ServicetableModal>
+    <ServicetableModal v-if="isRegistable">
         <div
             class="relative text-gray-800 font-bold border-b-2 border-gray-300"
         >
             <h1>ลงทะเบียน โต๊ะ {{ this.table }}</h1>
             <button>
                 <img
-                    @click="close(this.table)"
-                    class="absolute w-3 top-0 right-0"
+                    @click="close('close_registable', this.table)"
+                    class="absolute w-4 top-0 right-0"
                     src="../../imgs/X.svg"
                 />
             </button>
@@ -206,41 +206,103 @@
         <!-- Form Insert table -->
         <div class="bg-white w-full px-4 border-t-2 pt-3">
             <form
-                @submit.prevent=""
+                @submit.prevent="register_table"
                 enctype="multipart/form-data"
                 class="w-full max-w-lg"
             >
                 <div class="flex flex-wrap -mx-3 mb-2">
-                    <!-- <div class="w-full md:w-2/3 px-3 mb-2 md:mb-0">
+                    <div class="w-full md:w-3/5 px-3 mb-2 md:mb-0">
                         <label
                             class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2"
                             for="grid-first-name"
                         >
-                            กรอกชื่อแพ็คเกจหลักที่ต้องการเพิ่ม
+                            เลือกแพ็คเกจ
                         </label>
-                        <input
-                            class="appearance-none mt-2 block w-full bg-gray-200 text-gray-700 border border-white rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white"
-                            id="grid-first-name"
-                            type="text"
-                            v-model="package_name"
-                        />
-                    </div>
-                    <div class="w-full md:w-2/3 px-3 mb-2 md:mb-0">
+                        <select
+                            class="block appearance-none mt-2 mb-3 w-full bg-gray-200 border border-gray-200 text-gray-700 py-3 px-4 pr-8 rounded leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
+                            id="grid-state"
+                            v-model="selectedPackage"
+                        >
+                            <option disabled value="">
+                                กรุณาเลือกแพ็คเกจหลัก
+                            </option>
+                            <option
+                                v-for="packaged in main_package"
+                                :key="packaged.id"
+                                :value="packaged.id"
+                            >
+                                {{ packaged.package_name }} ({{
+                                    packaged.package_price
+                                }}
+                                บาท)
+                            </option>
+                        </select>
                         <label
                             class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2"
                             for="grid-first-name"
                         >
-                            กรอก ราคา เกจหลักที่ต้องการเพิ่ม
+                            เลือกแพ็คเกจเสริม
+                        </label>
+                        <select
+                            class="block appearance-none mt-2 mb-3 w-full bg-gray-200 border border-gray-200 text-gray-700 py-3 px-4 pr-8 rounded leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
+                            id="grid-state"
+                            v-model="selectedSecondaryPackage"
+                        >
+                            <option disabled value="">
+                                กรุณาเลือกแพ็คเกจเสริม
+                            </option>
+                            <option
+                                v-for="packaged in secondary_package"
+                                :key="packaged.id"
+                                :value="packaged.id"
+                            >
+                                {{ packaged.package_name }} ({{
+                                    packaged.package_price
+                                }}
+                                บาท)
+                            </option>
+                        </select>
+                    </div>
+                    <div class="w-full md:w-2/5 px-3 mb-2 md:mb-0">
+                        <label
+                            class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2"
+                            for="grid-first-name"
+                        >
+                            ผู้ใหญ่ (จำนวน)
                         </label>
                         <input
                             class="appearance-none mt-2 block w-full bg-gray-200 text-gray-700 border border-white rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white"
                             id="grid-first-name"
                             type="number"
-                            v-model="package_price"
+                            v-model="customer_adult"
                         />
-                    </div> -->
+                        <label
+                            class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2"
+                            for="grid-first-name"
+                        >
+                            เด็กโต (จำนวน)
+                        </label>
+                        <input
+                            class="appearance-none mt-2 block w-full bg-gray-200 text-gray-700 border border-white rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white"
+                            id="grid-first-name"
+                            type="number"
+                            v-model="customer_children"
+                        />
+                        <label
+                            class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2"
+                            for="grid-first-name"
+                        >
+                            เด็ก (จำนวน)
+                        </label>
+                        <input
+                            class="appearance-none mt-2 block w-full bg-gray-200 text-gray-700 border border-white rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white"
+                            id="grid-first-name"
+                            type="number"
+                            v-model="customer_baby"
+                        />
+                    </div>
                 </div>
-                <div class="flex flex-wrap -mx-3 mb-2">
+                <div class="flex flex-wrap -mx-3 mb-2 mt-5">
                     <div
                         class="max-w-md mx-auto w-full h-20 bg-white text-center border-b-2 border-gray-300"
                     >
@@ -248,64 +310,139 @@
                             class="bg-blue-400 w-52 h-11 rounded-lg shadow-md text-white"
                             type="submit"
                         >
-                            ลงทะเบียน
+                            ลงทะเบียนโต๊ะ ( {{ this.table }} )
                         </button>
                     </div>
                 </div>
             </form>
         </div>
-    </Registable>
+    </ServicetableModal>
 </template>
 
 <script>
 import { Link } from "@inertiajs/vue3";
 import MenuModal from "@/components/MenuModal.vue";
 import Registable from "@/components/MenuModal.vue";
+import ServicetableModal from "@/components/ServicetableModal.vue";
 
 export default {
     components: {
         MenuModal,
         Registable,
+        ServicetableModal,
     },
     data() {
         return {
             isRegistable: false,
             isModalregistable: false,
-            isAddtable: false,
-            isClosetable: false,
+            isCanceltable: false,
             isEdittable: false,
             isPayment: false,
             table: "",
+            customer_adult: "",
+            customer_children: "",
+            customer_baby: "",
+            main_package: "",
+            secondary_package: "",
+            selectedSecondaryPackage: "",
+            selectedPackage: "",
         };
     },
     methods: {
         openservice(item) {
             this.isModalregistable = true;
             this.table = item;
-            console.log(this.isModalregistable);
-            console.log(this.table);
         },
-        openregistable(item) {
-            this.isRegistable = true;
-            this.table = item;
-            console.log(this.isRegistable);
-            console.log(this.table);
-        },
-        closeRegisTableModal() {
-            this.table = "";
-            this.isModalregistable = false;
-        },
-        close(item) {
-            this.isRegistable = false;
-            if (this.isRegistable = false) {
+        choose_service(title, item) {
+            if (title == "registable") {
+                this.isRegistable = true;
                 this.table = item;
+            }
+            if (title == "cancel") {
+                this.isCanceltable = true;
+                this.table = item;
+            }
+            if (title == "edittable") {
+                this.isEdittable = true;
+                this.table = item;
+            }
+            if (title == "payment") {
+                this.table = item;
+            }
+        },
+        close(item, table) {
+            if (item == "close_service") {
+                this.table = "";
+                this.isModalregistable = false;
+            }
+            if (item == "close_registable") {
+                this.table = table;
+                this.isRegistable = false;
                 this.isModalregistable = true;
             }
+        },
+        fetch_main_package() {
+            axios
+                .get("/fetch_package")
+                .then((response) => {
+                    if (response.data != []) {
+                        this.main_package = response.data;
+                        console.log(response.data);
+                    }
+                })
+                .catch((error) => {
+                    console.log(error);
+                });
+        },
+        fetch_secondary_package() {
+            // axios
+            //     .get("/fetch_secondary_package")
+            //     .then((response) => {
+            //         if (response.data != []) {
+            //             this.secondary_package = response.data;
+            //             console.log(response.data);
+            //         }
+            //     })
+            //     .catch((error) => {
+            //         console.log(error);
+            //     });
+        },
+        register_table() {
 
-        }
+            const formData = new FormData();
+            formData.append("table", this.table);
+            formData.append("customer_adult", this.customer_adult);
+            formData.append("customer_children", this.customer_children);
+            formData.append("customer_baby", this.customer_baby);
+            formData.append("main_package", this.main_package);
+            formData.append("secondary_package", this.secondary_package);
 
+            console.log(this.table);
+            console.log(this.customer_adult);
+            console.log(this.customer_children);
+            console.log(this.customer_baby);
+            console.log(this.main_package);
+            console.log(this.secondary_package);
+
+            return;
+
+            axios
+                .post("/insert_bills", formData)
+                .then((response) => {
+                    if ((response.data = true)) {
+                        console.log(response);
+                    }
+                })
+                .catch((error) => {
+                    console.log(error);
+                });
+
+        },
     },
-    mounted() {},
+    mounted() {
+        this.fetch_main_package();
+        this.fetch_secondary_package();
+    },
 };
 </script>
 

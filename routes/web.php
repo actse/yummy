@@ -9,6 +9,8 @@ use App\Http\Controllers\TypeProductController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\MenuController;
 use App\Http\Controllers\OrderTaberController;
+use App\Http\Controllers\SecondaryPackageController;
+
 
 
 use Illuminate\Foundation\Application;
@@ -95,6 +97,7 @@ Route::post('/fetch_order_history', [OrderController::class,'fetchConfirmStatus'
 
 Route::post('/create_product', [ProductController::class,'addNewProduct']);
 Route::get('/fetch_product', [ProductController::class,'fetchProduct']);
+
 Route::post('/create_package', [PackageController::class,'addNewPackage']);
 Route::get('/fetch_package', [PackageController::class,'fetchPackage']);
 Route::post('/edit_package', [PackageController::class,'edit_package']);
@@ -111,10 +114,15 @@ Route::get('/fetch_list_product', [ListProductController::class,'fetch_list_prod
 Route::post('/edit_product', [ListProductController::class,'edit_product']);
 Route::post('/delete_product', [ListProductController::class,'delete_product']);
 
-Route::post('/insert_bills', [OrderController::class,'insert_table']);
-Route::post('/edit_bills', [OrderController::class,'edit_table']);
-Route::post('/close_bills', [OrderController::class,'edit_status_close']);
-Route::post('/check_bills', [OrderController::class,'payment_status_close']);
+Route::post('/insert_secondary_package', [SecondaryPackageController::class,'insert']);
+Route::get('/fetch_secondary_package', [SecondaryPackageController::class,'select']);
+Route::post('/edit_secondary_package', [SecondaryPackageController::class,'edit']);
+Route::post('/delete_secondary_package', [SecondaryPackageController::class,'delete']);
+
+Route::post('/insert_bills', [OrderTaberController::class,'insert_table']);
+Route::post('/edit_bills', [OrderTaberController::class,'edit_table']);
+Route::post('/close_bills', [OrderTaberController::class,'edit_status_close']);
+Route::post('/check_bills', [OrderTaberController::class,'payment_status_close']);
 
 
 
