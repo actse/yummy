@@ -8,4 +8,6 @@ use Illuminate\Database\Eloquent\Model;
 class Package_secondary extends Model
 {
     use HasFactory;
+    protected $table = 'package_secondary';
+
 }
