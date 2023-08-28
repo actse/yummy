@@ -1,6 +1,7 @@
 <template>
-  <div class="w-full min-h-screen relative">
-    <div class=" mx-auto my-auto h-full bg-gradient-to-br from-indigo-200 via-red-200 to-yellow-100 border md:w-full">
+  <div class="flex w-full min-h-screen relative bg-slate-100">
+    <div class="bg-white w-56"><Sidennav/></div>
+    <div class="mx-auto ">
       <data-table :data="products" :rows-per-page="rowsPerPage" />
     </div>
   </div>
@@ -8,10 +9,12 @@
 
 <script>
 import DataTable from "@/components/DataTableProduct.vue";
+import Sidennav from "@/components/Sidennav.vue";
 
 export default {
   components: {
-    DataTable
+    DataTable,
+    Sidennav,
   },
   data() {
     return {
