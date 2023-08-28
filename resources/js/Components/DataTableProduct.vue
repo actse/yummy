@@ -1,5 +1,5 @@
 <template>
-    <div class="bg-white p-3 m-10 rounded-lg opacity-[90%]">
+    <div class="bg-white p-3 m-10 rounded-lg shadow-lg">
         <div class="flex justify-between items-center px-4">
             <div class="space-x-1 mb-1">
                 <input v-model="searchName" placeholder="Search name..." class="mt-3 rounded-lg h-10"/>
@@ -24,11 +24,11 @@
         <thead class="text-sm text-center text-gray-800 border-b-2 font-bold sm:text-base md:text-lg">
           <tr class="h-11">
             <td class="w-20">no.</td>
-            <td >รูป</td>
+            <td class="w-36">รูป</td>
             <td class="text-left w-36">ชื่อสินค้า</td>
             <td class="text-left w-36">หมายเหตุ</td>
-            <td>ประเภท</td>
-            <td>ราคา</td>
+            <td class="w-36">ประเภท</td>
+            <td class="w-36">ราคา</td>
             <td class="w-40">จัดการสินค้า</td>
           </tr>
         </thead>
@@ -386,7 +386,7 @@
     },
     computed: {
       rowsPerPageOptions() {
-        return [10, 20, 50]; // เพิ่มตัวเลือกตามต้องการ
+        return [5, 10, 20, 50]; // เพิ่มตัวเลือกตามต้องการ
       },
       totalPages() {
         return Math.ceil(this.data.length / this.rowsPerPage);
