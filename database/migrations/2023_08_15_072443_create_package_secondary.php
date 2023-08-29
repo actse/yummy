@@ -14,6 +14,7 @@ return new class extends Migration
         Schema::create('package_secondary', function (Blueprint $table) {
             $table->id();
             $table->string('title_package');
+            $table->integer('package_price');
             $table->timestamps();
         });
     }

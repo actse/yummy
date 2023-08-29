@@ -121,15 +121,11 @@ Route::post('/delete_secondary_package', [SecondaryPackageController::class,'del
 
 Route::get('/generateRandomString', [OrderTaberController::class,'generateRandomString']);
 
+Route::get('/fetch_table', [OrderTaberController::class,'select_table']);
 Route::post('/insert_bills', [OrderTaberController::class,'insert_table']);
 Route::post('/edit_bills', [OrderTaberController::class,'edit_table']);
 Route::post('/close_bills', [OrderTaberController::class,'edit_status_close']);
 Route::post('/check_bills', [OrderTaberController::class,'payment_status_close']);
-
-
-
-
-
 
 Route::get('/list_menu', [MenuController::class,'list_menu']);
 

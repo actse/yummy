@@ -13,13 +13,13 @@ class SecondaryPackageController extends Controller
     function insert(Request $request)
     {
 
-        $package_secondary_name = $request->input('package_secondary_name');
+        // $package_secondary_name = $request->input('package_secondary_name');
         // $package_price = $request->input('package_secondary_price');
         $date_stamp = date('y-m-d h:i:s');
-        // 'package_price' =>  $request->input('package_secondary_price'),
 
         return Package_secondary::insert([
-            'title_package' => $package_secondary_name,
+            'title_package' => $request->input('package_secondary_name'),
+            'package_price' => $request->input('package_secondary_price'),
             'created_at' => $date_stamp,
             'updated_at' => $date_stamp,
         ]);
