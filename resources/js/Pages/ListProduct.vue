@@ -1,9 +1,8 @@
 <template>
-  <div class="flex w-full min-h-screen relative bg-slate-100">
-    <div class="bg-white w-56"><Sidennav/></div>
-    <div class="mx-auto ">
+  <div class=" w-full relative bg-slate-100">
+    <Sidennav>
       <data-table :data="products" :rows-per-page="rowsPerPage" />
-    </div>
+    </Sidennav>
   </div>
 </template>
 
