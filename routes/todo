@@ -39,6 +39,12 @@ create create_product.vue
         - สามารถ ความต้องการในการขอใบกำกับภาษี
         - ช่องทางการชำระเงิน
 
+    - หน้าแรก
+        - แสดงรายละเอียดของโต๊ะเลย
+        - กำหนด detail ต่างๆ
+        - genarator qr code
+        - print qr code
+
 
     แยก Controller
 

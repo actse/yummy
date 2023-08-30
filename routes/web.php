@@ -131,6 +131,7 @@ Route::post('/insert_secondary_package', [SecondaryPackageController::class,'ins
 Route::get('/fetch_secondary_package', [SecondaryPackageController::class,'select']);
 Route::post('/edit_secondary_package', [SecondaryPackageController::class,'edit']);
 Route::post('/delete_secondary_package', [SecondaryPackageController::class,'delete']);
+Route::post('/reserve_bills', [OrderTaberController::class,'reserve_table']);
 
 Route::get('/generateRandomString', [OrderTaberController::class,'generateRandomString']);
 
