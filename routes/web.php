@@ -74,6 +74,10 @@ Route::get('/manage_table_staff', function () {
 Route::get('/create_product', function () {
     return Inertia::render('CreateProduct');
 });
+
+Route::get('/qr_code', function () {
+    return Inertia::render('QRCode');
+});
 //=========================safe page==================================
 Route::get('/home_safe', function () {
     return Inertia::render('HomeSafe');
