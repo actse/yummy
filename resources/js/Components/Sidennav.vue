@@ -179,33 +179,25 @@
     </aside>
 
     <div class="w-full">
-        <nav class="flex items-center justify-end max-w-full max-h-20 h-full p-10 bg-white shadow-lg">
-            <div @click="isOpen = true" class="relative inline-block">
+        <nav class="flex items-center justify-end max-w-full max-h-20 h-full p-10 bg-white shadow-lg ">
             <!-- Dropdown toggle button -->
-            <button  @click="isOpen = !isOpen" class="relative z-10 block p-2 text-gray-700 bg-white border border-transparent rounded-md dark:text-white focus:border-blue-500 focus:ring-opacity-40 dark:focus:ring-opacity-40 focus:ring-blue-300 dark:focus:ring-blue-400 focus:ring dark:bg-gray-800 focus:outline-none">
-                <svg class="w-5 h-5 text-gray-800 dark:text-white" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
-                    <path fill-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clip-rule="evenodd" />
-                </svg>
-            </button>
-
-            <!-- Dropdown menu -->
-            <div v-if="isOpen" 
-            @click ="isOpen = false"
-                transition:enter="transition ease-out duration-100"
-                transition:enter-start="opacity-0 scale-90"
-                transition:enter-end="opacity-100 scale-100"
-                transition:leave="transition ease-in duration-100"
-                transition:leave-start="opacity-100 scale-100"
-                transition:leave-end="opacity-0 scale-90" 
-                class="absolute right-0 z-20 w-48 py-2 mt-2 origin-top-right bg-white rounded-md shadow-xl dark:bg-gray-800"
-            >
-                <a href="#" class="block px-4 py-3 text-sm text-gray-600 capitalize transition-colors duration-300 transform dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 dark:hover:text-white"> your profile </a>
-                <a href="#" class="block px-4 py-3 text-sm text-gray-600 capitalize transition-colors duration-300 transform dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 dark:hover:text-white"> Your projects </a>
-                <a href="#" class="block px-4 py-3 text-sm text-gray-600 capitalize transition-colors duration-300 transform dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 dark:hover:text-white"> Help </a>
-                <a href="#" class="block px-4 py-3 text-sm text-gray-600 capitalize transition-colors duration-300 transform dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 dark:hover:text-white"> Settings </a>
-                <a href="#" class="block px-4 py-3 text-sm text-gray-600 capitalize transition-colors duration-300 transform dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 dark:hover:text-white"> Sign Out </a>
+            <div class="p-8">
+                <div class="relative inline-block text-left">
+                <button @click="isOpen = !isOpen" type="button" class="inline-flex justify-center w-full rounded-md border border-gray-300 shadow-sm p-2 bg-white text-sm font-medium text-gray-700 hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
+                    <svg class=" h-5 w-5" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
+                    <path fill-rule="evenodd" d="M6.293 6.293a1 1 0 011.414 0L10 8.586l2.293-2.293a1 1 0 111.414 1.414l-3 3a1 1 0 01-1.414 0l-3-3a1 1 0 010-1.414z" clip-rule="evenodd" />
+                    </svg>
+                </button>
+                <!-- Dropdown menu -->
+                <div v-if="isOpen" class="origin-top-right absolute right-0 mt-2 w-56 rounded-md shadow-lg bg-white ring-1 ring-black ring-opacity-5">
+                    <div class="py-1" role="menu" aria-orientation="vertical" aria-labelledby="options-menu">
+                    <Link href="#" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 hover:text-gray-900" role="menuitem" @click="selectOption('Option 1')">Option 1</Link>
+                    <Link href="#" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 hover:text-gray-900" role="menuitem" @click="selectOption('Option 2')">Option 2</Link>
+                    <Link href="#" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 hover:text-gray-900" role="menuitem" @click="selectOption('Option 3')">Option 3</Link>
+                    </div>
+                </div>
+                </div>
             </div>
-        </div>
         </nav>
         
         <main class="mx-auto">
@@ -218,18 +210,20 @@
     import { Link } from "@inertiajs/vue3";
 
 </script>
-
 <script>
 export default {
-  data() {
-    return {
-      isOpen: false
-    };
-  },
-  methods: {
-    close(){
+    name: "App",
+    data() {
+      return {
+        isOpen: false,
+        selectedOption: "Select an option",
+      };
+    },
+    methods: {
+      selectOption(option) {
+        this.selectedOption = option;
         this.isOpen = false;
-    }
-  }
-};
-</script>
+      },
+    },
+  };
+  </script>
