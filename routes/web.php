@@ -84,6 +84,9 @@ Route::get('/invoice', function () {
 Route::get('/receipt', function () {
     return Inertia::render('Receipt');
 });
+Route::get('/payment', function () {
+    return Inertia::render('Payment');
+});
 //=========================safe page==================================
 Route::get('/home_safe', function () {
     return Inertia::render('HomeSafe');
