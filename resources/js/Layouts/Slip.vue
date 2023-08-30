@@ -2,8 +2,8 @@
 </script>
 
 <template>
-    <div class="relative h-screen overflow-hidden">
-        <div class="flex -mx-4">
+    <div class="relative flex items-center justify-center max-w-sm mx-auto h-screen overflow-hidden border-2">
+        <div class=" bg-white p-4">
             <slot />
         </div>
     </div>
