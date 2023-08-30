@@ -2,7 +2,7 @@
 </script>
 
 <template>
-    <div class="relative flex items-center justify-center max-w-sm mx-auto h-screen overflow-hidden border-2">
+    <div class="relative flex justify-center py-5 w-[80mm] mx-auto h-auto overflow-hidden border-2">
         <div class=" bg-white p-4">
             <slot />
         </div>
