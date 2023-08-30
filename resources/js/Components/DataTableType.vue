@@ -230,7 +230,7 @@
                                 class="appearance-none mt-2 block w-full bg-gray-200 text-gray-700 border border-white rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white"
                                 id="grid-first-name"
                                 type="text"
-                                v-model="type_product_id"
+                                v-model="type_product_name"
                             />
                         </div>
                     </div>
@@ -342,15 +342,11 @@ export default {
             const formData = new FormData();
             formData.append("type_product_name", this.type_product_name);
 
-            console.log(this.type_product_name);
-
-            // return;
-
             axios
                 .post("/create_type_product", formData)
                 .then((response) => {
+                    console.log(response);
                     if ((response.data = true)) {
-                        console.log(response);
                         this.fetch_list_typeproduct();
                         this.idAddTypeProductModalOpen = false;
                     }

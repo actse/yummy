@@ -364,172 +364,172 @@ import { Link } from "@inertiajs/vue3";
 </script>
 
 <script>
-export default {
-    data() {
-        return {
-            product_name: "",
-            product_image: "",
-            product_image_file: "",
-            product_detail: "",
-            product_price: "",
-            type_product_id: "",
-            selectedTypes: [],
-            selectedPackage: "",
-            package_id: "",
-            package_name: "",
-            package_price: "",
-            package_secondary_id: "",
-            product_type_title: "",
-            main_package: "",
-            selectAll: false,
-            type_product_name: "",
-            selectedTypeProduct: "",
-        };
-    },
-    methods: {
-        create_product() {
-            const formData = new FormData();
+// export default {
+//     data() {
+//         return {
+//             product_name: "",
+//             product_image: "",
+//             product_image_file: "",
+//             product_detail: "",
+//             product_price: "",
+//             type_product_id: "",
+//             selectedTypes: [],
+//             selectedPackage: "",
+//             package_id: "",
+//             package_name: "",
+//             package_price: "",
+//             package_secondary_id: "",
+//             product_type_title: "",
+//             main_package: "",
+//             selectAll: false,
+//             type_product_name: "",
+//             selectedTypeProduct: "",
+//         };
+//     },
+//     methods: {
+//         create_product() {
+//             const formData = new FormData();
 
-            // this.product_image_file = '../../imgs/' + this.product_image_file;
+//             // this.product_image_file = '../../imgs/' + this.product_image_file;
 
-            formData.append("product_name", this.product_name);
-            formData.append("product_image", this.product_image_file);
-            formData.append("product_detail", this.product_detail);
-            formData.append("product_price", this.product_price);
-            formData.append("type_product_id", this.type_product_id);
+//             formData.append("product_name", this.product_name);
+//             formData.append("product_image", this.product_image_file);
+//             formData.append("product_detail", this.product_detail);
+//             formData.append("product_price", this.product_price);
+//             formData.append("type_product_id", this.type_product_id);
 
-            axios
-                .post("/create_product", formData)
-                .then((response) => {
-                    console.log(response);
-                })
-                .catch((error) => {
-                    console.log(error);
-                });
-        },
-        addtypeproducttopackage() {
-            const formData = new FormData();
-            formData.append("main_package_id", this.selectedPackage);
-            formData.append("type_product_id", this.selectedTypes);
+//             axios
+//                 .post("/create_product", formData)
+//                 .then((response) => {
+//                     console.log(response);
+//                 })
+//                 .catch((error) => {
+//                     console.log(error);
+//                 });
+//         },
+//         addtypeproducttopackage() {
+//             const formData = new FormData();
+//             formData.append("main_package_id", this.selectedPackage);
+//             formData.append("type_product_id", this.selectedTypes);
 
-            // console.log(this.selectedPackage);
-            // console.log(this.selectedTypes);
+//             // console.log(this.selectedPackage);
+//             // console.log(this.selectedTypes);
 
-            axios
-                .post("/create_type_producttopackage", formData)
-                .then((response) => {
-                    console.log(response.data);
-                })
-                .catch((error) => {
-                    console.log(error);
-                });
-        },
-        handleCheckAll() {
-            if (this.selectAll) {
-                this.selectedTypes = this.product_type_title.map(
-                    (item) => item.id
-                );
-            } else {
-                this.selectedTypes = [];
-            }
-        },
-        loadFile(event) {
-            const input = event.target.files[0];
-            const output = document.getElementById("preview_img");
-            this.product_image_file = input.name;
+//             axios
+//                 .post("/create_type_producttopackage", formData)
+//                 .then((response) => {
+//                     console.log(response.data);
+//                 })
+//                 .catch((error) => {
+//                     console.log(error);
+//                 });
+//         },
+//         handleCheckAll() {
+//             if (this.selectAll) {
+//                 this.selectedTypes = this.product_type_title.map(
+//                     (item) => item.id
+//                 );
+//             } else {
+//                 this.selectedTypes = [];
+//             }
+//         },
+//         loadFile(event) {
+//             const input = event.target.files[0];
+//             const output = document.getElementById("preview_img");
+//             this.product_image_file = input.name;
 
-            this.product_image = URL.createObjectURL(input);
-            output.onload = function () {
-                URL.revokeObjectURL(this.product_image);
-            };
-        },
-        handleCheckboxChange(id) {
-            if (!this.selectedTypes.includes(id)) {
-                this.selectedTypes.push(id);
-            }
-        },
-        addtnewpackagemain() {
-            const formData = new FormData();
-            formData.append("package_name", this.package_name);
-            formData.append("package_price", this.package_price);
+//             this.product_image = URL.createObjectURL(input);
+//             output.onload = function () {
+//                 URL.revokeObjectURL(this.product_image);
+//             };
+//         },
+//         handleCheckboxChange(id) {
+//             if (!this.selectedTypes.includes(id)) {
+//                 this.selectedTypes.push(id);
+//             }
+//         },
+//         addtnewpackagemain() {
+//             const formData = new FormData();
+//             formData.append("package_name", this.package_name);
+//             formData.append("package_price", this.package_price);
 
-            console.log(this.package_name);
-            console.log(this.package_price);
+//             console.log(this.package_name);
+//             console.log(this.package_price);
 
-            // return;
+//             // return;
 
-            axios
-                .post("/create_package", formData)
-                .then((response) => {
-                    if ((response.data = true)) {
-                        console.log(response);
-                    }
-                })
-                .catch((error) => {
-                    console.log(error);
-                });
-        },
-        addtnewtypeproduct() {
-            const formData = new FormData();
-            formData.append("type_product_name", this.type_product_name);
+//             axios
+//                 .post("/create_package", formData)
+//                 .then((response) => {
+//                     if ((response.data = true)) {
+//                         console.log(response);
+//                     }
+//                 })
+//                 .catch((error) => {
+//                     console.log(error);
+//                 });
+//         },
+//         addtnewtypeproduct() {
+//             const formData = new FormData();
+//             formData.append("type_product_name", this.type_product_name);
 
-            console.log(this.type_product_name);
+//             console.log(this.type_product_name);
 
-            // return;
+//             // return;
 
-            axios
-                .post("/create_type_product", formData)
-                .then((response) => {
-                    if ((response.data = true)) {
-                        console.log(response);
-                    }
-                })
-                .catch((error) => {
-                    console.log(error);
-                });
-        },
-        fetch_package_main() {
-            axios
-                .get("/fetch_package")
-                .then((response) => {
-                    if (response.data != []) {
-                        this.main_package = response.data;
-                        // console.log(response.data);
-                    }
-                })
-                .catch((error) => {
-                    console.log(error);
-                });
-        },
-        fetch_type_product() {
-            axios
-                .get("/fetch_type_product")
-                .then((response) => {
-                    if (response.data != []) {
-                        this.product_type_title = response.data;
-                        // console.log(response.data);
-                    }
-                })
-                .catch((error) => {
-                    console.log(error);
-                });
-        },
-        fetch_product() {
-            axios
-                .get("/fetch_product")
-                .then((response) => {
-                    console.log(response.data);
-                })
-                .catch((error) => {
-                    console.log(error);
-                });
-        },
-    },
-    mounted() {
-        this.fetch_package_main();
-        this.fetch_type_product();
-        this.fetch_product();
-    },
-};
+//             axios
+//                 .post("/create_type_product", formData)
+//                 .then((response) => {
+//                     if ((response.data = true)) {
+//                         console.log(response);
+//                     }
+//                 })
+//                 .catch((error) => {
+//                     console.log(error);
+//                 });
+//         },
+//         fetch_package_main() {
+//             axios
+//                 .get("/fetch_package")
+//                 .then((response) => {
+//                     if (response.data != []) {
+//                         this.main_package = response.data;
+//                         // console.log(response.data);
+//                     }
+//                 })
+//                 .catch((error) => {
+//                     console.log(error);
+//                 });
+//         },
+//         fetch_type_product() {
+//             axios
+//                 .get("/fetch_type_product")
+//                 .then((response) => {
+//                     if (response.data != []) {
+//                         this.product_type_title = response.data;
+//                         // console.log(response.data);
+//                     }
+//                 })
+//                 .catch((error) => {
+//                     console.log(error);
+//                 });
+//         },
+//         fetch_product() {
+//             axios
+//                 .get("/fetch_product")
+//                 .then((response) => {
+//                     console.log(response.data);
+//                 })
+//                 .catch((error) => {
+//                     console.log(error);
+//                 });
+//         },
+//     },
+//     mounted() {
+//         this.fetch_package_main();
+//         this.fetch_type_product();
+//         this.fetch_product();
+//     },
+// };
 </script>
 <style></style>

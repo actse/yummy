@@ -1,10 +1,10 @@
 <template>
     <div class="flex w-full min-h-screen bg-slate-200">
         <div
-            class="flex items-center justify-center w-96 sm:w-full max-w-7xl mx-auto h-screen bg-gradient-to-br from-indigo-200 via-red-200 to-yellow-100 border"
+            class="flex items-center justify-center w-full mx-auto h-screen bg-white border"
         >
             <div
-                class="flex flex-col w-1/6 h-5/6 py-8 ml-2 bg-white dark:bg-gray-900 dark:border-gray-700 rounded-lg mr-2"
+                class="flex flex-col w-1/6 h-full py-8 ml-2 bg-white dark:bg-gray-900 dark:border-gray-700 rounded-lg border-r-2 mr-2"
             >
                 <nav class="flex flex-col p-2 flex-1 space-y-8">
                     <a href="#">
@@ -127,20 +127,31 @@
                 class="flex flex-col ml-auto my-auto h-5/6 w-10/12 mr-2 bg-white border-2 rounded-lg border-white"
             >
                 <div
-                    class="flex flex-col my-auto h-auto w-auto mt-5 bg-gray-200 mx-2 mb-4 rounded-lg"
+                    class="flex flex-col my-auto h-auto w-auto mt-5 bg-gray-100 mx-2 mb-4 rounded-lg"
                 >
-                    <div class="grid grid-cols-10 p-5 gap-3">
+                    <div class="grid grid-cols-5 p-5 gap-3">
                         <button
-                            v-for="item in 25"
-                            @click="openservice(item)"
-                            class="bg-white w-auto h-10 rounded-md text-center"
+                            v-for="item in list_table"
+                            @click="
+                                openservice(
+                                    item.id,
+                                    item.package_main,
+                                    item.package_secondary,
+                                    item.table_status
+                                )
+                            "
+                            :class="{
+                                'bg-white': item.table_status == 0,
+                                'bg-red-400 text-white': item.table_status == 1,
+                                'w-auto h-32 rounded-md text-center': true,
+                            }"
                         >
-                            {{ item }}
+                            โต๊ะหมายเลข {{ item.id }}
                         </button>
                     </div>
                 </div>
                 <div
-                    class="flex flex-col my-auto h-4/6 w-auto sm:my-2 bg-gray-200 mx-2 rounded-lg"
+                    class="flex flex-col my-auto h-4/6 w-auto sm:my-2 bg-gray-100 mx-2 rounded-lg"
                 ></div>
             </div>
         </div>
@@ -167,12 +178,6 @@
                         class="mx-2 bg-blue-400 w-52 h-11 rounded-lg shadow-md text-white mb-3"
                     >
                         ลงทะเบียน
-                    </button>
-                    <button
-                        @click="choose_service('edittable', this.table)"
-                        class="mx-2 bg-orange-400 w-52 h-11 rounded-lg shadow-md text-white mb-3"
-                    >
-                        แก้ไขโต๊ะ
                     </button>
                     <button
                         @click="choose_service('cancel', this.table)"
@@ -221,7 +226,7 @@
                         <select
                             class="block appearance-none mt-2 mb-3 w-full bg-gray-200 border border-gray-200 text-gray-700 py-3 px-4 pr-8 rounded leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
                             id="grid-state"
-                            v-model="selectedPackage"
+                            v-model="package_main"
                         >
                             <option disabled value="">
                                 กรุณาเลือกแพ็คเกจหลัก
@@ -246,7 +251,7 @@
                         <select
                             class="block appearance-none mt-2 mb-3 w-full bg-gray-200 border border-gray-200 text-gray-700 py-3 px-4 pr-8 rounded leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
                             id="grid-state"
-                            v-model="selectedSecondaryPackage"
+                            v-model="package_secondary"
                         >
                             <option disabled value="">
                                 กรุณาเลือกแพ็คเกจเสริม
@@ -256,7 +261,7 @@
                                 :key="packaged.id"
                                 :value="packaged.id"
                             >
-                                {{ packaged.package_name }} ({{
+                                {{ packaged.title_package }} ({{
                                     packaged.package_price
                                 }}
                                 บาท)
@@ -317,6 +322,161 @@
             </form>
         </div>
     </ServicetableModal>
+    <ServicetableModal v-if="isEdittable">
+        <div
+            class="relative text-gray-800 font-bold border-b-2 border-gray-300"
+        >
+            <h1>รายละเอียดโต๊ะ {{ this.table }}</h1>
+            <button>
+                <img
+                    @click="close('close_edittable', this.table)"
+                    class="absolute w-4 top-0 right-0"
+                    src="../../imgs/X.svg"
+                />
+            </button>
+        </div>
+        <!-- Form Insert table -->
+        <div
+            class="flex items-center justify-center bg-white w-full px-4 border-t-2 pt-3"
+        >
+            <form
+                @submit.prevent="edit_table"
+                enctype="multipart/form-data"
+                class="w-full max-w-lg"
+            >
+                <div class="flex flex-wrap -mx-3 mb-2">
+                    <div class="w-full md:w-3/5 px-3 mb-2 md:mb-0">
+                        <label
+                            class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2"
+                            for="grid-first-name"
+                        >
+                            เลือกแพ็คเกจ
+                        </label>
+                        <select
+                            class="block appearance-none mt-2 mb-3 w-full bg-gray-200 border border-gray-200 text-gray-700 py-3 px-4 pr-8 rounded leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
+                            id="grid-state"
+                            v-model="editpackage_main.package_main"
+                        >
+                            <option
+                                disabled
+                                value="กรุณาเลือกแพ็คเกจหลัก"
+                            ></option>
+                            <option
+                                v-for="packaged in main_package"
+                                :key="packaged.id"
+                                :value="packaged.id"
+                            >
+                                {{ packaged.package_name }} ({{
+                                    packaged.package_price
+                                }}
+                                บาท)
+                            </option>
+                        </select>
+                        <label
+                            class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2"
+                            for="grid-first-name"
+                        >
+                            เลือกแพ็คเกจเสริม
+                        </label>
+                        <select
+                            class="block appearance-none mt-2 mb-3 w-full bg-gray-200 border border-gray-200 text-gray-700 py-3 px-4 pr-8 rounded leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
+                            id="grid-state"
+                            v-model="editpackage_secondary.package_secondary"
+                        >
+                            <option
+                                disabled
+                                value="กรุณาเลือกแพ็คเกจเสริม"
+                            ></option>
+                            <option
+                                v-for="packaged in secondary_package"
+                                :key="packaged.id"
+                                :value="packaged.id"
+                            >
+                                {{ packaged.title_package }} ({{
+                                    packaged.package_price
+                                }}
+                                บาท)
+                            </option>
+                        </select>
+                        <label
+                            class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2"
+                            for="grid-first-name"
+                        >
+                            กรุณาเลือกโต๊ะที่ต้องการ
+                        </label>
+                        <select
+                            class="block appearance-none mt-2 mb-3 w-full bg-gray-200 border border-gray-200 text-gray-700 py-3 px-4 pr-8 rounded leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
+                            id="grid-state"
+                            v-model="new_table_number"
+                        >
+                            <option disabled value="">
+                                กรุณาเลือกโต๊ะที่ต้องการ
+                            </option>
+                            <option
+                                v-for="item in list_table"
+                                :key="item.id"
+                                :value="item.id"
+                                :disabled="item.table_status != 0"
+                            >
+                                โต๊ะหมายเลข {{ item.id }}
+                                {{ getStatusText(item.table_status) }}
+                            </option>
+                        </select>
+                    </div>
+                    <div class="w-full md:w-2/5 px-3 mb-2 md:mb-0">
+                        <label
+                            class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2"
+                            for="grid-first-name"
+                        >
+                            ผู้ใหญ่ (จำนวน)
+                        </label>
+                        <input
+                            class="appearance-none mt-2 block w-full bg-gray-200 text-gray-700 border border-white rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white"
+                            id="grid-first-name"
+                            type="number"
+                            v-model="editTable.customer_adult"
+                        />
+                        <label
+                            class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2"
+                            for="grid-first-name"
+                        >
+                            เด็กโต (จำนวน)
+                        </label>
+                        <input
+                            class="appearance-none mt-2 block w-full bg-gray-200 text-gray-700 border border-white rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white"
+                            id="grid-first-name"
+                            type="number"
+                            v-model="editTable.customer_children"
+                        />
+                        <label
+                            class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2"
+                            for="grid-first-name"
+                        >
+                            เด็ก (จำนวน)
+                        </label>
+                        <input
+                            class="appearance-none mt-2 block w-full bg-gray-200 text-gray-700 border border-white rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white"
+                            id="grid-first-name"
+                            type="number"
+                            v-model="editTable.customer_baby"
+                        />
+                    </div>
+                </div>
+                <div class="flex flex-wrap -mx-3 mb-2 mt-5">
+                    <div
+                        class="max-w-md mx-auto w-full h-20 bg-white text-center border-b-2 border-gray-300"
+                    >
+                        <button
+                            class="bg-blue-400 w-52 h-11 rounded-lg shadow-md text-white"
+                            type="submit"
+                        >
+                            แก้ไขรายละเอียดโต๊ะ ( {{ this.table }} )
+                        </button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </ServicetableModal>
 </template>
 
 <script>
@@ -338,20 +498,53 @@ export default {
             isCanceltable: false,
             isEdittable: false,
             isPayment: false,
+            list_table: [],
             table: "",
             customer_adult: "",
             customer_children: "",
             customer_baby: "",
             main_package: "",
+            package_main: "",
             secondary_package: "",
-            selectedSecondaryPackage: "",
-            selectedPackage: "",
+            package_secondary: "",
+            status: "",
+            new_table_number: "",
+            editpackage_main: null,
+            editpackage_secondary: null,
         };
     },
     methods: {
-        openservice(item) {
-            this.isModalregistable = true;
-            this.table = item;
+        getStatusText(status) {
+            return status == 0 ? "( ว่าง )" : "( ไม่ว่าง )";
+        },
+        openservice(item, main_package_id, secondary_package_id, status) {
+            if (status == 0) {
+                this.isModalregistable = true;
+                this.table = item;
+                return;
+            }
+            if (status == 1) {
+                this.table = item;
+                this.status = status;
+
+                this.editpackage_main = this.list_table.find(
+                    (main_package) =>
+                        main_package.package_main === main_package_id
+                );
+
+                this.editpackage_secondary = this.list_table.find(
+                    (secondary_package) =>
+                        secondary_package.package_secondary ===
+                        secondary_package_id
+                );
+
+                this.editTable = this.list_table.find(
+                    (list_table) => list_table.id === item
+                );
+
+                this.isEdittable = true;
+                return;
+            }
         },
         choose_service(title, item) {
             if (title == "registable") {
@@ -360,10 +553,6 @@ export default {
             }
             if (title == "cancel") {
                 this.isCanceltable = true;
-                this.table = item;
-            }
-            if (title == "edittable") {
-                this.isEdittable = true;
                 this.table = item;
             }
             if (title == "payment") {
@@ -380,6 +569,10 @@ export default {
                 this.isRegistable = false;
                 this.isModalregistable = true;
             }
+            if (item == "close_edittable") {
+                this.table = table;
+                this.isEdittable = false;
+            }
         },
         fetch_main_package() {
             axios
@@ -387,7 +580,6 @@ export default {
                 .then((response) => {
                     if (response.data != []) {
                         this.main_package = response.data;
-                        console.log(response.data);
                     }
                 })
                 .catch((error) => {
@@ -395,51 +587,87 @@ export default {
                 });
         },
         fetch_secondary_package() {
-            // axios
-            //     .get("/fetch_secondary_package")
-            //     .then((response) => {
-            //         if (response.data != []) {
-            //             this.secondary_package = response.data;
-            //             console.log(response.data);
-            //         }
-            //     })
-            //     .catch((error) => {
-            //         console.log(error);
-            //     });
-        },
-        register_table() {
-
-            const formData = new FormData();
-            formData.append("table", this.table);
-            formData.append("customer_adult", this.customer_adult);
-            formData.append("customer_children", this.customer_children);
-            formData.append("customer_baby", this.customer_baby);
-            formData.append("main_package", this.main_package);
-            formData.append("secondary_package", this.secondary_package);
-
-            console.log(this.table);
-            console.log(this.customer_adult);
-            console.log(this.customer_children);
-            console.log(this.customer_baby);
-            console.log(this.main_package);
-            console.log(this.secondary_package);
-
-            return;
-
             axios
-                .post("/insert_bills", formData)
+                .get("/fetch_secondary_package")
                 .then((response) => {
-                    if ((response.data = true)) {
-                        console.log(response);
+                    if (response.data != []) {
+                        this.secondary_package = response.data;
                     }
                 })
                 .catch((error) => {
                     console.log(error);
                 });
+        },
+        fetch_table() {
+            axios
+                .get("/fetch_table")
+                .then((response) => {
+                    if (response.data != []) {
+                        this.list_table = response.data;
+                    }
+                })
+                .catch((error) => {
+                    console.log(error);
+                });
+        },
+        register_table() {
+            const formData = new FormData();
 
+            formData.append("shop_id", 1);
+            formData.append("staff_id", 1);
+            formData.append("table", this.table);
+            formData.append("customer_adult", this.customer_adult);
+            formData.append("customer_children", this.customer_children);
+            formData.append("customer_baby", this.customer_baby);
+            formData.append("main_package", this.package_main);
+            formData.append("secondary_package", this.package_secondary);
+            formData.append("status", 1);
+
+            axios
+                .post("/insert_bills", formData)
+                .then((response) => {
+                    console.log(response);
+                    this.isRegistable = false;
+                    this.isModalregistable = false;
+                    this.fetch_table();
+                })
+                .catch((error) => {
+                    console.log(error);
+                });
+        },
+        edit_table() {
+            const formData = new FormData();
+            formData.append("shop_id", 1);
+            formData.append("staff_id", 1);
+            formData.append("table", this.table);
+            formData.append("customer_adult", this.editTable.customer_adult);
+            formData.append(
+                "customer_children",
+                this.editTable.customer_children
+            );
+            formData.append("customer_baby", this.editTable.customer_baby);
+            formData.append("main_package", this.editpackage_main.package_main);
+            formData.append(
+                "secondary_package",
+                this.editpackage_secondary.package_secondary
+            );
+            formData.append("status", 1);
+            formData.append("new_table", this.new_table_number);
+
+            axios
+                .post("/edit_bills", formData)
+                .then((response) => {
+                    console.log(response);
+                    this.isEdittable = false;
+                    this.fetch_table();
+                })
+                .catch((error) => {
+                    console.log(error);
+                });
         },
     },
     mounted() {
+        this.fetch_table();
         this.fetch_main_package();
         this.fetch_secondary_package();
     },
