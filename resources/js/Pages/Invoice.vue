@@ -11,7 +11,7 @@
         <!-- <hr class="border-gray-200 border-2"> -->
         <p class="text-gray-500 text-lg">...............................................................................</p>
         <div class="px-2 pt-2 text-left text-gray-500 text-xs">
-            <h1 class="pb-2 text-center text-lg text-gray-800 font-bold">ใบเสร็จชำระเงิน</h1>
+            <h1 class="pb-2 text-center text-lg text-gray-800 font-bold">บิล</h1>
             <div class="flex justify-between">
                 <p class="py-0.5">เลที่ : <span>800560002</span></p>
                 <p class="py-0.5">โต๊ะหมายเลข <span>1</span></p>
