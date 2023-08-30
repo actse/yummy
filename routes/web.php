@@ -78,6 +78,12 @@ Route::get('/create_product', function () {
 Route::get('/qr_code', function () {
     return Inertia::render('QRCode');
 });
+Route::get('/invoice', function () {
+    return Inertia::render('Invoice');
+});
+Route::get('/receipt', function () {
+    return Inertia::render('Receipt');
+});
 //=========================safe page==================================
 Route::get('/home_safe', function () {
     return Inertia::render('HomeSafe');
