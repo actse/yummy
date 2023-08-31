@@ -122,9 +122,12 @@
             </div>
             <hr class="mt-11 border-gray-300 border-1">
             <div class="py-2">
-                <div class="pb-2">
+                <div class="flex justify-between pt-3">
                     <h1 class="py-2 text-xl text-gray-700 font-bold">เงินที่ได้รับ</h1>
-                    <input type="text" name="" id="">
+                    <div class="space-x-3">
+                        <input class="border text-right border-gray-400 rounded-lg" type="text" name="bill_paymennt" id="bill_paymennt">
+                        <label class="font-bold">บาท</label>
+                    </div>
                 </div>
                 <div class="flex gap-4">
 
