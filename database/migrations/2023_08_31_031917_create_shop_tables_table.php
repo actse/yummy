@@ -14,9 +14,6 @@ return new class extends Migration
         Schema::create('shop_tables', function (Blueprint $table) {
             $table->id();
             $table->string('table_number');
-            $table->string('customer_adult')->nullable();
-            $table->string('customer_children')->nullable();
-            $table->string('customer_baby')->nullable();
             $table->string('table_type')->nullable();
             $table->string('table_status')->nullable();
             $table->string('shop_id')->nullable();

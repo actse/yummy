@@ -1,12 +1,12 @@
 <template>
     <Sidennav>
-        <div class="flex flex-row">
+        <div class="flex">
             <div class="flex w-9/12 h-full bg-slate-200 my-5 mx-2 rounded-lg">
                 <div
                     class="flex flex-col h-full w-full bg-gray-100 my-5 mx-5 rounded-lg shadow-lg"
                 >
                     <div
-                        class="grid grid-cols-1 py-3 gap-3 xl:grid xl:grid-cols-4 xl:p-2 xl:gap-3 shadow-lg dark:bg-gray-800"
+                        class="grid grid-cols-1 py-3 gap-3 xl:grid xl:grid-cols-4 xl:p-2 xl:gap-3 xl:my-3 shadow-lg dark:bg-gray-800"
                     >
                         <button
                             v-for="item in list_table"
@@ -305,9 +305,9 @@
                                 <div
                                     class="flex flex-col text-left ml-2 pt-2 pb-4 px-2 mr-3 text-md"
                                 >
-                                    <div class="">
+                                    <div class="text-xl font-bold">
                                         <label>
-                                            โต๊ะหมายเลข {{ item.id }}
+                                            โต๊ะ {{ item.id }}
                                         </label>
                                     </div>
                                     <div
@@ -335,7 +335,7 @@
                                                 item.package_secondary
                                             "
                                         >
-                                            {{ itemps.title_package }}
+                                            {{ itemps.title_package }} ( {{ itemps.package_price }} บาท )
                                         </label>
                                     </div>
                                     <div
@@ -530,6 +530,7 @@
                             ลงทะเบียนโต๊ะ ( {{ this.table }} )
                         </button>
                         <button
+                            type="button"
                             @click="reserve_table(this.table)"
                             class="mx-2 bg-orange-400 w-52 h-11 rounded-lg shadow-md text-white mb-3"
                         >
@@ -777,30 +778,6 @@
                                 บาท)
                             </option>
                         </select>
-                        <label
-                            class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2"
-                            for="grid-first-name"
-                        >
-                            กรุณาเลือกโต๊ะที่ต้องการ
-                        </label>
-                        <select
-                            class="block appearance-none mt-2 mb-3 w-full bg-gray-200 border border-gray-200 text-gray-700 py-3 px-4 pr-8 rounded leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
-                            id="grid-state"
-                            v-model="new_table_number"
-                        >
-                            <option disabled value="">
-                                กรุณาเลือกโต๊ะที่ต้องการ
-                            </option>
-                            <option
-                                v-for="item in list_table"
-                                :key="item.id"
-                                :value="item.id"
-                                :disabled="item.table_status != 0"
-                            >
-                                โต๊ะหมายเลข {{ item.id }}
-                                {{ getStatusText(item.table_status) }}
-                            </option>
-                        </select>
                     </div>
                     <div class="w-full md:w-2/5 px-3 mb-2 md:mb-0">
                         <label
@@ -855,7 +832,7 @@
                             @click="cancel_table(this.table)"
                             class="mx-2 bg-red-400 w-52 h-11 rounded-lg shadow-md text-white mb-3"
                         >
-                            ยกเลิกโต๊ะ {{ this.table }}
+                            ยกเลิกโต๊ะ ( {{ this.table }} )
                         </button>
                     </div>
                 </div>
@@ -949,10 +926,6 @@ export default {
                         secondary_package_id
                 );
 
-                this.editTable = this.list_table.find(
-                    (list_table) => list_table.id === item
-                );
-
                 this.isConfirmtable = true;
                 return;
             }
@@ -1042,6 +1015,12 @@ export default {
                     this.isModalregistable = false;
                     this.isConfirmtable = false;
                     this.fetch_table();
+                    this.table = "";
+                    this.customer_adult = "";
+                    this.customer_children = "";
+                    this.customer_baby = "";
+                    this.package_main = "";
+                    this.package_secondary = "";
                 })
                 .catch((error) => {
                     console.log(error);
@@ -1072,6 +1051,13 @@ export default {
                     console.log(response);
                     this.isEdittable = false;
                     this.fetch_table();
+                    this.table = "";
+                    this.customer_adult = "";
+                    this.customer_children = "";
+                    this.customer_baby = "";
+                    this.package_main = "";
+                    this.package_secondary = "";
+                    this.new_table_number = "";
                 })
                 .catch((error) => {
                     console.log(error);
@@ -1111,6 +1097,12 @@ export default {
                     this.isModalregistable = false;
                     this.isConfirmtable = false;
                     this.fetch_table();
+                    this.table = "";
+                    this.customer_adult = "";
+                    this.customer_children = "";
+                    this.customer_baby = "";
+                    this.package_main = "";
+                    this.package_secondary = "";
                 })
                 .catch((error) => {
                     console.log(error);
@@ -1142,6 +1134,12 @@ export default {
                     this.isModalregistable = false;
                     this.isConfirmtable = false;
                     this.fetch_table();
+                    this.table = "";
+                    this.customer_adult = "";
+                    this.customer_children = "";
+                    this.customer_baby = "";
+                    this.package_main = "";
+                    this.package_secondary = "";
                 })
                 .catch((error) => {
                     console.log(error);
