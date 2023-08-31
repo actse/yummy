@@ -10,14 +10,7 @@
                     >
                         <button
                             v-for="item in list_table"
-                            @click="
-                                openservice(
-                                    item.id,
-                                    item.package_main,
-                                    item.package_secondary,
-                                    item.table_status
-                                )
-                            "
+                            @click="openservice(item.id, item.table_status)"
                             :class="{
                                 'bg-white': item.table_status == 0,
                                 'bg-red-400 text-white': item.table_status == 1,
@@ -307,7 +300,7 @@
                                 >
                                     <div class="text-xl font-bold">
                                         <label>
-                                            โต๊ะ {{ item.id }}
+                                            โต๊ะ {{ item.table_name }}
                                         </label>
                                     </div>
                                     <div
@@ -335,7 +328,8 @@
                                                 item.package_secondary
                                             "
                                         >
-                                            {{ itemps.title_package }} ( {{ itemps.package_price }} บาท )
+                                            {{ itemps.title_package }} (
+                                            {{ itemps.package_price }} บาท )
                                         </label>
                                     </div>
                                     <div
@@ -357,6 +351,12 @@
                                     <div class="">
                                         <label>
                                             {{ item.customer_baby }}
+                                        </label>
+                                    </div>
+                                    <div class="text-md">
+                                        <label>
+                                            จำนวน
+                                            {{ item.table_type }} ที่นั่ง
                                         </label>
                                     </div>
                                 </div>
@@ -554,7 +554,6 @@
                 />
             </button>
         </div>
-        <!-- Form Insert table -->
         <div
             class="flex items-center justify-center bg-white w-full px-4 border-t-2 pt-3"
         >
@@ -574,7 +573,7 @@
                         <select
                             class="block appearance-none mt-2 mb-3 w-full bg-gray-200 border border-gray-200 text-gray-700 py-3 px-4 pr-8 rounded leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
                             id="grid-state"
-                            v-model="editpackage_main.package_main"
+                            v-model="editpackage_main"
                         >
                             <option
                                 disabled
@@ -600,7 +599,7 @@
                         <select
                             class="block appearance-none mt-2 mb-3 w-full bg-gray-200 border border-gray-200 text-gray-700 py-3 px-4 pr-8 rounded leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
                             id="grid-state"
-                            v-model="editpackage_secondary.package_secondary"
+                            v-model="editpackage_secondary"
                         >
                             <option
                                 disabled
@@ -653,7 +652,7 @@
                             class="appearance-none mt-2 block w-full bg-gray-200 text-gray-700 border border-white rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white"
                             id="grid-first-name"
                             type="number"
-                            v-model="editTable.customer_adult"
+                            v-model="editcustomer_adult"
                         />
                         <label
                             class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2"
@@ -665,7 +664,7 @@
                             class="appearance-none mt-2 block w-full bg-gray-200 text-gray-700 border border-white rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white"
                             id="grid-first-name"
                             type="number"
-                            v-model="editTable.customer_children"
+                            v-model="editcustomer_children"
                         />
                         <label
                             class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2"
@@ -677,7 +676,7 @@
                             class="appearance-none mt-2 block w-full bg-gray-200 text-gray-700 border border-white rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white"
                             id="grid-first-name"
                             type="number"
-                            v-model="editTable.customer_baby"
+                            v-model="editcustomer_baby"
                         />
                     </div>
                 </div>
@@ -691,8 +690,8 @@
                         >
                             แก้ไขรายละเอียดโต๊ะ ( {{ this.table }} )
                         </button>
-                        <button
-                            @click="cancel_table(this.table)"
+                        <button type="button"
+                            @click="cancel_table(this.id,this.table)"
                             class="mx-2 bg-red-400 w-52 h-11 rounded-lg shadow-md text-white mb-3"
                         >
                             ยกเลิกโต๊ะ {{ this.table }}
@@ -715,12 +714,11 @@
                 />
             </button>
         </div>
-        <!-- Form Insert table -->
         <div
             class="flex items-center justify-center bg-white w-full px-4 border-t-2 pt-3"
         >
             <form
-                @submit.prevent="confirm_table"
+                @submit.prevent="confirm_table(this.id)"
                 enctype="multipart/form-data"
                 class="w-full max-w-lg"
             >
@@ -735,7 +733,7 @@
                         <select
                             class="block appearance-none mt-2 mb-3 w-full bg-gray-200 border border-gray-200 text-gray-700 py-3 px-4 pr-8 rounded leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
                             id="grid-state"
-                            v-model="editpackage_main.package_main"
+                            v-model="editpackage_main"
                         >
                             <option
                                 disabled
@@ -761,7 +759,7 @@
                         <select
                             class="block appearance-none mt-2 mb-3 w-full bg-gray-200 border border-gray-200 text-gray-700 py-3 px-4 pr-8 rounded leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
                             id="grid-state"
-                            v-model="editpackage_secondary.package_secondary"
+                            v-model="editpackage_secondary"
                         >
                             <option
                                 disabled
@@ -790,7 +788,7 @@
                             class="appearance-none mt-2 block w-full bg-gray-200 text-gray-700 border border-white rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white"
                             id="grid-first-name"
                             type="number"
-                            v-model="editTable.customer_adult"
+                            v-model="editcustomer_adult"
                         />
                         <label
                             class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2"
@@ -802,7 +800,7 @@
                             class="appearance-none mt-2 block w-full bg-gray-200 text-gray-700 border border-white rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white"
                             id="grid-first-name"
                             type="number"
-                            v-model="editTable.customer_children"
+                            v-model="editcustomer_children"
                         />
                         <label
                             class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2"
@@ -814,7 +812,7 @@
                             class="appearance-none mt-2 block w-full bg-gray-200 text-gray-700 border border-white rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white"
                             id="grid-first-name"
                             type="number"
-                            v-model="editTable.customer_baby"
+                            v-model="editcustomer_baby"
                         />
                     </div>
                 </div>
@@ -823,13 +821,13 @@
                         class="max-w-md mx-auto w-full h-20 bg-white text-center border-b-2 border-gray-300"
                     >
                         <button
-                            class="bg-blue-400 w-52 h-11 rounded-lg shadow-md text-white"
+                            class="bg-green-400 w-52 h-11 rounded-lg shadow-md text-white"
                             type="submit"
                         >
                             ลงทะเบียนโต๊ะ ( {{ this.table }} )
                         </button>
-                        <button
-                            @click="cancel_table(this.table)"
+                        <button type="button"
+                            @click="cancel_table(this.id, this.table)"
                             class="mx-2 bg-red-400 w-52 h-11 rounded-lg shadow-md text-white mb-3"
                         >
                             ยกเลิกโต๊ะ ( {{ this.table }} )
@@ -864,6 +862,8 @@ export default {
             isEdittable: false,
             isPayment: false,
             list_table: [],
+            list_bills: [],
+            list_jointable: [],
             table: "",
             customer_adult: "",
             customer_children: "",
@@ -876,36 +876,52 @@ export default {
             new_table_number: "",
             editpackage_main: null,
             editpackage_secondary: null,
+            editmain: "",
+            editsecondary: "",
+            editpackage_main: "",
+            editpackage_secondary: "",
+            editcustomer_adult: "",
+            editcustomer_children: "",
+            editcustomer_baby: "",
         };
     },
     methods: {
         getStatusText(status) {
             return status == 0 ? "( ว่าง )" : "( ไม่ว่าง )";
         },
-        openservice(item, main_package_id, secondary_package_id, status) {
+        openservice(item, status) {
             if (status == 0) {
                 this.isModalregistable = true;
                 this.table = item;
                 return;
             }
+
             if (status == 1) {
                 this.table = item;
                 this.status = status;
 
-                this.editpackage_main = this.list_table.find(
-                    (main_package) =>
-                        main_package.package_main === main_package_id
-                );
-
-                this.editpackage_secondary = this.list_table.find(
-                    (secondary_package) =>
-                        secondary_package.package_secondary ===
-                        secondary_package_id
-                );
-
-                this.editTable = this.list_table.find(
-                    (list_table) => list_table.id === item
-                );
+                axios
+                    .get("/joindata")
+                    .then((response) => {
+                        if (response.data != []) {
+                            for (let item of response.data) {
+                                if (this.table == item.table_id) {
+                                    this.id = item.id;
+                                    this.editpackage_main = item.package_main;
+                                    this.editpackage_secondary =
+                                        item.package_secondary;
+                                    this.editcustomer_adult =
+                                        item.customer_adult;
+                                    this.editcustomer_children =
+                                        item.customer_children;
+                                    this.editcustomer_baby = item.customer_baby;
+                                }
+                            }
+                        }
+                    })
+                    .catch((error) => {
+                        console.log(error);
+                    });
 
                 this.isEdittable = true;
                 return;
@@ -915,16 +931,28 @@ export default {
                 this.table = item;
                 this.status = status;
 
-                this.editpackage_main = this.list_table.find(
-                    (main_package) =>
-                        main_package.package_main === main_package_id
-                );
-
-                this.editpackage_secondary = this.list_table.find(
-                    (secondary_package) =>
-                        secondary_package.package_secondary ===
-                        secondary_package_id
-                );
+                axios
+                    .get("/joindata")
+                    .then((response) => {
+                        if (response.data != []) {
+                            for (let item of response.data) {
+                                if (this.table == item.table_id) {
+                                    this.id = item.id;
+                                    this.editpackage_main = item.package_main;
+                                    this.editpackage_secondary =
+                                        item.package_secondary;
+                                    this.editcustomer_adult =
+                                        item.customer_adult;
+                                    this.editcustomer_children =
+                                        item.customer_children;
+                                    this.editcustomer_baby = item.customer_baby;
+                                }
+                            }
+                        }
+                    })
+                    .catch((error) => {
+                        console.log(error);
+                    });
 
                 this.isConfirmtable = true;
                 return;
@@ -994,6 +1022,18 @@ export default {
                     console.log(error);
                 });
         },
+        fetch_bills() {
+            axios
+                .get("/fetch_bills")
+                .then((response) => {
+                    if (response.data != []) {
+                        this.list_bills = response.data;
+                    }
+                })
+                .catch((error) => {
+                    console.log(error);
+                });
+        },
         register_table() {
             const formData = new FormData();
 
@@ -1014,7 +1054,7 @@ export default {
                     this.isRegistable = false;
                     this.isModalregistable = false;
                     this.isConfirmtable = false;
-                    this.fetch_table();
+                    this.fetch_bills();
                     this.table = "";
                     this.customer_adult = "";
                     this.customer_children = "";
@@ -1027,21 +1067,17 @@ export default {
                 });
         },
         edit_table() {
+
             const formData = new FormData();
+            formData.append("bills_id", this.id);
             formData.append("shop_id", 1);
             formData.append("staff_id", 1);
             formData.append("table", this.table);
-            formData.append("customer_adult", this.editTable.customer_adult);
-            formData.append(
-                "customer_children",
-                this.editTable.customer_children
-            );
-            formData.append("customer_baby", this.editTable.customer_baby);
-            formData.append("main_package", this.editpackage_main.package_main);
-            formData.append(
-                "secondary_package",
-                this.editpackage_secondary.package_secondary
-            );
+            formData.append("customer_adult", this.editcustomer_adult);
+            formData.append("customer_children", this.editcustomer_children);
+            formData.append("customer_baby", this.editcustomer_baby);
+            formData.append("main_package", this.editpackage_main);
+            formData.append("secondary_package", this.editpackage_secondary);
             formData.append("status", 1);
             formData.append("new_table", this.new_table_number);
 
@@ -1050,7 +1086,7 @@ export default {
                 .then((response) => {
                     console.log(response);
                     this.isEdittable = false;
-                    this.fetch_table();
+                    this.id = "";
                     this.table = "";
                     this.customer_adult = "";
                     this.customer_children = "";
@@ -1058,14 +1094,17 @@ export default {
                     this.package_main = "";
                     this.package_secondary = "";
                     this.new_table_number = "";
+                    this.fetch_table();
                 })
                 .catch((error) => {
                     console.log(error);
                 });
         },
-        cancel_table(id) {
+        cancel_table(billsid, id) {
             const formData = new FormData();
+            formData.append("bills_id", billsid);
             formData.append("table_id", id);
+
             axios
                 .post("/close_bills", formData)
                 .then((response) => {
@@ -1110,24 +1149,21 @@ export default {
         },
         confirm_table() {
             const formData = new FormData();
+            formData.append("bills_id", this.id);
             formData.append("shop_id", 1);
             formData.append("staff_id", 1);
             formData.append("table", this.table);
-            formData.append("customer_adult", this.editTable.customer_adult);
-            formData.append(
-                "customer_children",
-                this.editTable.customer_children
-            );
-            formData.append("customer_baby", this.editTable.customer_baby);
-            formData.append("main_package", this.editpackage_main.package_main);
-            formData.append(
-                "secondary_package",
-                this.editpackage_secondary.package_secondary
-            );
+            formData.append("customer_adult", this.editcustomer_adult);
+            formData.append("customer_children", this.editcustomer_children);
+            formData.append("customer_baby", this.editcustomer_baby);
+            formData.append("main_package", this.editpackage_main);
+            formData.append("secondary_package", this.editpackage_secondary);
+            formData.append("status", 1);
+            formData.append("new_table", this.new_table_number);
             formData.append("status", 1);
 
             axios
-                .post("/insert_bills", formData)
+                .post("/confirm_bills", formData)
                 .then((response) => {
                     console.log(response);
                     this.isRegistable = false;
@@ -1147,6 +1183,7 @@ export default {
         },
     },
     mounted() {
+        this.fetch_bills();
         this.fetch_table();
         this.fetch_main_package();
         this.fetch_secondary_package();

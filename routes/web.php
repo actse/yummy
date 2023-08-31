@@ -9,6 +9,7 @@ use App\Http\Controllers\TypeProductController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\MenuController;
 use App\Http\Controllers\OrderTaberController;
+use App\Http\Controllers\TableController;
 use App\Http\Controllers\SecondaryPackageController;
 
 
@@ -131,17 +132,22 @@ Route::post('/insert_secondary_package', [SecondaryPackageController::class,'ins
 Route::get('/fetch_secondary_package', [SecondaryPackageController::class,'select']);
 Route::post('/edit_secondary_package', [SecondaryPackageController::class,'edit']);
 Route::post('/delete_secondary_package', [SecondaryPackageController::class,'delete']);
-Route::post('/reserve_bills', [OrderTaberController::class,'reserve_table']);
 
 Route::get('/generateRandomString', [OrderTaberController::class,'generateRandomString']);
-
-Route::get('/fetch_table', [OrderTaberController::class,'select_table']);
+Route::get('/fetch_bills', [OrderTaberController::class,'select_bills']);
 Route::post('/insert_bills', [OrderTaberController::class,'insert_table']);
 Route::post('/edit_bills', [OrderTaberController::class,'edit_table']);
 Route::post('/close_bills', [OrderTaberController::class,'edit_status_close']);
 Route::post('/check_bills', [OrderTaberController::class,'payment_status_close']);
+Route::post('/reserve_bills', [OrderTaberController::class,'reserve_table']);
+Route::post('/confirm_bills', [OrderTaberController::class,'confirmreserve_table']);
+
+Route::post('/create_table', [TableController::class,'create_table']);
+Route::get('/fetch_table', [TableController::class,'select_table']);
 
 Route::get('/list_menu', [MenuController::class,'list_menu']);
+
+Route::get('/joindata', [TableController::class,'joindata']);
 
 Route::get('/home', function () {
     return Inertia::render('HomePage');
