@@ -13,10 +13,9 @@ return new class extends Migration
     {
         Schema::create('shop_tables', function (Blueprint $table) {
             $table->id();
-            $table->string('table_number');
+            $table->string('table_name');
             $table->string('table_type')->nullable();
             $table->string('table_status')->nullable();
-            $table->string('shop_id')->nullable();
             $table->timestamps();
         });
     }
