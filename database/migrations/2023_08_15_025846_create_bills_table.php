@@ -16,10 +16,6 @@ return new class extends Migration
             $table->string('shop_id');
             $table->string('staff_id');
             $table->string('reference_code');
-            $table->string('table_number');
-            $table->string('customer_adult')->nullable();
-            $table->string('customer_children')->nullable();
-            $table->string('customer_baby')->nullable();
             $table->string('package_main');
             $table->string('package_secondary');
             $table->string('table_status');

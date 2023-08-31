@@ -1,7 +1,7 @@
 <template>
     <div class="bg-white p-3 m-10 rounded-lg shadow-lg">
         <div class="flex justify-between items-center px-4">
-            <div class="space-x-1 mb-1">
+            <div class="flex space-x-1 mb-1">
                 <input v-model="searchName" placeholder="Search name..." class="mt-3 rounded-lg h-10"/>
                 <select v-model="searchType" class="text-sm text-gray-600 rounded-lg h-10 mt-3">
                     <option value="">ทุกประเภท</option>
@@ -9,6 +9,12 @@
                         {{ items.type_product_name }}
                     </option>
                 </select>
+                <div class="flex justify-center items-center pt-3">
+                    <label for="rowsPerPage">การแสดงข้อมูล :</label>
+                    <select class=" h-9 py-1  rounded-md" v-model="rowsPerPage" @change="updatePage(1)">
+                        <option class=" w-full" v-for="option in rowsPerPageOptions" :key="option" :value="option">{{ option }}</option>
+                    </select>
+                </div>
             </div>
             <div>
                 <button @click="idAddProductModalOpen = true" class="flex items-center justify-center w-1/2 px-3 py-2 text-sm tracking-wide text-white transition-colors duration-200 bg-blue-500 rounded-lg shrink-0 sm:w-auto gap-x-2 hover:bg-blue-600 dark:hover:bg-blue-500 dark:bg-blue-600">
@@ -69,12 +75,7 @@
             <span>หน้า {{ currentPage }} ถึง {{ totalPages }}</span>
             <button class="px-3 py-1 bg-gray-50 border border-gray-300 rounded-md hover:bg-gray-200" :disabled="currentPage === totalPages" @click="updatePage(currentPage + 1)">ถัดไป</button>
         </div>
-        <div class="flex justify-center items-center gap-1">
-            <label for="rowsPerPage">กำหนดการแสดงข้อมูล :</label>
-            <select class=" h-9 py-1  rounded-md" v-model="rowsPerPage" @change="updatePage(1)">
-                <option class=" w-full" v-for="option in rowsPerPageOptions" :key="option" :value="option">{{ option }}</option>
-            </select>
-        </div>
+        
       </div>
       <!-- Modal -->
       <MenuModal v-if="isModalOpen">
