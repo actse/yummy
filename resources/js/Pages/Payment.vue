@@ -128,26 +128,26 @@
                 <div class="flex items-center justify-between pt-3">
                     <h1 class="py-2 text-xl text-gray-700 font-bold">เงินที่ได้รับ</h1>
                     <div class="space-x-3 text-center">
-                        <input class=" w-3/4 border text-right border-gray-400 rounded-lg" type="text" name="bill_paymennt" id="bill_paymennt">
+                        <input class=" w-full border text-right border-gray-400 rounded-lg" type="text" name="bill_paymennt" id="bill_paymennt" v-model="billPayment">
                     </div>
                     <label class="font-bold">บาท</label>
                 </div>
-                <div class="grid mt-5 grid-cols-4 gap-1 w-full h-56">
-                    <button class="col-span-1 p-1 bg-blue-500 text-white rounded">1</button>
-                    <button class="col-span-1 p-1 bg-blue-500 text-white rounded">2</button>
-                    <button class="col-span-1 p-1 bg-blue-500 text-white rounded">3</button>
-                    <button class="col-span-1 p-1 bg-yellow-500 text-white rounded"> พอดี</button>
-                    <button class="col-span-1 p-1 bg-blue-500 text-white rounded">4</button>
-                    <button class="col-span-1 p-1 bg-blue-500 text-white rounded">5</button>
-                    <button class="col-span-1 p-1 bg-blue-500 text-white rounded">6</button>
+                <div class="grid mt-5 grid-cols-4 gap-1 w-full h-64">
+                    <button class="col-span-1 p-1 bg-blue-500 text-white rounded" @click="addToInput(1)">1</button>
+                    <button class="col-span-1 p-1 bg-blue-500 text-white rounded" @click="addToInput(2)"> 2</button>
+                    <button class="col-span-1 p-1 bg-blue-500 text-white rounded" @click="addToInput(3)"> 3</button>
+                    <button class="col-span-1 p-1 bg-yellow-500 text-white rounded" @click="clearAndAddResult()">  พอดี</button>
+                    <button class="col-span-1 p-1 bg-blue-500 text-white rounded" @click="addToInput(4)"> 4</button>
+                    <button class="col-span-1 p-1 bg-blue-500 text-white rounded" @click="addToInput(5)"> 5</button>
+                    <button class="col-span-1 p-1 bg-blue-500 text-white rounded" @click="addToInput(6)"> 6</button>
                     <button class="col-span-1 p-1 text-white rounded"></button>
-                    <button class="col-span-1 p-1 bg-blue-500 text-white rounded">7</button>
-                    <button class="col-span-1 p-1 bg-blue-500 text-white rounded">8</button>
-                    <button class="col-span-1 p-1 bg-blue-500 text-white rounded">9</button>
+                    <button class="col-span-1 p-1 bg-blue-500 text-white rounded" @click="addToInput(7)">7</button>
+                    <button class="col-span-1 p-1 bg-blue-500 text-white rounded" @click="addToInput(8)">8</button>
+                    <button class="col-span-1 p-1 bg-blue-500 text-white rounded" @click="addToInput(9)">9</button>
                     <button class="col-span-1 p-1 text-white rounded"></button>
-                    <button class="col-span-2 p-1 bg-blue-500 text-white rounded">0</button>
-                    <button class="col-span-1 p-1 bg-yellow-500 text-white rounded">.</button>
-                    <button class="col-span-1 p-1 bg-green-500 text-white rounded">C</button>
+                    <button class="col-span-2 p-1 bg-blue-500 text-white rounded" @click="addToInput(0)">0</button>
+                    <button class="col-span-1 p-1 bg-blue-500 text-white rounded" @click="addDot()">.</button>
+                    <button class="col-span-1 p-1 bg-green-500 text-white rounded"  @click="clear()">C</button>
                 </div>
         </div>
         </div>
@@ -160,10 +160,42 @@
 
 <script>
 import Sidennav from "@/components/Sidennav.vue";
+
 export default {
     components :{
         Sidennav,
     },
+    data(){
+        return {
+            billPayment: '', // ข้อมูลใน input
+        };
+    },
+    methods: {
+                addToInput(value) {
+                    // เพิ่มค่าที่ถูกคลิกลงใน input
+                    this.billPayment += value;
+                    console.log(value);
+                },
+                addDot() {
+                    // เพิ่ม "." ลงใน input หากยังไม่มี
+                    if (!this.billPayment.includes('.')) {
+                        this.billPayment += '.';
+                    }
+                },
+                clearAndAddResult() {
+                    // เคลียร์ค่าใน input
+                    this.billPayment = '';
+                    // เพิ่มผลรวมทั้งหมดลงใน input
+                    const result = this.calculateTotal(); // สมมติว่าคุณมีฟังก์ชัน calculateTotal ที่คำนวณผลรวมทั้งหมด
+                    this.billPayment = result.toString();
+                },
+                calculateTotal() {
+                    return 997.5;
+                },
+                clear(){
+                    this.billPayment = '';
+                }
+            },
 }
 </script>
 
