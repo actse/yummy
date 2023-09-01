@@ -146,8 +146,9 @@ Route::post('/create_table', [TableController::class,'create_table']);
 Route::get('/fetch_table', [TableController::class,'select_table']);
 
 Route::get('/list_menu', [MenuController::class,'list_menu']);
+Route::get('/selectdatatable', [TableController::class,'selectdatatable']);
+Route::get('/selectregistable', [TableController::class,'selectregistable']);
 
-Route::get('/joindata', [TableController::class,'joindata']);
 
 Route::get('/home', function () {
     return Inertia::render('HomePage');
