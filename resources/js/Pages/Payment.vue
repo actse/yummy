@@ -8,6 +8,7 @@
                 <div class="py-2">
                     <h1 class="text-xl text-gray-700 font-bold">ข้อมูลโต๊ะหมายเลข 1</h1>
                 </div>
+                <hr class="my-2 border-gray-300 border-1">
                 <div class="flex justify-between text-gray-600 font-bold">
                     <p class="py-1">เลที่ : <span>800560002</span></p>
                     <p class="py-1">โต๊ะหมายเลข <span>1</span></p>
@@ -71,18 +72,20 @@
             </div>
             
             </div>
-            <div class="p-5 mt-5 bg-white w-full rounded-lg border border-gray-200 shadow-lg">
+            <div class="p-5 mt-5 bg-white h-40 rounded-lg border border-gray-200 shadow-lg">
                 <div class="pb-2">
                     <h1 class="text-xl text-gray-700 font-bold">เพิ่มเติม</h1>
                 </div>
-                <div class="flex space-x-5">
+                <hr class="my-2 border-gray-300 border-1">
+                <div class="flex items-center space-x-2 hue-rotate h-20">
                     <button class="px-4 py-2 bg-orange-400 text-white shadow-md rounded-md hover:bg-orange-500">โค้ดส่วนลด</button>
                     <button class="px-4 py-2 bg-orange-400 text-white shadow-md rounded-md hover:bg-orange-500">ใบแจ้งหนี้</button>
                     <button class="px-4 py-2 bg-orange-400 text-white shadow-md rounded-md hover:bg-orange-500">ใบกำกับภาษี</button>
                 </div>
             </div>
         </div>
-        <div class="p-5 w-3/6 h-full bg-white rounded-lg border-gray-200 shadow-lg">
+        <div class=" w-3/6 ">
+            <div class="p-5 h-full bg-white rounded-lg border-gray-200 shadow-lg">
             <div class="py-2">
                 <div class="flex justify-between pb-2">
                     <h1 class="text-xl text-gray-700 font-bold">ยอดที่ต้องชำระ</h1>
@@ -122,17 +125,33 @@
             </div>
             <hr class="mt-11 border-gray-300 border-1">
             <div class="py-2">
-                <div class="flex justify-between pt-3">
+                <div class="flex items-center justify-between pt-3">
                     <h1 class="py-2 text-xl text-gray-700 font-bold">เงินที่ได้รับ</h1>
-                    <div class="space-x-3">
-                        <input class="border text-right border-gray-400 rounded-lg" type="text" name="bill_paymennt" id="bill_paymennt">
-                        <label class="font-bold">บาท</label>
+                    <div class="space-x-3 text-center">
+                        <input class=" w-3/4 border text-right border-gray-400 rounded-lg" type="text" name="bill_paymennt" id="bill_paymennt">
                     </div>
+                    <label class="font-bold">บาท</label>
                 </div>
-                <div class="flex gap-4">
+                <div class="grid mt-5 grid-cols-4 gap-1 w-full h-56">
+                    <button class="col-span-1 p-1 bg-blue-500 text-white rounded">1</button>
+                    <button class="col-span-1 p-1 bg-blue-500 text-white rounded">2</button>
+                    <button class="col-span-1 p-1 bg-blue-500 text-white rounded">3</button>
+                    <button class="col-span-1 p-1 bg-yellow-500 text-white rounded"> พอดี</button>
+                    <button class="col-span-1 p-1 bg-blue-500 text-white rounded">4</button>
+                    <button class="col-span-1 p-1 bg-blue-500 text-white rounded">5</button>
+                    <button class="col-span-1 p-1 bg-blue-500 text-white rounded">6</button>
+                    <button class="col-span-1 p-1 text-white rounded"></button>
+                    <button class="col-span-1 p-1 bg-blue-500 text-white rounded">7</button>
+                    <button class="col-span-1 p-1 bg-blue-500 text-white rounded">8</button>
+                    <button class="col-span-1 p-1 bg-blue-500 text-white rounded">9</button>
+                    <button class="col-span-1 p-1 text-white rounded"></button>
+                    <button class="col-span-2 p-1 bg-blue-500 text-white rounded">0</button>
+                    <button class="col-span-1 p-1 bg-yellow-500 text-white rounded">.</button>
+                    <button class="col-span-1 p-1 bg-green-500 text-white rounded">C</button>
+                </div>
+        </div>
+        </div>
 
-                </div>
-            </div>
         </div>
     </div>
   </Sidennav>
