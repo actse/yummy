@@ -135,10 +135,10 @@ class OrderTaberController extends Controller
 
         $date_stamp = date('y-m-d h:i:s');
         $date_stamp = date('y-m-d h:i:s');
-        $bills_id = $request->input('bills_id');
+        // $bills_id = $request->input('bills_id');
         $table_number = $request->input('table');
 
-        $insertbill = Bills::where('id', '=', $bills_id)->update([
+        $insertbill = Bills::insert([
             'shop_id' => $request->input('shop_id'),
             'staff_id' => $request->input('staff_id'),
             'reference_code' => $this->generateRandomString(8),
@@ -175,6 +175,7 @@ class OrderTaberController extends Controller
         $date_stamp = date('y-m-d h:i:s');
         $bills_id = $request->input('bills_id');
         $table_number = $request->input('table');
+
         $insertbill = Bills::where('id', '=', $bills_id)->update([
             'shop_id' => $request->input('shop_id'),
             'staff_id' => $request->input('staff_id'),

@@ -35,7 +35,7 @@ class TableController extends Controller
         return Table::get();
     }
 
-    function joindata()
+    function selectdatatable()
     {
 
         // return Bills::join('shop_tables', 'bills.table_id', '=', 'shop_tables.id')
@@ -60,5 +60,13 @@ class TableController extends Controller
                 'shop_tables.table_status'
             )
             ->get();
+    }
+
+    public function selectregistable()
+    {
+        return Table::join('bills', 'shop_tables.id', '=', 'bills.table_id')
+        ->where('shop_tables.table_status', '<>', '0')
+        ->select('shop_tables.table_name', 'shop_tables.table_type', 'shop_tables.table_status', 'bills.*')
+        ->get();
     }
 }
