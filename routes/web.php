@@ -89,8 +89,8 @@ Route::get('/payment', function () {
     return Inertia::render('Payment');
 });
 //=========================safe page==================================
-Route::get('/home_safe', function () {
-    return Inertia::render('HomeSafe');
+Route::get('/kitchen', function () {
+    return Inertia::render('HomeChef');
 });
 //=========================owner page==================================
 Route::get('/list_product', function () {

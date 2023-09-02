@@ -10,7 +10,7 @@
             <div class="space-y-3 ">
                 <label class="px-3 text-xs text-gray-500 uppercase ">หน้าร้าน</label>
 
-                <Link class="flex items-center px-3 py-2 text-gray-600 transition-colors duration-300 transform rounded-lg  hover:bg-gray-100   hover:text-gray-300" href="manage_table_staff">
+                <Link class="flex items-center px-3 py-2 text-gray-600 transition-colors duration-300 transform rounded-lg  hover:bg-gray-100   hover:text-gray-300" href="home_safe">
                     <svg class="w-5 h-5" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
                         <path d="M9,6a1,1,0,0,1,1-1h4a1,1,0,0,1,0,2H10A1,1,0,0,1,9,6ZM23,2a1,1,0,0,1-1,1H21V22a1,1,0,0,1-2,0V11H5V22a1,1,0,0,1-2,0V3H2A1,1,0,0,1,2,1H22A1,1,0,0,1,23,2ZM19,3H5V9H19Z" stroke="#fff" stroke-linecap="round" stroke-linejoin="round"/></svg>
                     <span class="mx-2 text-sm font-medium">จัดการโต๊ะ</span>
@@ -40,7 +40,7 @@
             <div class="space-y-3 ">
                 <label class="px-3 text-xs text-gray-500 uppercase ">ห้องครัว</label>
 
-                <Link class="flex items-center px-3 py-2 text-gray-600 transition-colors duration-300 transform rounded-lg  hover:bg-gray-100   hover:text-gray-300" href="#">
+                <Link class="flex items-center px-3 py-2 text-gray-600 transition-colors duration-300 transform rounded-lg  hover:bg-gray-100   hover:text-gray-300" href="kitchen">
                     <svg class="w-5 h-5" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
                         <path d="M9,6a1,1,0,0,1,1-1h4a1,1,0,0,1,0,2H10A1,1,0,0,1,9,6ZM23,2a1,1,0,0,1-1,1H21V22a1,1,0,0,1-2,0V11H5V22a1,1,0,0,1-2,0V3H2A1,1,0,0,1,2,1H22A1,1,0,0,1,23,2ZM19,3H5V9H19Z" stroke="#fff" stroke-linecap="round" stroke-linejoin="round"/></svg>
                     <span class="mx-2 text-sm font-medium">รายการสั่ง</span>
@@ -61,7 +61,7 @@
             <div class="space-y-3 ">
                 <label class="px-3 text-xs text-gray-500 uppercase ">จัดการร้าน</label>
 
-                <Link class="flex items-center px-3 py-2 text-gray-600 transition-colors duration-300 transform rounded-lg  hover:bg-gray-100   hover:text-gray-300" href="list_product">
+                <Link class="flex items-center px-3 py-2 text-gray-600 transition-colors duration-300 transform rounded-lg  hover:bg-gray-100   hover:text-gray-300" href="">
                     <svg  class="w-5 h-5" viewBox="0 0 24 24" fill="none"  xmlns="http://www.w3.org/2000/svg">
                         <path d="M6.73 19.7C7.55 18.82 8.8 18.89 9.52 19.85L10.53 21.2C11.34 22.27 12.65 22.27 13.46 21.2L14.47 19.85C15.19 18.89 16.44 18.82 17.26 19.7C19.04 21.6 20.49 20.97 20.49 18.31V7.04C20.5 3.01 19.56 2 15.78 2H8.22C4.44 2 3.5 3.01 3.5 7.04V18.3C3.5 20.97 4.96 21.59 6.73 19.7Z" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
                         <path d="M8.09607 11H8.10505"  stroke="currentColor" stroke-width="2"  stroke-linecap="round" stroke-linejoin="round"/>
@@ -72,7 +72,7 @@
                     <span class="mx-2 text-sm font-medium">รายการสินค้า</span>
                 </Link>
                 
-                <Link class="flex items-center px-3 py-2 text-gray-600 transition-colors duration-300 transform rounded-lg  hover:bg-gray-100   hover:text-gray-300" href="">
+                <Link class="flex items-center px-3 py-2 text-gray-600 transition-colors duration-300 transform rounded-lg  hover:bg-gray-100   hover:text-gray-300" href="list_product">
                     <svg  class="w-5 h-5" viewBox="0 0 24 24" fill="none"  xmlns="http://www.w3.org/2000/svg">
                         <path d="M6.73 19.7C7.55 18.82 8.8 18.89 9.52 19.85L10.53 21.2C11.34 22.27 12.65 22.27 13.46 21.2L14.47 19.85C15.19 18.89 16.44 18.82 17.26 19.7C19.04 21.6 20.49 20.97 20.49 18.31V7.04C20.5 3.01 19.56 2 15.78 2H8.22C4.44 2 3.5 3.01 3.5 7.04V18.3C3.5 20.97 4.96 21.59 6.73 19.7Z" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
                         <path d="M8.09607 11H8.10505"  stroke="currentColor" stroke-width="2"  stroke-linecap="round" stroke-linejoin="round"/>
@@ -83,7 +83,7 @@
 
                     <span class="mx-2 text-sm font-medium">รายการประเภท</span>
                 </Link>
-                <Link class="flex items-center px-3 py-2 text-gray-600 transition-colors duration-300 transform rounded-lg  hover:bg-gray-100   hover:text-gray-300" href="#">
+                <Link class="flex items-center px-3 py-2 text-gray-600 transition-colors duration-300 transform rounded-lg  hover:bg-gray-100   hover:text-gray-300" href="list_type_product">
                     <svg  class="w-5 h-5" viewBox="0 0 24 24" fill="none"  xmlns="http://www.w3.org/2000/svg">
                         <path d="M6.73 19.7C7.55 18.82 8.8 18.89 9.52 19.85L10.53 21.2C11.34 22.27 12.65 22.27 13.46 21.2L14.47 19.85C15.19 18.89 16.44 18.82 17.26 19.7C19.04 21.6 20.49 20.97 20.49 18.31V7.04C20.5 3.01 19.56 2 15.78 2H8.22C4.44 2 3.5 3.01 3.5 7.04V18.3C3.5 20.97 4.96 21.59 6.73 19.7Z" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
                         <path d="M8.09607 11H8.10505"  stroke="currentColor" stroke-width="2"  stroke-linecap="round" stroke-linejoin="round"/>
@@ -94,7 +94,7 @@
 
                     <span class="mx-2 text-sm font-medium">รายการแพ็คเกจ</span>
                 </Link>
-                <Link class="flex items-center px-3 py-2 text-gray-600 transition-colors duration-300 transform rounded-lg  hover:bg-gray-100   hover:text-gray-300" href="#">
+                <Link class="flex items-center px-3 py-2 text-gray-600 transition-colors duration-300 transform rounded-lg  hover:bg-gray-100   hover:text-gray-300" href="list_package_product">
                     <svg  class="w-5 h-5" viewBox="0 0 24 24" fill="none"  xmlns="http://www.w3.org/2000/svg">
                         <path d="M6.73 19.7C7.55 18.82 8.8 18.89 9.52 19.85L10.53 21.2C11.34 22.27 12.65 22.27 13.46 21.2L14.47 19.85C15.19 18.89 16.44 18.82 17.26 19.7C19.04 21.6 20.49 20.97 20.49 18.31V7.04C20.5 3.01 19.56 2 15.78 2H8.22C4.44 2 3.5 3.01 3.5 7.04V18.3C3.5 20.97 4.96 21.59 6.73 19.7Z" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
                         <path d="M8.09607 11H8.10505"  stroke="currentColor" stroke-width="2"  stroke-linecap="round" stroke-linejoin="round"/>

@@ -1,17 +1,20 @@
 <template>
-    <div class="w-full min-h-screen relative">
-    <div class=" mx-auto my-auto h-full bg-gradient-to-br from-indigo-200 via-red-200 to-yellow-100 border md:w-full">
-      <data-table :data="main_package" :rows-per-page="rowsPerPage" />
-    </div>
+  <div class=" w-full relative bg-slate-100">
+    <Sidennav>
+      <h1 class="m-10 text-4xl font-bold text-gray-700">รายการประเภทสินค้า</h1>  
+        <data-table :data="main_package" :rows-per-page="rowsPerPage" />
+      </Sidennav>
   </div>
 </template>
 
 <script>
 import DataTable from "@/components/DataTablePackage.vue";
+import Sidennav from "@/components/Sidennav.vue";
 
 export default {
   components: {
-    DataTable
+    DataTable,
+    Sidennav,
   },
   data() {
     return {
