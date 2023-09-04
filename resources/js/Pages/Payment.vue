@@ -79,7 +79,7 @@
                 <hr class="my-2 border-gray-300 border-1">
                 <div class="flex items-center space-x-2 hue-rotate h-20">
                     <button class="px-4 py-2 bg-orange-400 text-white shadow-md rounded-md hover:bg-orange-500">โค้ดส่วนลด</button>
-                    <button class="px-4 py-2 bg-orange-400 text-white shadow-md rounded-md hover:bg-orange-500">ใบแจ้งหนี้</button>
+                    <a href="invoice"><button class="px-4 py-2 bg-orange-400 text-white shadow-md rounded-md hover:bg-orange-500">ใบแจ้งหนี้</button></a>
                     <button class="px-4 py-2 bg-orange-400 text-white shadow-md rounded-md hover:bg-orange-500">ใบกำกับภาษี</button>
                 </div>
             </div>
@@ -160,6 +160,7 @@
 
 <script>
 import Sidennav from "@/components/Sidennav.vue";
+import { Link } from "@inertiajs/vue3";
 
 export default {
     components :{
