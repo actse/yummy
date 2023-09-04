@@ -1,7 +1,7 @@
 <template>
   <div class=" w-full relative bg-slate-100">
     <Sidennav>
-      <h1 class="m-10 text-4xl font-bold text-gray-700">รายการประเภทสินค้า</h1>  
+      <h1 class="m-10 text-4xl font-bold text-gray-700">รายการแพ็คเกจ</h1>  
         <data-table :data="main_package" :rows-per-page="rowsPerPage" />
       </Sidennav>
   </div>
