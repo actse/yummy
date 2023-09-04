@@ -80,7 +80,6 @@
                 <div class="flex items-center space-x-2 hue-rotate h-20">
                     <button class="px-4 py-2 bg-orange-400 text-white shadow-md rounded-md hover:bg-orange-500">โค้ดส่วนลด</button>
                     <a href="invoice"><button class="px-4 py-2 bg-orange-400 text-white shadow-md rounded-md hover:bg-orange-500">ใบแจ้งหนี้</button></a>
-                    <button class="px-4 py-2 bg-orange-400 text-white shadow-md rounded-md hover:bg-orange-500">ใบกำกับภาษี</button>
                 </div>
             </div>
         </div>
@@ -125,33 +124,31 @@
             </div>
             <hr class="mt-11 border-gray-300 border-1">
             <div class="py-2">
-                <div class="flex items-center justify-between pt-3">
-                    <h1 class="py-2 text-xl text-gray-700 font-bold">เงินที่ได้รับ</h1>
-                    <div class="space-x-3 text-center">
-                        <input class=" w-full border text-right border-gray-400 rounded-lg" type="text" name="bill_paymennt" id="bill_paymennt" v-model="billPayment">
-                    </div>
-                    <label class="font-bold">บาท</label>
+                <div class="flex items-center justify-between pt-3 w-full">
+                    <h1 class=" py-2 text-xl text-gray-700 font-bold">เงินที่ได้รับ</h1>
+                    <div><input class="w-full border text-xl text-right font-bold text-gray-700 border-gray-400 rounded-lg" type="text" name="bill_paymennt" id="bill_paymennt" v-model="billPayment"></div>
                 </div>
-                <div class="grid mt-5 grid-cols-4 gap-1 w-full h-64">
-                    <button class="col-span-1 p-1 bg-blue-500 text-white rounded" @click="addToInput(1)">1</button>
-                    <button class="col-span-1 p-1 bg-blue-500 text-white rounded" @click="addToInput(2)"> 2</button>
-                    <button class="col-span-1 p-1 bg-blue-500 text-white rounded" @click="addToInput(3)"> 3</button>
-                    <button class="col-span-1 p-1 bg-yellow-500 text-white rounded" @click="clearAndAddResult()">  พอดี</button>
-                    <button class="col-span-1 p-1 bg-blue-500 text-white rounded" @click="addToInput(4)"> 4</button>
-                    <button class="col-span-1 p-1 bg-blue-500 text-white rounded" @click="addToInput(5)"> 5</button>
-                    <button class="col-span-1 p-1 bg-blue-500 text-white rounded" @click="addToInput(6)"> 6</button>
-                    <button class="col-span-1 p-1 text-white rounded"></button>
-                    <button class="col-span-1 p-1 bg-blue-500 text-white rounded" @click="addToInput(7)">7</button>
-                    <button class="col-span-1 p-1 bg-blue-500 text-white rounded" @click="addToInput(8)">8</button>
-                    <button class="col-span-1 p-1 bg-blue-500 text-white rounded" @click="addToInput(9)">9</button>
-                    <button class="col-span-1 p-1 text-white rounded"></button>
-                    <button class="col-span-2 p-1 bg-blue-500 text-white rounded" @click="addToInput(0)">0</button>
-                    <button class="col-span-1 p-1 bg-blue-500 text-white rounded" @click="addDot()">.</button>
-                    <button class="col-span-1 p-1 bg-green-500 text-white rounded"  @click="clear()">C</button>
+                <div class="grid mt-5 grid-cols-4 gap-1 w-full h-64 text-xl font-bold">
+                    <button class="col-span-1 p-1 bg-gray-100 text-gray-800 border-2 border-gray-300 rounded" @click="addToInput(1)">1</button>
+                    <button class="col-span-1 p-1 bg-gray-100 text-gray-800 border-2 border-gray-300 rounded" @click="addToInput(2)"> 2</button>
+                    <button class="col-span-1 p-1 bg-gray-100 text-gray-800 border-2 border-gray-300 rounded" @click="addToInput(3)"> 3</button>
+                    <button class="col-span-1 p-1 bg-gray-100 text-gray-800 border-2 border-gray-300 rounded" @click="clearAndAddResult()">  พอดี</button>
+                    <button class="col-span-1 p-1 bg-gray-100 text-gray-800 border-2 border-gray-300 rounded" @click="addToInput(4)"> 4</button>
+                    <button class="col-span-1 p-1 bg-gray-100 text-gray-800 border-2 border-gray-300 rounded" @click="addToInput(5)"> 5</button>
+                    <button class="col-span-1 p-1 bg-gray-100 text-gray-800 border-2 border-gray-300 rounded" @click="addToInput(6)"> 6</button>
+                    <div class="col-span-1 p-1 text-white rounded"></div>
+                    <button class="col-span-1 p-1 bg-gray-100 text-gray-800 border-2 border-gray-300 rounded" @click="addToInput(7)">7</button>
+                    <button class="col-span-1 p-1 bg-gray-100 text-gray-800 border-2 border-gray-300 rounded" @click="addToInput(8)">8</button>
+                    <button class="col-span-1 p-1 bg-gray-100 text-gray-800 border-2 border-gray-300 rounded" @click="addToInput(9)">9</button>
+                    <div class="col-span-1 p-1 text-white rounded"></div>
+                    <button class="col-span-2 p-1 bg-gray-100 text-gray-800 border-2 border-gray-300 rounded" @click="addToInput(0)">0</button>
+                    <button class="font-bold text-4xl col-span-1 p-1 bg-gray-100 text-gray-800 border-2 border-gray-300 rounded" @click="addDot()">.</button>
+                    <button class="col-span-1 p-1 bg-gray-100 text-gray-800 border-2 border-gray-300 rounded"  @click="clear()">C</button>
                 </div>
-        </div>
-        </div>
 
+                <button class="w-full mt-4 px-4 py-4 bg-orange-400 text-white text-2xl shadow-md rounded-md hover:bg-orange-500">ชำระเงิน</button>
+        </div>
+        </div>
         </div>
     </div>
   </Sidennav>

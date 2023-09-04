@@ -1,8 +1,8 @@
 <template>
 <div class="flex">
-    <aside class="flex flex-col w-64 px-5 py-8 overflow-y-auto bg-white border-r rtl:border-r-0 rtl:border-l">
+    <aside class="flex-col w-64 px-5 py-4 overflow-y-auto bg-white border-r rtl:border-r-0 rtl:border-l hidden md:block" >
     <Link href="#">
-        <img class="w-auto h-10" src="../../imgs/actselogo.png" alt="">
+        <img class="w-auto h-10 mx-auto" src="../../imgs/actselogo.png" alt="">
     </Link>
 
     <div class="flex flex-col justify-between flex-1 mt-6">
