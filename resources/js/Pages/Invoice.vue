@@ -3,7 +3,7 @@
     <div class=" text-center text-lg">
         <div class="px-2 pt-2 w-full">
             <img class="mx-auto w-24 mb-4" src="../../imgs/actselogo.png">
-            <h1 class="text-lg font-bold">Actse Shabu</h1>
+            <h1 class="text-lg font-bold">ACTSE Shabu</h1>
             <div class="text-sm px-5 p-2 text-gray-500">
                 <p>70/6 ถนนพระราม 2 แขวงบางมด เขตจอมทอง กรุงเทพฯ 10150</p>
             </div>
