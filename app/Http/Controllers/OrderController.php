@@ -44,6 +44,11 @@ class OrderController extends Controller
         }
     }
 
+    function fetch_list_orders()
+    {
+        return Orders::get();
+    }
+
     function fetchCart(Request $request)
     {
 
