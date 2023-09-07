@@ -60,7 +60,7 @@
                           </div>
                       </div> -->
                       <div class="w-full">
-                        <div class="w-full flex items-center my-2 bg-gray-200 rounded-l-md">
+                        <div class="w-full flex items-center my-2 bg-gray-100 rounded-l-md hover:bg-gray-200">
                           <img class="w-[70px] h-[70px] rounded-l-md" src="https://via.placeholder.com/90x90" alt="#">
                           <div class="flex flex-wrap justify-between w-full py-5 px-5 text-gray-600 font-bold ">
                               <div class="w-3/6"><p>สามชั้นสไลด์ Collar pork</p></div>
@@ -68,7 +68,7 @@
                               <div class="w-1/6"><p>x3</p></div>
                           </div>
                         </div>
-                        <div class="w-full flex items-center my-2 bg-gray-200 rounded-l-md">
+                        <div class="w-full flex items-center my-2 bg-gray-100 rounded-l-md hover:bg-gray-200">
                           <img class="w-[70px] h-[70px] rounded-l-md" src="https://via.placeholder.com/90x90" alt="#">
                           <div class="flex flex-wrap justify-between w-full py-5 px-5 text-gray-600 font-bold ">
                               <div class="w-3/6"><p>สามชั้นสไลด์ Collar pork</p></div>
@@ -76,7 +76,7 @@
                               <div class="w-1/6"><p>x3</p></div>
                           </div>
                         </div>
-                        <div class="w-full flex items-center my-2 bg-gray-200 rounded-l-md">
+                        <div class="w-full flex items-center my-2 bg-gray-100 rounded-l-md hover:bg-gray-200">
                           <img class="w-[70px] h-[70px] rounded-l-md" src="https://via.placeholder.com/90x90" alt="#">
                           <div class="flex flex-wrap justify-between w-full py-5 px-5 text-gray-600 font-bold ">
                               <div class="w-3/6"><p>สามชั้นสไลด์ Collar pork</p></div>
@@ -106,34 +106,18 @@
                     <h1 class="text-2xl text-gray-700 font-bold">รายการสั่ง</h1>
                     <hr class="my-2 border-gray-200 border-2">
                     
-                    <div class="border-b-2 border-gray-200">
+                    <div v-for="(order, index) in orders" :key="index" class="border-b-2 border-gray-200 hover:bg-gray-100">
                       <div class="w-full h-24 flex justify-between border-l-8 border-green-400">
                       <div class="flex flex-col justify-between px-2">
-                        <div class="text-2xl text-gray-700 font-bold">โต๊ะ <span>{{ table_number }}8</span></div>
+                        <div class="text-2xl text-gray-700 font-bold">โต๊ะ <span>{{ order.bill.table_number }}</span></div>
                         <div class="text-gray-500">
                           <p>3 รายการ</p>
-                          <p>เวลาที่สั่ง :<span>{{ time_order }}20:12</span>น.</p>
+                          <p>เวลาที่สั่ง :<span>{{ order.time_order }}</span>น.</p>
                         </div>
                       </div>
                       <div class="flex flex-col justify-between text-right">
-                        <div class="text-xl text-gray-700 font-bold">Order # <span>{{ order_number }}222</span></div>
-                        <div class="text-green-500"><p>{{ order_statu }}รอรับออร์เดอร์</p></div>
-                      </div>
-                    </div>
-                    </div>
-
-                    <div class="border-b-2 border-gray-200">
-                      <div class="w-full h-24 flex justify-between border-l-8 border-orange-400">
-                      <div class="flex flex-col justify-between px-2">
-                        <div class="text-2xl text-gray-700 font-bold">โต๊ะ <span>{{ table_number }}8</span></div>
-                        <div class="text-gray-500">
-                          <p>3 รายการ</p>
-                          <p>เวลาที่สั่ง :<span>{{ time_order }}20:12</span>น.</p>
-                        </div>
-                      </div>
-                      <div class="flex flex-col justify-between text-right">
-                        <div class="text-xl text-gray-700 font-bold">Order # <span>{{ order_number }}222</span></div>
-                        <div class="text-orange-400"><p>{{ order_statu }}กำลังทำ</p></div>
+                        <div class="text-xl text-gray-700 font-bold">Order # <span>{{ order.order_number }}</span></div>
+                        <div class="text-green-500"><p>{{ order.order_status }}</p></div>
                       </div>
                     </div>
                     </div>
@@ -149,6 +133,7 @@
 </template>
 
 <script>
+import axios from "axios";
 import Sidennav from "@/components/Sidennav.vue";
 
 export default {
@@ -157,13 +142,49 @@ export default {
   },
   data() {
     return {
-        orders:[],
+    orders: [
+    {
+      order_number: 222,
+      time_order:"20:12",
+      order_status:"Cooking",
+      bill: [
+        {
+          table_number: 1,
+        }
+      ]
+    },
+    {
+      order_number: 223,
+      time_order:"20:15",
+      order_status:"Pending",
+      bill: [
+        {
+          table_number: 1,
+        }
+      ]
+    },
+    {
+      order_number: 224,
+      time_order:"20:16",
+      order_status:"Pending",
+      bill: [
+        {
+          table_number: 2,
+        }
+      ]
+    },
+    ]
+
       };
     },
     computed: {
       
     },
     methods: {
+      getFirstOrderStatus() {
+        const firstOrder = this.orders[0];
+        return firstOrder.order_status;
+      },
       fetch_list_orders() {
             axios
                 .get("/fetch_list_orders")

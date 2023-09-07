@@ -49,6 +49,15 @@ class OrderController extends Controller
         return Orders::get();
     }
 
+    function fetchOrders(Request $request)
+    {
+
+        $table_id = $request->input('table_id');
+
+        return Orders::where('bill_id', '=', $table_id)->where('status', '=', '0')->get();
+
+    }
+
     function fetchCart(Request $request)
     {
 
