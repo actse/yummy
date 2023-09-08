@@ -1,7 +1,7 @@
 <template>
     <Sidennav>
         <div class="flex">
-            <div class="flex w-8/12 h-full bg-slate-200 my-5 mx-2 rounded-lg">
+            <div class="flex w-9/12 h-full bg-slate-200 my-5 mx-2 rounded-lg">
                 <div
                     class="flex flex-col h-full w-full bg-gray-100 my-5 mx-5 rounded-lg shadow-lg"
                 >
@@ -12,119 +12,121 @@
                         <button
                             v-for="item in list_table"
                             @click="openservice(item.id, item.table_status)"
-                            :class="{
-                                'bg-white': item.table_status == 0,
-                                'bg-red-400 text-white': item.table_status == 1,
-                                'bg-orange-400 text-white':
-                                    item.table_status == 2,
-                                'md:w-auto xl:w-auto md:h-auto xl:h-42 md:my-2 md:mx-3 xl:my-0 border-2 xl:text-base rounded-md text-center shadow-lg border-slate-200': true,
-                            }"
+                            class="md:w-auto xl:w-10/12 md:h-auto xl:h-48 md:my-2 md:mx-3 xl:my-6 border-1 xl:text-base rounded-lg text-center shadow-lg border-slate-200"
                         >
-                            <div class="flex flex-row">
-                                <div
-                                    class="flex flex-col text-left ml-2 pt-2 pb-4 px-2 mr-3 text-md"
+                            <div class="flex flex-col">
+                                <div class="flex flex-col">
+                                    <lable
+                                        :class="{
+                                            'bg-gray-500':
+                                                item.table_status == 0,
+                                            'bg-red-400 text-white':
+                                                item.table_status == 1,
+                                            'bg-orange-400 text-white':
+                                                item.table_status == 2,
+                                            'flex items-start justify-start w-auto text-lg py-2 px-3 xl:-mt-10 text-white border-1 rounded-t-lg': true,
+                                        }"
+                                    >
+                                        โต๊ะหมายเลข {{ item.table_name }}
+                                    </lable>
+                                </div>
+                                <div v-if="item.bill_id != null"
+                                    class="flex flex-col text-left text-sm ml-2 pt-2 pb-2 px-2 mr-3 text-md"
                                 >
-                                    <div class="text-xl font-bold">
-                                        <label>
-                                            โต๊ะ {{ item.table_name }}
-                                        </label>
-                                    </div>
                                     <div
-                                        v-if="item.bill_id != null"
-                                        class="flex flex-col text-left text-sm ml-2 pt-2 pb-2 px-2 mr-3"
+                                        class=""
+                                        v-for="itempm in main_package"
                                     >
                                         <div
-                                            class=""
-                                            v-for="itempm in main_package"
+                                            class="p-1" v-if="
+                                                item.bill_package_main ==
+                                                itempm.id
+                                            "
                                         >
-                                            <div
-                                                class="p-1"
-                                                v-if="
-                                                    item.bill_package_main ==
-                                                    itempm.id
-                                                "
-                                            >
-                                                เมนูหลัก
-                                                {{ itempm.package_name }} (
-                                                {{ itempm.package_price }} )
-                                            </div>
-                                        </div>
-                                        <div
-                                            class=""
-                                            v-for="itemps in secondary_package"
-                                        >
-                                            <div
-                                                class="p-1"
-                                                v-if="
-                                                    itemps.id ==
-                                                    item.bill_package_secondary
-                                                "
-                                            >
-                                                เมนูเสริม
-                                                {{ itemps.title_package }} (
-                                                {{ itemps.package_price }} บาท )
-                                            </div>
-                                        </div>
-                                        <div class="">
-                                            <div class="p-1">
-                                                ผู้ใหญ่
-                                                {{ item.bill_customer_adult }}
-                                                (ท่าน)
-                                            </div>
-                                        </div>
-                                        <div class="">
-                                            <div class="p-1">
-                                                เด็กโต
-                                                {{
-                                                    item.bill_customer_children
-                                                }}
-                                                (ท่าน)
-                                            </div>
-                                        </div>
-                                        <div class="">
-                                            <div class="p-1">
-                                                เด็ก
-                                                {{
-                                                    item.bill_customer_baby
-                                                }}
-                                                (ท่าน)
-                                            </div>
-                                        </div>
-                                        <div class="">
-                                            <div class="p-1">
-                                                จำนวน
-                                                {{ item.table_type }} ที่นั่ง
-                                            </div>
+                                            เมนูหลัก {{ itempm.package_name }} (
+                                            {{ itempm.package_price }} )
                                         </div>
                                     </div>
                                     <div
-                                        v-if="item.bill_id == null"
-                                        class="flex flex-col text-left text-sm ml-2 pt-2 pb-2 px-2 mr-3 text-md"
+                                        class=""
+                                        v-for="itemps in secondary_package"
                                     >
-                                        <div>
-                                            <div class="p-1">เมนูหลัก -</div>
+                                        <div
+                                            class="p-1" v-if="
+                                                itemps.id ==
+                                                item.bill_package_secondary
+                                            "
+                                        >
+                                            เมนูเสริม
+                                            {{ itemps.title_package }} (
+                                            {{ itemps.package_price }} บาท )
                                         </div>
-                                        <div class="">
-                                            <div class="p-1">เมนูเสริม -</div>
+                                    </div>
+                                    <div class="">
+                                        <div class="p-1">
+                                            ผู้ใหญ่
+                                            {{ item.bill_customer_adult }}
+                                            (ท่าน)
                                         </div>
-                                        <div class="">
-                                            <div class="p-1">
-                                                ผู้ใหญ่ - (ท่าน)
-                                            </div>
+                                    </div>
+                                    <div class="">
+                                        <div class="p-1">
+                                            เด็กโต
+                                            {{ item.bill_customer_children }}
+                                            (ท่าน)
                                         </div>
-                                        <div class="">
-                                            <div class="p-1">
-                                                เด็กโต - (ท่าน)
-                                            </div>
+                                    </div>
+                                    <div class="">
+                                        <div class="p-1">
+                                            เด็ก
+                                            {{ item.bill_customer_baby }} (ท่าน)
                                         </div>
-                                        <div class="">
-                                            <div class="p-1">เด็ก - (ท่าน)</div>
+                                    </div>
+                                    <div class="">
+                                        <div class="p-1">
+                                            จำนวน
+                                            {{ item.table_type }} ที่นั่ง
                                         </div>
-                                        <div class="">
-                                            <div class="p-1">
-                                                จำนวน
-                                                {{ item.table_type }} ที่นั่ง
-                                            </div>
+                                    </div>
+                                </div>
+                                <div v-if="item.bill_id == null"
+                                    class="flex flex-col text-left text-sm ml-2 pt-2 pb-2 px-2 mr-3 text-md"
+                                >
+                                    <div
+                                    >
+                                        <div
+                                            class="p-1"
+                                        >
+                                            เมนูหลัก -
+                                        </div>
+                                    </div>
+                                    <div
+                                        class=""
+                                    >
+                                        <div
+                                            class="p-1"
+                                        >
+                                            เมนูเสริม -                                        </div>
+                                    </div>
+                                    <div class="">
+                                        <div class="p-1">
+                                            ผู้ใหญ่ - (ท่าน)
+                                        </div>
+                                    </div>
+                                    <div class="">
+                                        <div class="p-1">
+                                            เด็กโต - (ท่าน)
+                                        </div>
+                                    </div>
+                                    <div class="">
+                                        <div class="p-1">
+                                            เด็ก - (ท่าน)
+                                        </div>
+                                    </div>
+                                    <div class="">
+                                        <div class="p-1">
+                                            จำนวน
+                                            {{ item.table_type }} ที่นั่ง
                                         </div>
                                     </div>
                                 </div>
@@ -133,10 +135,12 @@
                     </div>
                 </div>
             </div>
-            <div class="flex w-4/12 h-full bg-slate-200 my-5 mx-2 rounded-lg">
+            <div class="flex w-3/12 h-full bg-slate-200 my-5 mx-2 rounded-lg">
                 <div
                     class="flex flex-col h-full w-full bg-gray-100 my-5 mx-5 rounded-lg shadow-lg"
                 >
+                    <label class="text-2xl p-4">สรุปการลงทะเบียนโต๊ะ</label>
+
                     <div
                         class="grid grid-cols-1 py-3 gap-3 shadow-lg dark:bg-gray-800"
                     >
@@ -211,12 +215,6 @@
                                             เด็ก {{ item.customer_baby }}
                                         </label>
                                     </div>
-                                    <!-- <div class="text-md">
-                                        <label>
-                                            จำนวน
-                                            {{ item.table_type }} ที่นั่ง
-                                        </label>
-                                    </div> -->
                                 </div>
                             </div>
                         </button>
@@ -870,6 +868,7 @@ export default {
                 .then((response) => {
                     if (response.data != []) {
                         this.list_table = response.data;
+                        console.log(this.list_table);
                     }
                 })
                 .catch((error) => {

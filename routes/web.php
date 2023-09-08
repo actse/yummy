@@ -68,6 +68,10 @@ Route::get('/home_staff', function () {
     return Inertia::render('HomeStaff');
 });
 
+Route::get('/home_staff_2', function () {
+    return Inertia::render('HomeStaff_2');
+});
+
 Route::get('/manage_table_staff', function () {
     return Inertia::render('ManageTableStaff');
 });
@@ -101,6 +105,10 @@ Route::get('/list_type_product', function () {
 });
 Route::get('/list_package_product', function () {
     return Inertia::render('ListPackage');
+});
+
+Route::get('/test', function () {
+    return Inertia::render('Test');
 });
 
 Route::post('/insert_cart', [OrderController::class,'addToCart']);
@@ -148,6 +156,9 @@ Route::get('/fetch_table', [TableController::class,'select_table']);
 Route::get('/list_menu', [MenuController::class,'list_menu']);
 Route::get('/selectdatatable', [TableController::class,'selectdatatable']);
 Route::get('/selectregistable', [TableController::class,'selectregistable']);
+
+// Route::get('/testing', [TableController::class,'testing']);
+
 
 
 Route::get('/home', function () {

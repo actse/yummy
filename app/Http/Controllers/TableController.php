@@ -32,7 +32,24 @@ class TableController extends Controller
     }
     function select_table()
     {
-        return Table::get();
+        return Table::leftJoin('bills', 'shop_tables.id', '=', 'bills.table_id')
+        ->select(
+            'shop_tables.id',
+            'shop_tables.table_name',
+            'shop_tables.table_type',
+            'shop_tables.table_status',
+            'bills.id AS bill_id',
+            'bills.shop_id AS bill_shop_id',
+            'bills.staff_id AS bill_staff_id',
+            'bills.reference_code AS bill_reference_code',
+            'bills.customer_adult AS bill_customer_adult',
+            'bills.customer_children AS bill_customer_children',
+            'bills.customer_baby AS bill_customer_baby',
+            'bills.package_main AS bill_package_main',
+            'bills.package_secondary AS bill_package_secondary',
+            'bills.registered_at AS bill_registered_at'
+        )
+        ->get();
     }
 
     function selectdatatable()
@@ -65,8 +82,31 @@ class TableController extends Controller
     public function selectregistable()
     {
         return Table::join('bills', 'shop_tables.id', '=', 'bills.table_id')
-        ->where('shop_tables.table_status', '<>', '0')
-        ->select('shop_tables.table_name', 'shop_tables.table_type', 'shop_tables.table_status', 'bills.*')
-        ->get();
+            ->where('shop_tables.table_status', '<>', '0')
+            ->select('shop_tables.table_name', 'shop_tables.table_type', 'shop_tables.table_status', 'bills.*')
+            ->get();
     }
+
+    // public function testing()
+    // {
+
+    //     return Table::leftJoin('bills', 'shop_tables.id', '=', 'bills.table_id')
+    //         ->select(
+    //             'shop_tables.id',
+    //             'shop_tables.table_name',
+    //             'shop_tables.table_type',
+    //             'shop_tables.table_status',
+    //             'bills.id AS bill_id',
+    //             'bills.shop_id AS bill_shop_id',
+    //             'bills.staff_id AS bill_staff_id',
+    //             'bills.reference_code AS bill_reference_code',
+    //             'bills.customer_adult AS bill_customer_adult',
+    //             'bills.customer_children AS bill_customer_children',
+    //             'bills.customer_baby AS bill_customer_baby',
+    //             'bills.package_main AS bill_package_main',
+    //             'bills.package_secondary AS bill_package_secondary',
+    //             'bills.registered_at AS bill_registered_at'
+    //         )
+    //         ->get();
+    // }
 }
