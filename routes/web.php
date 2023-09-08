@@ -106,6 +106,9 @@ Route::get('/list_type_product', function () {
 Route::get('/list_package_product', function () {
     return Inertia::render('ListPackage');
 });
+Route::get('/list_staff', function () {
+    return Inertia::render('ListStaff');
+});
 
 Route::get('/test', function () {
     return Inertia::render('Test');
