@@ -128,6 +128,11 @@ Route::get('/fetch_package', [PackageController::class,'fetchPackage']);
 Route::post('/edit_package', [PackageController::class,'edit_package']);
 Route::post('/delete_package', [PackageController::class,'delete_package']);
 
+Route::post('/create_staff', [StaffController::class,'add_staff']);
+Route::get('/fetch_staff', [StaffController::class,'fetch_staff']);
+Route::post('/edit_staff', [StaffController::class,'edit_staff']);
+Route::post('/delete_staff', [StaffController::class,'delete_staff']);
+
 Route::post('/create_type_product', [TypeProductController::class,'addNewTypeProduct']);
 Route::post('/create_type_producttopackage', [TypeProductController::class,'addTypeProductidtoPackage']);
 Route::get('/fetch_type_product', [TypeProductController::class,'fetchTypeProduct']);
