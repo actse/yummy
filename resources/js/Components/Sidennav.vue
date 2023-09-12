@@ -61,7 +61,7 @@
             <div class="space-y-3 ">
                 <label class="px-3 text-xs text-gray-500 uppercase ">จัดการร้าน</label>
 
-                <Link class="flex items-center px-3 py-2 text-gray-600 transition-colors duration-300 transform rounded-lg  hover:bg-gray-100   hover:text-gray-300" href="">
+                <Link class="flex items-center px-3 py-2 text-gray-600 transition-colors duration-300 transform rounded-lg  hover:bg-gray-100   hover:text-gray-300" href="list_product">
                     <svg  class="w-5 h-5" viewBox="0 0 24 24" fill="none"  xmlns="http://www.w3.org/2000/svg">
                         <path d="M6.73 19.7C7.55 18.82 8.8 18.89 9.52 19.85L10.53 21.2C11.34 22.27 12.65 22.27 13.46 21.2L14.47 19.85C15.19 18.89 16.44 18.82 17.26 19.7C19.04 21.6 20.49 20.97 20.49 18.31V7.04C20.5 3.01 19.56 2 15.78 2H8.22C4.44 2 3.5 3.01 3.5 7.04V18.3C3.5 20.97 4.96 21.59 6.73 19.7Z" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
                         <path d="M8.09607 11H8.10505"  stroke="currentColor" stroke-width="2"  stroke-linecap="round" stroke-linejoin="round"/>
