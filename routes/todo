@@ -45,6 +45,14 @@ create create_product.vue
         - genarator qr code
         - print qr code
 
+    สรุปภาพรวมของร่้าน
+        - จำนวนโต๊ะ ว่าง ไม่ว่าง จอง
+        - ยอดใกล้หมดเวลา
+        - ยอดลูกค้า
+        - ยอด package main
+        - ยอด package secondary
+        - ยอด เมนูทั้งหมด
+
 
     แยก Controller
 

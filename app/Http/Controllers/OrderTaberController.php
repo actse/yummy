@@ -13,10 +13,9 @@ class OrderTaberController extends Controller
     function insert_table(Request $request)
     {
 
-        $date_stamp = date('y-m-d h:i:s');
-
+        date_default_timezone_set('Asia/Bangkok');
+        $date_stamp = date('y-m-d H:i:s');
         $table_number = $request->input('table');
-
         $insertbill = Bills::insert([
             'shop_id' => $request->input('shop_id'),
             'staff_id' => $request->input('staff_id'),
@@ -55,7 +54,9 @@ class OrderTaberController extends Controller
     }
     function edit_table(Request $request)
     {
-        $date_stamp = date('y-m-d h:i:s');
+        date_default_timezone_set('Asia/Bangkok');
+
+        $date_stamp = date('y-m-d H:i:s');
         $bills_id = $request->input('bills_id');
         $table_number = $request->input('table');
         $new_table = $request->input('new_table');
@@ -100,7 +101,9 @@ class OrderTaberController extends Controller
     }
     function edit_status_close(Request $request)
     {
-        $date_stamp = date('y-m-d h:i:s');
+
+        date_default_timezone_set('Asia/Bangkok');
+        $date_stamp = date('y-m-d H:i:s');
         $bills_id = $request->input('bills_id');
         $table_number = $request->input('table_id');
 
@@ -127,15 +130,15 @@ class OrderTaberController extends Controller
 
             ]);
             return [$deletebills, $cancelstatus,];
-
         }
     }
     function reserve_table(Request $request)
     {
+        date_default_timezone_set('Asia/Bangkok');
 
-        $date_stamp = date('y-m-d h:i:s');
-        $date_stamp = date('y-m-d h:i:s');
-        // $bills_id = $request->input('bills_id');
+        $date_stamp = date('y-m-d H:i:s');
+        $reserce_date_stamp = date('y-m-d H:i:s');
+        $reserce_date_stamp = date('y-m-d H:i:s', strtotime($reserce_date_stamp . ' +1 hour'));
         $table_number = $request->input('table');
 
         $insertbill = Bills::insert([
@@ -148,7 +151,7 @@ class OrderTaberController extends Controller
             'customer_baby' => $request->input('customer_baby'),
             'package_main' => $request->input('main_package'),
             'package_secondary' => $request->input('secondary_package'),
-            'registered_at' => $date_stamp,
+            'registered_at' => $reserce_date_stamp,
             'updated_at' => $date_stamp,
 
         ]);
@@ -172,7 +175,8 @@ class OrderTaberController extends Controller
     function confirmreserve_table(Request $request)
     {
 
-        $date_stamp = date('y-m-d h:i:s');
+        date_default_timezone_set('Asia/Bangkok');
+        $date_stamp = date('y-m-d H:i:s');
         $bills_id = $request->input('bills_id');
         $table_number = $request->input('table');
 

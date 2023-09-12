@@ -115,6 +115,10 @@ Route::get('/test', function () {
     return Inertia::render('Test');
 });
 
+Route::get('/test2', function () {
+    return Inertia::render('Test_table');
+});
+
 Route::post('/insert_cart', [OrderController::class,'addToCart']);
 Route::post('/fetch_cart', [OrderController::class,'fetchCart']);
 Route::post('/confirm_cart', [OrderController::class,'confirm']);

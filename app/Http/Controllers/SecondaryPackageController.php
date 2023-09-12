@@ -13,9 +13,10 @@ class SecondaryPackageController extends Controller
     function insert(Request $request)
     {
 
+        date_default_timezone_set('Asia/Bangkok');
         // $package_secondary_name = $request->input('package_secondary_name');
         // $package_price = $request->input('package_secondary_price');
-        $date_stamp = date('y-m-d h:i:s');
+        $date_stamp = date('y-m-d H:i:s');
 
         return Package_secondary::insert([
             'title_package' => $request->input('package_secondary_name'),
@@ -30,10 +31,11 @@ class SecondaryPackageController extends Controller
     }
     function edit(Request $request)
     {
+        date_default_timezone_set('Asia/Bangkok');
         $package_secondary_id = $request->input('package_secondary_id');
         $package_secondary_name = $request->input('package_secondary_name');
         // $package_price = $request->input('package_price');
-        $date_stamp = date('y-m-d h:i:s');
+        $date_stamp = date('y-m-d H:i:s');
 
         $isUpdateSuccess = Package_secondary::where('id', '=', $package_secondary_id)->update([
             'title_package' => $package_secondary_name,

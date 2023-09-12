@@ -13,9 +13,8 @@ class TypeProductController extends Controller
     //
     function addNewTypeProduct(Request $request)
     {
-        // date_default_timezone_set('Asia/Bangkok');
-
-        $date_stamp = date('y-m-d h:i:s');
+        date_default_timezone_set('Asia/Bangkok');
+        $date_stamp = date('y-m-d H:i:s');
 
         return Type_product::insert([
             'type_product_name' => $request->input('type_product_name'),
@@ -26,9 +25,10 @@ class TypeProductController extends Controller
 
     function addTypeProductidtoPackage(Request $request)
     {
+        date_default_timezone_set('Asia/Bangkok');
         $package_id = $request->input('main_package_id');
         $type_product_id = $request->input('type_product_id');
-        $date_stamp = date('y-m-d h:i:s');
+        $date_stamp = date('y-m-d H:i:s');
 
         return Package::where('id', '=', $package_id)->update([
             'type_product_id' => $type_product_id,
@@ -49,7 +49,7 @@ class TypeProductController extends Controller
 
         $type_product_id = $request->input('type_product_id');
         $type_product_name = $request->input('type_product_name');
-        $date_stamp = date('y-m-d h:i:s');
+        $date_stamp = date('y-m-d H:i:s');
 
         $isUpdateSuccess = Type_product::where('id', '=', $type_product_id)->update([
             'type_product_name' => $type_product_name,

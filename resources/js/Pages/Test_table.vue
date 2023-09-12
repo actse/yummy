@@ -1,191 +1,574 @@
 <template>
     <Sidennav>
         <div class="flex">
-            <div class="flex w-8/12 h-full bg-white-100 my-5 mx-2 rounded-lg">
+            <div class="flex w-9/12 h-full bg-slate-100 my-5 mx-2 rounded-lg">
                 <div
-                    class="h-full w-full text-slate-600 grid grid-cols-4 py-2 gap-3 lg:grid lg:grid-cols-5 lg:py-1 lg:px-2 lg:gap-1 xl:grid xl:grid-cols-7 xl:py-1 xl:px-2 xl:gap-1 shadow-xl dark:bg-gray-800"
+                    class="flex flex-col h-full w-full bg-gray-200 my-5 mx-5 rounded-lg shadow-lg shadow-slate-600"
                 >
-                    <button
-                        v-for="list in list_table"
-                        class="flex items-center justify-center py-2 px-1"
-                    >
-                        <div
-                            @click="openservice(list.id, list.table_status)"
-                            :class="{
-                                'hover:-translate-y-1 hover:shadow-lg hover:border-4 hover:border-green-500 hover:bg-green-500/100 bg-green-400/80 hover:border-solid focus:-translate-y-1 focus:shadow-lg focus:border-2 focus:border-green-500 focus:border-solid':
-                                    list.table_status == 0,
-                                'hover:-translate-y-1 hover:shadow-lg hover:border-4 hover:border-red-500 hover:bg-red-500 bg-red-400/95 hover:border-solid focus:-translate-y-1 focus:shadow-lg focus:border-2 focus:border-red-500 focus:border-solid':
-                                    list.table_status == 1,
-                                'hover:-translate-y-1 hover:shadow-lg hover:border-4 hover:border-orange-500 hover:bg-orange-500 bg-orange-400/95 hover:border-solid focus:-translate-y-1 focus:shadow-lg focus:border-2 focus:border-orange-500 focus:border-solid':
-                                    list.table_status == 2,
-                                'w-52 shadow-md shadow-slate-500 rounded-lg overflow-hidden p-5 relative transition-transform ease-in transform ': true,
-                            }"
-                        >
-                            <div class="flex items-center justify-center">
-                                <Tableicon></Tableicon>
-                                <div
-                                    :class="{
-                                        'text-teal-500': list.table_status == 0,
-                                        'text-red-500': list.table_status == 1,
-                                        'text-orange-500':
-                                            list.table_status == 2,
-                                        'flex absolute top-22 right-26 text-md xl:text-2xl font-bold ': true,
-                                    }"
-                                >
-                                    {{ list.table_name }}
-                                </div>
-                            </div>
-                            <div
-                                class="flex flex-col mt-3 text-white/90 font-bold text-sm lg:text-sm"
-                            >
-                                <div class="flex flex-row">
-                                    <svg
-                                        class="mr-2 w-5 h-5 lg:disabled"
-                                        xmlns="http://www.w3.org/2000/svg"
-                                        fill="none"
-                                        viewBox="0 0 24 24"
-                                        stroke-width="1.5"
-                                        stroke="currentColor"
-                                    >
-                                        <path
-                                            stroke-linecap="round"
-                                            stroke-linejoin="round"
-                                            d="M6.75 3v2.25M17.25 3v2.25M3 18.75V7.5a2.25 2.25 0 012.25-2.25h13.5A2.25 2.25 0 0121 7.5v11.25m-18 0A2.25 2.25 0 005.25 21h13.5A2.25 2.25 0 0021 18.75m-18 0v-7.5A2.25 2.25 0 015.25 9h13.5A2.25 2.25 0 0121 11.25v7.5m-9-6h.008v.008H12v-.008zM12 15h.008v.008H12V15zm0 2.25h.008v.008H12v-.008zM9.75 15h.008v.008H9.75V15zm0 2.25h.008v.008H9.75v-.008zM7.5 15h.008v.008H7.5V15zm0 2.25h.008v.008H7.5v-.008zm6.75-4.5h.008v.008h-.008v-.008zm0 2.25h.008v.008h-.008V15zm0 2.25h.008v.008h-.008v-.008zm2.25-4.5h.008v.008H16.5v-.008zm0 2.25h.008v.008H16.5V15z"
-                                        />
-                                    </svg>
-                                    <label class="">
-                                        {{
-                                            new Date().toLocaleDateString(
-                                                "th-TH",
-                                                {
-                                                    year: "numeric",
-                                                    month: "numeric",
-                                                    day: "numeric",
-                                                }
-                                            )
-                                        }}
-                                    </label>
-                                </div>
-                                <div class="flex flex-row">
-                                    <svg
-                                        class="mr-2 mt-1 w-5 h-5"
-                                        fill="none"
-                                        viewBox="0 0 24 24"
-                                        stroke-width="1.5"
-                                        stroke="currentColor"
-                                    >
-                                        <path
-                                            stroke-linecap="round"
-                                            stroke-linejoin="round"
-                                            d="M12 6v6h4.5m4.5 0a9 9 0 11-18 0 9 9 0 0118 0z"
-                                        />
-                                    </svg>
-                                    <label
-                                        v-if="list.bill_registered_at != null"
-                                        class="mt-1.5"
-                                    >
-                                        {{
-                                            new Date(
-                                                list.bill_registered_at
-                                            ).toLocaleTimeString("th-TH", {
-                                                timeZone: "Asia/Bangkok",
-                                            })
-                                        }}
-                                    </label>
-                                    <label
-                                        v-if="list.bill_registered_at == null"
-                                        class="mt-1.5"
-                                    >
-                                        {{
-                                            new Date().toLocaleTimeString(
-                                                "th-TH",
-                                                {
-                                                    timeZone: "Asia/Bangkok",
-                                                }
-                                            )
-                                        }}
-                                    </label>
-                                </div>
-                            </div>
-                        </div>
-                    </button>
-                </div>
-            </div>
-            <div class="flex w-4/12 h-full bg-slate-100 my-5 mx-2 rounded-lg">
-                <div
-                    class="flex flex-col h-full w-full text-slate-600 bg-white my-5 mx-5 rounded-lg shadow-md shadow-slate-600"
-                >
-                    <label class="text-2xl pt-4 px-5 -mb-2 font-bold"
-                        >สรุปผลร้าน</label
+                    <label class="text-2xl pt-4 px-5 -mb-5 text-gray-700"
+                        >ลงทะเบียนโต๊ะ ( Booking table )</label
                     >
                     <div
-                        class="flex flex-col h-full w-full p-3 gap-3 shadow-md dark:bg-gray-600"
+                        class="grid grid-cols-1 py-3 gap-3 xl:grid xl:grid-cols-3 xl:p-2 xl:gap-3 xl:my-3 shadow-lg dark:bg-gray-800"
                     >
-                        <div class="border-2 rounded-md border-gray-400 p-3">
-                            <div class="flex flex-col py-4">
-                                <div class="p-2 text-md">
-                                    <label class="p-3 font-bold"
-                                        >1. ลงทะเบียนโต๊ะ</label
+                        <button
+                            v-for="list in list_table"
+                            class="p-2 text-gray-500"
+                        >
+                            <div
+                                @click="openservice(list.id, list.table_status)"
+                                :class="{
+                                    'hover:-translate-y-1 hover:shadow-lg hover:border-4 hover:border-teal-500 hover:border-solid focus:-translate-y-1 focus:shadow-lg focus:border-2 focus:border-teal-500 focus:border-solid':
+                                        list.table_status == 0,
+                                    'hover:-translate-y-1 hover:shadow-lg hover:border-4 hover:border-red-500 hover:border-solid focus:-translate-y-1 focus:shadow-lg focus:border-2 focus:border-red-500 focus:border-solid':
+                                        list.table_status == 1,
+                                    'hover:-translate-y-1 hover:shadow-lg hover:border-4 hover:border-orange-500 hover:border-solid focus:-translate-y-1 focus:shadow-lg focus:border-2 focus:border-orange-500 focus:border-solid':
+                                        list.table_status == 2,
+                                    'bg-white shadow-md shadow-gray-300 rounded-lg overflow-hidden p-5 relative transition-transform ease-in transform ': true,
+                                }"
+                            >
+                                <div
+                                    class="flex items-center justify-between -mt-1"
+                                >
+                                    <Tableicon class="h-36 w-36"></Tableicon>
+                                    <div
+                                        class="font-bold text-xl leading-tight mr-2"
                                     >
-                                    <label
-                                        v-for="(table, index) in status_table"
-                                        :class="{
-                                            'text-green-500': index === 0,
-                                            'text-red-500': index === 1,
-                                            'text-orange-500': index === 2,
-                                            '': true,
-                                        }"
-                                        >{{ table }},
-                                    </label>
-                                    <label>( รวม 20 โต๊ะ )</label>
+                                        โต๊ะ {{ list.table_name }}
+                                    </div>
+                                    <div
+                                        class="flex flex-row items-center text-gray-700"
+                                    >
+                                        <div class="flex flex-row text-md ml-3">
+                                            <div class="flex flex-col">
+                                                <label class="mt-2"
+                                                    >สถานะ</label
+                                                >
+                                            </div>
+                                            <div class="flex flex-col">
+                                                <svg
+                                                    v-if="
+                                                        list.table_status == 0
+                                                    "
+                                                    class="ml-2 h-10 w-10"
+                                                    fill="none"
+                                                    viewBox="0 0 24 24"
+                                                >
+                                                    <path
+                                                        d="M16.5163 8.93451L11.0597 14.7023L8.0959 11.8984"
+                                                        stroke="#3CB371"
+                                                        stroke-width="1.5"
+                                                    />
+                                                    <path
+                                                        d="M12 21C16.9706 21 21 16.9706 21 12C21 7.02944 16.9706 3 12 3C7.02944 3 3 7.02944 3 12C3 16.9706 7.02944 21 12 21Z"
+                                                        stroke="#3CB371"
+                                                        stroke-width="1.5"
+                                                    />
+                                                </svg>
+                                                <svg
+                                                    v-else-if="
+                                                        list.table_status == 1
+                                                    "
+                                                    class="ml-2 h-10 w-10"
+                                                    fill="none"
+                                                    viewBox="0 0 24 24"
+                                                >
+                                                    <circle
+                                                        cx="12"
+                                                        cy="12"
+                                                        r="9"
+                                                        stroke="#DC143C"
+                                                        stroke-linecap="round"
+                                                        stroke-linejoin="round"
+                                                        stroke-width="2"
+                                                    />
+                                                    <rect
+                                                        height="0.01"
+                                                        stroke="#DC143C"
+                                                        stroke-linejoin="round"
+                                                        stroke-width="3"
+                                                        width="0.01"
+                                                        x="12"
+                                                        y="16"
+                                                    />
+                                                    <path
+                                                        d="M12 12L12 8"
+                                                        stroke="#DC143C"
+                                                        stroke-linecap="round"
+                                                        stroke-linejoin="round"
+                                                        stroke-width="2"
+                                                    />
+                                                </svg>
+                                                <svg
+                                                    v-else-if="
+                                                        list.table_status == 2
+                                                    "
+                                                    class="ml-2 h-10 w-10"
+                                                    fill="none"
+                                                    viewBox="0 0 24 24"
+                                                >
+                                                    <circle
+                                                        cx="12"
+                                                        cy="12"
+                                                        r="9"
+                                                        stroke="#FF7F50"
+                                                        stroke-linecap="round"
+                                                        stroke-linejoin="round"
+                                                        stroke-width="2"
+                                                    />
+                                                    <rect
+                                                        height="0.01"
+                                                        stroke="#FF7F50"
+                                                        stroke-linejoin="round"
+                                                        stroke-width="3"
+                                                        width="0.01"
+                                                        x="12"
+                                                        y="16"
+                                                    />
+                                                    <path
+                                                        d="M12 12L12 8"
+                                                        stroke="#FF7F50"
+                                                        stroke-linecap="round"
+                                                        stroke-linejoin="round"
+                                                        stroke-width="2"
+                                                    />
+                                                </svg>
+                                            </div>
+                                        </div>
+                                    </div>
                                 </div>
-                                <div class="p-2 text-md">
-                                    <label class="p-3 font-bold"
-                                        >2. ยอดลูกค้ารวม</label
-                                    >
-                                    <label class="p-3 text-blue-500">{{
-                                        total_customer
-                                    }}</label>
-                                    <label>( คน )</label>
+                                <div class="flex items-center justify-between">
+                                    <div class="flex flex-row">
+                                        <div
+                                            class="flex flex-row w-full text-md pt-2 ml-2"
+                                        >
+                                            <div
+                                                class="flex flex-col items-center justify-center"
+                                            >
+                                                <Adulticon></Adulticon>
+                                            </div>
+                                            <div
+                                                v-if="
+                                                    list.bill_customer_adult !=
+                                                    null
+                                                "
+                                                class="flex flex-col p-3 mx-2"
+                                            >
+                                                {{ list.bill_customer_adult }}
+                                            </div>
+                                            <div
+                                                v-if="
+                                                    list.bill_customer_adult ==
+                                                    null
+                                                "
+                                                class="flex flex-col p-3 mx-2"
+                                            >
+                                                -
+                                            </div>
+                                        </div>
+                                        <div
+                                            class="flex flex-row w-full text-md pt-2"
+                                        >
+                                            <div
+                                                class="flex flex-col items-center justify-center"
+                                            >
+                                                <Childrenicon></Childrenicon>
+                                            </div>
+                                            <div
+                                                v-if="
+                                                    list.bill_customer_children !=
+                                                    null
+                                                "
+                                                class="flex flex-col p-3 mx-2"
+                                            >
+                                                {{
+                                                    list.bill_customer_children
+                                                }}
+                                            </div>
+                                            <div
+                                                v-if="
+                                                    list.bill_customer_children ==
+                                                    null
+                                                "
+                                                class="flex flex-col p-3 mx-2"
+                                            >
+                                                -
+                                            </div>
+                                        </div>
+                                        <div
+                                            class="flex flex-row w-full text-md pt-2"
+                                        >
+                                            <div
+                                                class="flex flex-col items-center justify-center"
+                                            >
+                                                <Kidicon></Kidicon>
+                                            </div>
+                                            <div
+                                                v-if="
+                                                    list.bill_customer_baby !=
+                                                    null
+                                                "
+                                                class="flex flex-col p-3 mx-2"
+                                            >
+                                                {{ list.bill_customer_baby }}
+                                            </div>
+                                            <div
+                                                v-if="
+                                                    list.bill_customer_baby ==
+                                                    null
+                                                "
+                                                class="flex flex-col p-3 mx-2"
+                                            >
+                                                -
+                                            </div>
+                                        </div>
+                                    </div>
                                 </div>
-                                <div class="p-2 text-md">
-                                    <label class="p-3 font-bold"
-                                        >3. ช่วงพีคที่สุด</label
+                                <div
+                                    class="flex items-center flex-wrap mt-5 border-t border-gray-300 pt-5"
+                                >
+                                    <div
+                                        class="flex flex-row w-1/2 items-center"
                                     >
-                                    <label
-                                        v-for="(time, index) in golden_time"
-                                        :class="{
-                                            'text-green-600': index === 0,
-                                            'text-red-600': index === 1,
-                                            '': true,
-                                        }"
-                                        >ช่วง {{ time }} น. ,
-                                    </label>
-                                </div>
-                                <div class="p-2 text-md">
-                                    <label class="p-3 font-bold"
-                                        >4. ยอดรวมรายได้</label
+                                        <svg
+                                            class="mr-2 mb-1 w-7 h-7"
+                                            xmlns="http://www.w3.org/2000/svg"
+                                            fill="none"
+                                            viewBox="0 0 24 24"
+                                            stroke-width="1.5"
+                                            stroke="currentColor"
+                                        >
+                                            <path
+                                                stroke-linecap="round"
+                                                stroke-linejoin="round"
+                                                d="M6.75 3v2.25M17.25 3v2.25M3 18.75V7.5a2.25 2.25 0 012.25-2.25h13.5A2.25 2.25 0 0121 7.5v11.25m-18 0A2.25 2.25 0 005.25 21h13.5A2.25 2.25 0 0021 18.75m-18 0v-7.5A2.25 2.25 0 015.25 9h13.5A2.25 2.25 0 0121 11.25v7.5m-9-6h.008v.008H12v-.008zM12 15h.008v.008H12V15zm0 2.25h.008v.008H12v-.008zM9.75 15h.008v.008H9.75V15zm0 2.25h.008v.008H9.75v-.008zM7.5 15h.008v.008H7.5V15zm0 2.25h.008v.008H7.5v-.008zm6.75-4.5h.008v.008h-.008v-.008zm0 2.25h.008v.008h-.008V15zm0 2.25h.008v.008h-.008v-.008zm2.25-4.5h.008v.008H16.5v-.008zm0 2.25h.008v.008H16.5V15z"
+                                            />
+                                        </svg>
+                                        <label class="">
+                                            {{
+                                                new Date().toLocaleDateString(
+                                                    undefined,
+                                                    {
+                                                        year: "numeric",
+                                                        month: "numeric",
+                                                        day: "numeric",
+                                                    }
+                                                )
+                                            }}
+                                        </label>
+                                    </div>
+                                    <div
+                                        class="flex flex-row w-1/2items-center"
                                     >
-                                    <label class="p-1 text-gray-600"
-                                        >{{ total_income }} บาท</label
-                                    >
-                                    <label class="p-1">( รายวัน )</label>
-                                </div>
-                                <div class="p-2 text-md">
-                                    <label class="p-3 font-bold"
-                                        >5. ยอดรวมภาษี</label
-                                    >
-                                    <label class="p-1 text-gray-600"
-                                        >{{ total_vat }} บาท</label
-                                    >
-                                    <label class="p-1">( รายวัน )</label>
-                                </div>
-                                <div class="p-2 text-md">
-                                    <label class="p-3 font-bold">6</label>
-                                    <label class="p-3">.................</label>
+                                        <svg
+                                            class="mr-2 mb-1 w-7 h-7"
+                                            fill="none"
+                                            viewBox="0 0 24 24"
+                                            stroke-width="1.5"
+                                            stroke="currentColor"
+                                        >
+                                            <path
+                                                stroke-linecap="round"
+                                                stroke-linejoin="round"
+                                                d="M12 6v6h4.5m4.5 0a9 9 0 11-18 0 9 9 0 0118 0z"
+                                            />
+                                        </svg>
+                                        <label
+                                            v-if="
+                                                list.bill_registered_at != null
+                                            "
+                                            class="mt-1"
+                                        >
+                                            {{
+                                                new Date(
+                                                    list.bill_registered_at
+                                                ).toLocaleTimeString()
+                                            }}
+                                        </label>
+                                        <label
+                                            v-if="
+                                                list.bill_registered_at == null
+                                            "
+                                            class="mt-1"
+                                            >{{
+                                                new Date().toLocaleTimeString()
+                                            }}</label
+                                        >
+                                    </div>
                                 </div>
                             </div>
-                        </div>
+                        </button>
+                    </div>
+                </div>
+            </div>
+            <div class="flex w-3/12 h-full bg-slate-100 my-5 mx-2 rounded-lg">
+                <div
+                    class="flex flex-col h-full w-full bg-white my-5 mx-5 rounded-lg shadow-lg shadow-slate-600"
+                >
+                    <label class="text-2xl pt-4 px-5 -mb-2 text-slate-700"
+                        >สรุปลงทะเบียนโต๊ะ</label
+                    >
+                    <div
+                        class="grid grid-cols-1 py-3 gap-3 shadow-lg dark:bg-gray-800"
+                    >
+                        <button
+                            v-for="list in list_registable"
+                            class="px-5 py-1 mt-1 text-slate-500"
+                        >
+                            <a
+                                type="button"
+                                :href="'payment?billsid=' + list.id"
+                                :class="{
+                                    'bg-white-100 border-rose-600 border-2 hover:-translate-y-1 hover:shadow-lg hover:border-4 hover:border-red-500 hover:border-solid focus:-translate-y-1 focus:shadow-lg focus:border-2 focus:border-red-500 focus:border-solid':
+                                        list.table_status == 1,
+                                    'w-full shadow-md shadow-gray-300 rounded-lg overflow-hidden p-5 relative transition-transform ease-in transform': true,
+                                }"
+                            >
+                                <div
+                                    class="flex items-center justify-between -mt-1"
+                                >
+                                    <div
+                                        class="font-bold text-2xl leading-tight mr-2"
+                                    >
+                                        โต๊ะ {{ list.table_name }}
+                                    </div>
+                                    <div
+                                        class="flex flex-row items-center text-gray-700"
+                                    >
+                                        <div class="flex flex-row text-md ml-3">
+                                            <svg
+                                                class="w-7 h-7 text-yellow-400 mt-1.5 mr-1"
+                                                xmlns="http://www.w3.org/2000/svg"
+                                                fill="none"
+                                                viewBox="0 0 24 24"
+                                                stroke-width="1.5"
+                                                stroke="currentColor"
+                                            >
+                                                <path
+                                                    stroke-linecap="round"
+                                                    stroke-linejoin="round"
+                                                    d="M12 3v2.25m6.364.386l-1.591 1.591M21 12h-2.25m-.386 6.364l-1.591-1.591M12 18.75V21m-4.773-4.227l-1.591 1.591M5.25 12H3m4.227-4.773L5.636 5.636M15.75 12a3.75 3.75 0 11-7.5 0 3.75 3.75 0 017.5 0z"
+                                                />
+                                            </svg>
+                                            <div class="flex flex-col">
+                                                <label class="mt-2"
+                                                    >สถานะ</label
+                                                >
+                                            </div>
+                                            <div class="flex flex-col">
+                                                <svg
+                                                    v-if="
+                                                        list.table_status == 0
+                                                    "
+                                                    class="ml-2 h-10 w-10"
+                                                    fill="none"
+                                                    viewBox="0 0 24 24"
+                                                >
+                                                    <path
+                                                        d="M16.5163 8.93451L11.0597 14.7023L8.0959 11.8984"
+                                                        stroke="#3CB371"
+                                                        stroke-width="1.5"
+                                                    />
+                                                    <path
+                                                        d="M12 21C16.9706 21 21 16.9706 21 12C21 7.02944 16.9706 3 12 3C7.02944 3 3 7.02944 3 12C3 16.9706 7.02944 21 12 21Z"
+                                                        stroke="#3CB371"
+                                                        stroke-width="1.5"
+                                                    />
+                                                </svg>
+                                                <svg
+                                                    v-else-if="
+                                                        list.table_status == 1
+                                                    "
+                                                    class="ml-2 h-10 w-10"
+                                                    fill="none"
+                                                    viewBox="0 0 24 24"
+                                                >
+                                                    <circle
+                                                        cx="12"
+                                                        cy="12"
+                                                        r="9"
+                                                        stroke="#DC143C"
+                                                        stroke-linecap="round"
+                                                        stroke-linejoin="round"
+                                                        stroke-width="2"
+                                                    />
+                                                    <rect
+                                                        height="0.01"
+                                                        stroke="#DC143C"
+                                                        stroke-linejoin="round"
+                                                        stroke-width="3"
+                                                        width="0.01"
+                                                        x="12"
+                                                        y="16"
+                                                    />
+                                                    <path
+                                                        d="M12 12L12 8"
+                                                        stroke="#DC143C"
+                                                        stroke-linecap="round"
+                                                        stroke-linejoin="round"
+                                                        stroke-width="2"
+                                                    />
+                                                </svg>
+                                                <svg
+                                                    v-else-if="
+                                                        list.table_status == 2
+                                                    "
+                                                    class="ml-2 h-10 w-10"
+                                                    fill="none"
+                                                    viewBox="0 0 24 24"
+                                                >
+                                                    <circle
+                                                        cx="12"
+                                                        cy="12"
+                                                        r="9"
+                                                        stroke="#FF7F50"
+                                                        stroke-linecap="round"
+                                                        stroke-linejoin="round"
+                                                        stroke-width="2"
+                                                    />
+                                                    <rect
+                                                        height="0.01"
+                                                        stroke="#FF7F50"
+                                                        stroke-linejoin="round"
+                                                        stroke-width="3"
+                                                        width="0.01"
+                                                        x="12"
+                                                        y="16"
+                                                    />
+                                                    <path
+                                                        d="M12 12L12 8"
+                                                        stroke="#FF7F50"
+                                                        stroke-linecap="round"
+                                                        stroke-linejoin="round"
+                                                        stroke-width="2"
+                                                    />
+                                                </svg>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="flex justify-between">
+                                    <div class="flex flex-row">
+                                        <div
+                                            class="flex flex-col text-left pt-2 px-2 mr-3 text-md"
+                                        >
+                                            <div
+                                                class="ml-1"
+                                                v-for="itempm in main_package"
+                                            >
+                                                <label
+                                                    v-if="
+                                                        itempm.id ==
+                                                        list.package_main
+                                                    "
+                                                >
+                                                    {{ itempm.package_name }} (
+                                                    {{ itempm.package_price }}
+                                                    บาท )
+                                                </label>
+                                            </div>
+                                            <div
+                                                class="ml-1"
+                                                v-for="itemps in secondary_package"
+                                            >
+                                                <label
+                                                    v-if="
+                                                        itemps.id ==
+                                                        list.package_secondary
+                                                    "
+                                                >
+                                                    {{ itemps.title_package }} (
+                                                    {{ itemps.package_price }}
+                                                    บาท )
+                                                </label>
+                                            </div>
+                                            <div class="ml-1">
+                                                <label>
+                                                    ผู้ใหญ่
+                                                    {{ list.customer_adult }} ,
+                                                    เด็กโต
+                                                    {{ list.customer_children }}
+                                                    , เด็ก
+                                                    {{ list.customer_baby }}
+                                                </label>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div
+                                    class="flex items-center flex-wrap mt-5 border-t border-gray-300 pt-5"
+                                >
+                                    <div
+                                        class="flex flex-row w-1/2 items-center"
+                                    >
+                                        <svg
+                                            class="mr-2 mb-1 w-7 h-7"
+                                            xmlns="http://www.w3.org/2000/svg"
+                                            fill="none"
+                                            viewBox="0 0 24 24"
+                                            stroke-width="1.5"
+                                            stroke="currentColor"
+                                        >
+                                            <path
+                                                stroke-linecap="round"
+                                                stroke-linejoin="round"
+                                                d="M6.75 3v2.25M17.25 3v2.25M3 18.75V7.5a2.25 2.25 0 012.25-2.25h13.5A2.25 2.25 0 0121 7.5v11.25m-18 0A2.25 2.25 0 005.25 21h13.5A2.25 2.25 0 0021 18.75m-18 0v-7.5A2.25 2.25 0 015.25 9h13.5A2.25 2.25 0 0121 11.25v7.5m-9-6h.008v.008H12v-.008zM12 15h.008v.008H12V15zm0 2.25h.008v.008H12v-.008zM9.75 15h.008v.008H9.75V15zm0 2.25h.008v.008H9.75v-.008zM7.5 15h.008v.008H7.5V15zm0 2.25h.008v.008H7.5v-.008zm6.75-4.5h.008v.008h-.008v-.008zm0 2.25h.008v.008h-.008V15zm0 2.25h.008v.008h-.008v-.008zm2.25-4.5h.008v.008H16.5v-.008zm0 2.25h.008v.008H16.5V15z"
+                                            />
+                                        </svg>
+                                        <label class="">
+                                            {{
+                                                new Date().toLocaleDateString(
+                                                    undefined,
+                                                    {
+                                                        year: "numeric",
+                                                        month: "numeric",
+                                                        day: "numeric",
+                                                    }
+                                                )
+                                            }}
+                                        </label>
+                                    </div>
+                                    <div
+                                        class="flex flex-row w-1/2items-center"
+                                    >
+                                        <svg
+                                            class="mr-2 mb-1 w-7 h-7"
+                                            fill="none"
+                                            viewBox="0 0 24 24"
+                                            stroke-width="1.5"
+                                            stroke="currentColor"
+                                        >
+                                            <path
+                                                stroke-linecap="round"
+                                                stroke-linejoin="round"
+                                                d="M12 6v6h4.5m4.5 0a9 9 0 11-18 0 9 9 0 0118 0z"
+                                            />
+                                        </svg>
+                                        <label
+                                            v-if="
+                                                list.bill_registered_at != null
+                                            "
+                                            class="mt-1"
+                                        >
+                                            {{
+                                                new Date(
+                                                    list.bill_registered_at
+                                                ).toLocaleTimeString()
+                                            }}
+                                        </label>
+                                        <label
+                                            v-if="
+                                                list.bill_registered_at == null
+                                            "
+                                            class="mt-1"
+                                            >{{
+                                                new Date().toLocaleTimeString()
+                                            }}</label
+                                        >
+                                    </div>
+                                </div>
+                            </a>
+                        </button>
                     </div>
                 </div>
             </div>
@@ -711,11 +1094,6 @@ export default {
             editcustomer_children: "",
             editcustomer_baby: "",
             list_registable: "",
-            status_table: [11, 4, 5],
-            total_customer: 366,
-            golden_time: ["17:01:55", "21:00:31"],
-            total_income: 138900.00,
-            total_vat: 9723.00,
         };
     },
     methods: {
@@ -900,8 +1278,7 @@ export default {
                     this.isRegistable = false;
                     this.isModalregistable = false;
                     this.isConfirmtable = false;
-                    this.fetch_table();
-                    // this.fetch_bills();
+                    this.fetch_bills();
                     this.table = "";
                     this.customer_adult = "";
                     this.customer_children = "";
@@ -910,7 +1287,6 @@ export default {
                     this.package_secondary = "";
                 })
                 .catch((error) => {
-                    this.fetch_table();
                     console.log(error);
                 });
         },
@@ -956,10 +1332,6 @@ export default {
                 .post("/close_bills", formData)
                 .then((response) => {
                     console.log(response);
-                    this.isRegistable = false;
-                    this.isModalregistable = false;
-                    this.isConfirmtable = false;
-                    this.isEdittable = false;
                     this.fetch_table();
                 })
                 .catch((error) => {

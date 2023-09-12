@@ -12,6 +12,7 @@ class MenuController extends Controller
     public function list_menu(Request $request)
     {
 
+        date_default_timezone_set('Asia/Bangkok');
         $table_id = 3;
         $package_id = 2;
 

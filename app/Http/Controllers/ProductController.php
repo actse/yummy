@@ -13,6 +13,7 @@ class ProductController extends Controller
     //
     function addNewProduct(Request $request)
     {
+        date_default_timezone_set('Asia/Bangkok');
 
         $product_image = $request->input('product_image');
 
@@ -22,7 +23,7 @@ class ProductController extends Controller
             $product_price = $request->input('product_price');
             $type_product_id = $request->input('type_product_id');
             $product_image = $request->input('product_image');
-            $date_stamp = date('y-m-d h:i:s');
+            $date_stamp = date('y-m-d H:i:s');
 
             $product_image = 'image.jpg';
             // $imageName = time() . '_' . $product_image->getClientOriginalName();

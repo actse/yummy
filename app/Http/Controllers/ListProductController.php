@@ -32,7 +32,7 @@ class ListProductController extends Controller
         $product_price = $request->input('product_price');
         $type_product_id = $request->input('type_product_id');
 
-        $date_stamp = date('y-m-d h:i:s');
+        $date_stamp = date('y-m-d H:i:s');
 
         $isUpdateSuccess = Product::where('id', '=', $product_id)->update([
             'product_name' => $product_name,

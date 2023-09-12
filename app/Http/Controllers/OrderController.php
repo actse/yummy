@@ -18,7 +18,7 @@ class OrderController extends Controller
         $amount = $request->input('amount');
         $comment = $request->input('comment');
         $status = $request->input('status');
-        $date_stamp = date('y-m-d h:i:s');
+        $date_stamp = date('y-m-d H:i:s');
 
         // return $date_stamp;
 
@@ -55,7 +55,6 @@ class OrderController extends Controller
         $table_id = $request->input('table_id');
 
         return Orders::where('bill_id', '=', $table_id)->where('status', '=', '0')->get();
-
     }
 
     function fetchCart(Request $request)
@@ -64,7 +63,6 @@ class OrderController extends Controller
         $table_id = $request->input('table_id');
 
         return Orders::where('bill_id', '=', $table_id)->where('status', '=', '0')->get();
-
     }
 
     function confirm(Request $request)
@@ -75,9 +73,9 @@ class OrderController extends Controller
         // $amount = $request->input('amount');
         // $comment = $request->input('comment');
 
-        $date_stamp = date('y-m-d h:i:s');
+        $date_stamp = date('y-m-d H:i:s');
 
-        $isUpdateSuccess = Orders::where('bill_id','=', $table_id)->update([
+        $isUpdateSuccess = Orders::where('bill_id', '=', $table_id)->update([
             // 'product_count' => $amount,
             // 'product_comment' => $comment,
             'ordered_at' => $date_stamp,
@@ -93,7 +91,6 @@ class OrderController extends Controller
         } else {
             echo 'Fail';
         }
-
     }
 
     function deleteOrderCart(Request $request)
@@ -102,8 +99,7 @@ class OrderController extends Controller
 
         $id = $request->input('id');
 
-        $isDeleteSuccess = Orders::where('id','=', $id)->delete([
-        ]);
+        $isDeleteSuccess = Orders::where('id', '=', $id)->delete([]);
 
         if ($isDeleteSuccess != '') {
             return 'success';
