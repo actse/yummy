@@ -1,8 +1,8 @@
 <template>
     <div class=" w-full relative bg-slate-100">
     <Sidennav>
-      <h1 class="m-10 text-4xl font-bold text-gray-700">รายการแพ็คเกจ</h1>  
-        <data-table :data="main_package" :rows-per-page="rowsPerPage" />
+      <h1 class="m-10 text-4xl font-bold text-gray-700">รายการพนักงาน</h1>  
+        <data-table :data="staffs" :rows-per-page="rowsPerPage" />
       </Sidennav>
   </div>
 </template>
@@ -18,16 +18,16 @@ export default {
   },
   data() {
     return {
-      products: []
+      staffs: []
     };
   },
   methods:{
-    fetch_list_product() {
+    fetch_staff() {
             axios
-                .get("/fetch_list_product")
+                .get("/fetch_staff")
                 .then((response) => {
-                    this.products = response.data;
-                    // console.log(this.products);
+                    this.staffs = response.data;
+                    // console.log(this.staffs);
                 })
                 .catch((error) => {
                     console.log(error);
@@ -35,7 +35,7 @@ export default {
         },
   },
   mounted() {
-        this.fetch_list_product();
+        this.fetch_staff();
   },
 };
 </script>

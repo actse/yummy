@@ -18,7 +18,7 @@ return new class extends Migration
             $table->date('staff_birthday');
             $table->string('id_card');
             $table->string('staff_position')->nullable();
-            $table->string('phone_number, ');
+            $table->string('phone_number');
             $table->string('staff_address');
             $table->timestamps();
         });
