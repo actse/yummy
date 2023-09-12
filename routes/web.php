@@ -5,6 +5,7 @@ use App\Http\Controllers\ConfigController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\ListProductController;
 use App\Http\Controllers\PackageController;
+use App\Http\Controllers\StaffController;
 use App\Http\Controllers\TypeProductController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\MenuController;

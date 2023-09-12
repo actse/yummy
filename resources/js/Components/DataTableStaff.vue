@@ -32,12 +32,12 @@
           <tr class="h-9 mx-auto hover:bg-gray-50 sm:h-20 md:h-20 lg:h-20" v-for="(item, index) in displayedAndFilteredData " :key="index">
             <td class="text-center">{{ index + 1 }}</td>
             <td class="flex justify-center items-center h-20 ">
-                <img class="w-16 rounded-lg" src="https://via.placeholder.com/90x90" />
+                {{ item.staff_name }}
             </td>
-            <td class="text-left whitespace-pre-line break-words break-all">{{ item.staff_name }}</td>
-            <td class="whitespace-pre-line break-words break-all">{{ item.staff_gender }}</td>
+            <td class="text-left whitespace-pre-line break-words break-all">{{ item.staff_gender == '0' ? 'ชาย' : 'หญิง' }}</td>
+            <td class="whitespace-pre-line break-words break-all">{{ item.staff_birthday }}</td>
             <td class="text-center">{{ item.id_card }}</td>
-            <td class="text-right md:text-center">{{ item.staff_birthday }}</td>
+            <td class="text-right md:text-center">{{ item.staff_position }}</td>
             <td class="text-right md:text-center">{{ item.phone_number }}</td>
             <td class="text-right md:text-center">{{ item.staff_address }}</td>
             <td class=" px-4 py-4 text-sm ">
@@ -86,106 +86,139 @@
                     <!-- Form Edit Staff Menu -->
                     <div class="bg-white w-full px-4 pb-5">
                         <form
-                            @submit.prevent="edit_staff"
-                            enctype="multipart/form-data"
-                            class="w-full max-w-lg"
+                    @submit.prevent="edit_staff"
+                    enctype="multipart/form-data"
+                    class="w-full max-w-lg"
+                >
+                    <div
+                        class="text-xl w-52 text-gray-700 font-bold mt-2 border-b-2 border-gray-300"
+                    >
+                        เพิ่มพนักงาน
+                    </div>
+                    <div class="flex flex-wrap -mx-3 mb-6 mt-5">
+                        <div class="w-full px-3 md:mb-0">
+                            <label
+                                class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2"
+                                for="grid-name"
+                            >
+                                ชื่อพนักงาน
+                            </label>
+                            <input
+                                class="mt-2 block w-full bg-gray-200 text-gray-700 border border-white rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white"
+                                id="grid-name"
+                                type="text"
+                                v-model="selectedStaff.staff_name"
+                            />
+                        </div>
+                        <div class="w-full px-3 space-x-2">
+                            <label
+                                class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2"
+                                for="grid-price"
+                            >
+                                เพศ
+                            </label>
+                            <input
+                                class=" bg-gray-200 text-orange-400 border border-gray-200 rounded-full  leading-tight focus:outline-none focus:bg-white focus:border-orange-400"
+                                type="radio"
+                                name="gender"
+                                value="0"
+                                v-model="selectedStaff.staff_gender"
+                            />
+                            <label for="html">ชาย</label>
+                            <input
+                                class=" bg-gray-200 text-orange-400 border border-gray-200 rounded-full leading-tight focus:outline-none focus:bg-white focus:border-orange-400"
+                                type="radio"
+                                name="gender"
+                                value="1"
+                                v-model="selectedStaff.staff_gender"
+                            />
+                            <label for="html">หญิง {{ selectedStaff.staff_gender }}</label>
+                        </div>
+                        <div class="w-full px-3 md:mb-0">
+                            <label
+                                class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2"
+                                for="grid-name"
+                            >
+                                วันเกิด
+                            </label>
+                            <input
+                                class="mt-2 block w-full bg-gray-200 text-gray-700 border border-white rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white"
+                                id="grid-name"
+                                type="date"
+                                v-model="selectedStaff.staff_birthday"
+                            />
+                        </div>
+                        <div class="w-full px-3 md:mb-0">
+                            <label
+                                class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2"
+                                for="grid-name"
+                            >
+                                เลขบัตรประชาชน
+                            </label>
+                            <input
+                                class="mt-2 block w-full bg-gray-200 text-gray-700 border border-white rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white"
+                                id="grid-name"
+                                type="text"
+                                v-model="selectedStaff.id_card"
+                            />
+                        </div>
+                        <div class="w-full px-3 md:mb-0">
+                            <label
+                                class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2"
+                                for="grid-name"
+                            >
+                                ตำแหน่ง
+                            </label>
+                            <input
+                                class="mt-2 block w-full bg-gray-200 text-gray-700 border border-white rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white"
+                                id="grid-name"
+                                type="text"
+                                v-model="selectedStaff.staff_position"
+                            />
+                        </div>
+                        <div class="w-full px-3 md:mb-0">
+                            <label
+                                class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2"
+                                for="grid-name"
+                            >
+                                เบอร์โทร
+                            </label>
+                            <input
+                                class="mt-2 block w-full bg-gray-200 text-gray-700 border border-white rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white"
+                                id="grid-name"
+                                type="text"
+                                v-model="selectedStaff.phone_number"
+                            />
+                        </div>
+                        <div class="w-full px-3 mb-2">
+                            <label
+                                class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2"
+                                for="grid-detail"
+                            >
+                                ที่อยู่
+                            </label>
+                            <textarea
+                                class="mt-2 block w-full h-24 bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
+                                id="grid-detail"
+                                type="text"
+                                v-model="selectedStaff.staff_address"
+                            ></textarea>
+                        </div>
+                        
+                    </div>
+                    <div class="flex flex-wrap -mx-3 mb-2 mt-7">
+                        <div
+                            class="max-w-md mx-auto w-full bg-white text-center"
                         >
-                            <div class="flex flex-wrap -mx-3 mb-6 mt-5">
-                                <div class="w-full px-3 md:mb-0">
-                                    <label
-                                        class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2"
-                                        for="grid-name"
-                                    >
-                                        ชื่อพนักงาน
-                                    </label>
-                                    <input
-                                        class="mt-2 block w-full bg-gray-200 text-gray-700 border border-white rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white"
-                                        id="grid-name"
-                                        type="text"
-                                        v-model="selectedStaff.product_name"
-                                    />
-                                </div>
-                                <div class="w-full px-3 mb-2">
-                                    <label
-                                        class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2"
-                                        for="grid-detail"
-                                    >
-                                        เพศ
-                                    </label>
-                                    <textarea
-                                        class="mt-2 block w-full h-24 bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
-                                        id="grid-detail"
-                                        type="text"
-                                        v-model="selectedStaff.product_detail"
-                                    ></textarea>
-                                </div>
-                                <div class="w-full px-3">
-                                    <label
-                                        class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2"
-                                        for="grid-price"
-                                    >
-                                        ระบุราคาสินค้า
-                                    </label>
-                                    <input
-                                        class="mt-2 block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
-                                        id="grid-price"
-                                        type="number"
-                                        v-model="selectedStaff.product_price"
-                                    />
-                                </div>
-                            </div>
-                            <div class="w-full md:w-2/3 mb-3 md:mb-0">
-                                <label
-                                    class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2"
-                                    for="grid-state"
-                                >
-                                    หมวดหมู่อาหาร
-                                </label>
-                                <div class="relative">
-                                    <select
-                                        class="block mt-2 w-full bg-gray-200 border border-gray-200 text-gray-700 py-3 px-4 pr-8 rounded leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
-                                        id="grid-state"
-                                        v-model="
-                                            selectedStaff.staff_id
-                                        "
-                                    >
-                                        <option
-                                            disabled
-                                            value="กรุณาเลือกหมวดหมู่"
-                                        ></option>
-                                        <option
-                                            v-for="items in type_product"
-                                            :key="items.id"
-                                            :value="items.id"
-                                        >
-                                            {{ items.type_product_name }}
-                                        </option>
-                                    </select>
-
-                                    <div
-                                        class="pointer-events-none absolute inset-y-0 right-0 flex items-center px-2 text-gray-700"
-                                    >
-                                        <svg
-                                            class="fill-current h-4 w-4"
-                                            xmlns="http://www.w3.org/2000/svg"
-                                            viewBox="0 0 20 20"
-                                        ></svg>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="flex flex-wrap -mx-3 mb-2 mt-7">
-                                <div
-                                    class="max-w-md mx-auto w-full bg-white text-center"
-                                >
-                                    <button
-                                        class="bg-red-400 w-52 h-11 rounded-lg shadow-md text-white"
-                                        type="submit"
-                                    >
-                                        เพิ่มสินค้า
-                                    </button>
-                                </div>
-                            </div>
-                        </form>
+                            <button
+                                class="bg-red-400 w-52 h-11 rounded-lg shadow-md text-white"
+                                type="submit"
+                            >
+                                เพิ่มสินค้า
+                            </button>
+                        </div>
+                    </div>
+                </form>
                     </div>
       </MenuModal>
       <!-- Modal Edit Staff -->
@@ -255,7 +288,7 @@
                             <input
                                 class="mt-2 block w-full bg-gray-200 text-gray-700 border border-white rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white"
                                 id="grid-name"
-                                type="text"
+                                type="date"
                                 v-model="staff_birthday"
                             />
                         </div>
@@ -273,6 +306,34 @@
                                 v-model="id_card"
                             />
                         </div>
+                        <div class="w-full px-3 md:mb-0">
+                            <label
+                                class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2"
+                                for="grid-name"
+                            >
+                                ตำแหน่ง
+                            </label>
+                            <input
+                                class="mt-2 block w-full bg-gray-200 text-gray-700 border border-white rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white"
+                                id="grid-name"
+                                type="text"
+                                v-model="staff_position"
+                            />
+                        </div>
+                        <div class="w-full px-3 md:mb-0">
+                            <label
+                                class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2"
+                                for="grid-name"
+                            >
+                                เบอร์โทร
+                            </label>
+                            <input
+                                class="mt-2 block w-full bg-gray-200 text-gray-700 border border-white rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white"
+                                id="grid-name"
+                                type="text"
+                                v-model="phone_number"
+                            />
+                        </div>
                         <div class="w-full px-3 mb-2">
                             <label
                                 class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2"
@@ -284,7 +345,7 @@
                                 class="mt-2 block w-full h-24 bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
                                 id="grid-detail"
                                 type="text"
-                                v-model="product_detail"
+                                v-model="staff_address"
                             ></textarea>
                         </div>
                         
@@ -373,29 +434,44 @@
         }
       },
       add_staff() {
-            const formData = new FormData();
+        const formData = new FormData();
 
-            // this.product_image_file = '../../imgs/' + this.product_image_file;
+        // หาปุ่มแบบราดิโอที่ถูกเลือก
+        const radioButtons = document.getElementsByName("gender");
+        let selectedGender = "";
+        radioButtons.forEach((radio) => {
+            if (radio.checked) {
+                selectedGender = radio.value;
+            }
+        });
 
-            formData.append("staff_name", this.staff_name);
-            formData.append("staff_gender", this.staff_gender);
-            formData.append("id_card", this.id_card);
-            formData.append("staff_birthday", this.staff_birthday);
-            formData.append("staff_position", this.staff_position);
-            formData.append("phone_number", this.phone_number);
-            formData.append("staff_address", this.staff_address);
+        formData.append("staff_name", this.staff_name);
+        formData.append("staff_gender", selectedGender); // เก็บค่าเพศที่ถูกเลือก
+        formData.append("id_card", this.id_card);
+        formData.append("staff_birthday", this.staff_birthday);
+        formData.append("staff_position", this.staff_position);
+        formData.append("phone_number", this.phone_number);
+        formData.append("staff_address", this.staff_address);
 
-            axios
-                .post("/add_staff", formData)
-                .then((response) => {
-                    console.log(response);
-                    this.idAddStaffModalOpen = false;
-                    this.fetch_staff();
-                })
-                .catch((error) => {
-                    console.log(error);
-                });
-        },
+        console.log(this.staff_name);
+        console.log(selectedGender); // ใช้ค่าที่ถูกเลือก
+        console.log(this.id_card);
+        console.log(this.staff_birthday);
+        console.log(this.staff_position);
+        console.log(this.phone_number);
+        console.log(this.staff_address);
+
+        axios
+            .post("/create_staff", formData)
+            .then((response) => {
+                console.log(response);
+                this.idAddStaffModalOpen = false;
+                this.fetch_staff();
+            })
+            .catch((error) => {
+                console.log(error);
+            });
+    },
       openEditModal(staffId) {
             this.isModalOpen = true;
             this.selectedStaff = this.staffs.find(
@@ -470,8 +546,6 @@
     },
     mounted() {
         this.fetch_staff();
-        this.edit_staff();
-        this.delete_staff();
     },
   };
   </script>
