@@ -19,8 +19,8 @@
           <tr class="h-11">
             <td class="w-20">no.</td>
             <td class="w-36">ชื่อ</td>
-            <td class="text-left w-36">เพศ</td>
-            <td class="text-left w-36">วันเกิด</td>
+            <td class="w-36">เพศ</td>
+            <td class="w-36">วันเกิด</td>
             <td class="w-36">เลขบัตรประชาชน</td>
             <td class="w-36">ตำแหน่ง</td>
             <td class="w-40">เบอร์โทร</td>
@@ -31,15 +31,13 @@
         <tbody class="divide-y text-xs font-sans text-gray-700 border-b-2 sm:text-sm md:text-base md:font-medium">
           <tr class="h-9 mx-auto hover:bg-gray-50 sm:h-20 md:h-20 lg:h-20" v-for="(item, index) in displayedAndFilteredData " :key="index">
             <td class="text-center">{{ index + 1 }}</td>
-            <td class="flex justify-center items-center h-20 ">
-                {{ item.staff_name }}
-            </td>
-            <td class="text-left whitespace-pre-line break-words break-all">{{ item.staff_gender == '0' ? 'ชาย' : 'หญิง' }}</td>
-            <td class="whitespace-pre-line break-words break-all">{{ item.staff_birthday }}</td>
+            <td class="flex justify-self-start h-20 ">{{ item.staff_name }}</td>
+            <td class="text-center">{{ item.staff_gender == '0' ? 'ชาย' : 'หญิง' }}</td>
+            <td class="text-center">{{ item.staff_birthday }}</td>
             <td class="text-center">{{ item.id_card }}</td>
             <td class="text-right md:text-center">{{ item.staff_position }}</td>
             <td class="text-right md:text-center">{{ item.phone_number }}</td>
-            <td class="text-right md:text-center">{{ item.staff_address }}</td>
+            <td class="text-left whitespace-pre-line break-words break-all">{{ item.staff_address }}</td>
             <td class=" px-4 py-4 text-sm ">
                 <div class="text-center space-x-6">
                     <button @click="delete_staff(item.id)" class="text-gray-600 transition-colors duration-200 dark:hover:text-red-500 dark:text-gray-400 hover:text-red-500 focus:outline-none">
@@ -90,11 +88,6 @@
                     enctype="multipart/form-data"
                     class="w-full max-w-lg"
                 >
-                    <div
-                        class="text-xl w-52 text-gray-700 font-bold mt-2 border-b-2 border-gray-300"
-                    >
-                        เพิ่มพนักงาน
-                    </div>
                     <div class="flex flex-wrap -mx-3 mb-6 mt-5">
                         <div class="w-full px-3 md:mb-0">
                             <label
@@ -214,14 +207,14 @@
                                 class="bg-red-400 w-52 h-11 rounded-lg shadow-md text-white"
                                 type="submit"
                             >
-                                เพิ่มสินค้า
+                                บันทึก
                             </button>
                         </div>
                     </div>
                 </form>
                     </div>
       </MenuModal>
-      <!-- Modal Edit Staff -->
+      <!-- Modal Insert Staff -->
       <AddStaffModal v-if="idAddStaffModalOpen">
         <div class="relative text-gray-800 font-bold border-b-2 border-gray-300">
             <h1>แก้ไขขูอมูลพนักงาน</h1>

@@ -163,7 +163,7 @@ Route::post('/check_bills', [OrderTaberController::class,'payment_status_close']
 Route::post('/reserve_bills', [OrderTaberController::class,'reserve_table']);
 Route::post('/confirm_bills', [OrderTaberController::class,'confirmreserve_table']);
 
-Route::post('/create_table', [TableController::class,'create_table']);
+Route::get('/create_table', [TableController::class,'create_table']);
 Route::get('/fetch_table', [TableController::class,'select_table']);
 
 Route::get('/list_menu', [MenuController::class,'list_menu']);
